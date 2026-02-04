@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Order Food Online</title>
+    <style>
+        /* STYLES ZANGU */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            padding: 1.5rem 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            font-size: 2.2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffeaa7;
+        }
+        
+        .cart-btn {
+            background: white;
+            color: #ff6b6b;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .cart-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #ff5252;
+        }
+        
+        /* CATEGORIES */
+        .categories {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #2d3436;
+            text-align: center;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* RESTAURANTS */
+        .restaurants {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .restaurant-img {
+            height: 200px;
+            background: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .restaurant-info {
+            padding: 1.5rem;
+        }
+        
+        .restaurant-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+        
+        .restaurant-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #636e72;
+        }
+        
+        .rating {
+            background: #ffeaa7;
+            color: #e17055;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .order-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .order-btn:hover {
+            background: #ff5252;
+        }
+        
+        /* CART SIDEBAR */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f2f6;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #636e72;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: #ffeaa7;
+        }
+        
+        .footer-section a {
+            color: #dfe6e9;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b6b;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span>🍕</span>
+                <div>FoodExpress</div>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#restaurants">Restaurants</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <span>🛒</span> Cart (<span id="cart-count">0</span>)
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <h1>Delicious Food Delivered To Your Doorstep</h1>
+        <p>Order from your favorite restaurants and get it delivered hot and fresh</p>
+        
+        <div class="search-box">
+            <input type="text" placeholder="Enter your delivery address...">
+            <button class="search-btn">Find Food</button>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories">
+        <h2 class="section-title">Browse By Category</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="filterCategory('pizza')">
+                <div class="category-icon">🍕</div>
+                <h3>Pizza</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('burger')">
+                <div class="category-icon">🍔</div>
+                <h3>Burgers</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('sushi')">
+                <div class="category-icon">🍣</div>
+                <h3>Sushi</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('pasta')">
+                <div class="category-icon">🍝</div>
+                <h3>Pasta</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('salad')">
+                <div class="category-icon">🥗</div>
+                <h3>Salads</h3>
+            </div>
+            <div class="category-card" onclick="filterCategory('dessert')">
+                <div class="category-icon">🍰</div>
+                <h3>Desserts</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESTAURANTS -->
+    <section class="restaurants" id="restaurants">
+        <h2 class="section-title">Popular Restaurants Near You</h2>
+        <div class="restaurant-grid" id="restaurant-container">
+            <!-- RESTAURANT CARDS WILL BE ADDED BY JAVASCRIPT -->
+        </div>
+    </section>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Order</h2>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        
+        <div id="cart-items">
+            <!-- Cart items will appear here -->
+            <p style="text-align: center; color: #636e72;">Your cart is empty</p>
+        </div>
+        
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #f1f2f6;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <strong>Total:</strong>
+                <strong id="cart-total">$0.00</strong>
+            </div>
+            <button class="order-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FoodExpress</h3>
+                <p>Delivering happiness to your doorstep since 2024</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#restaurants">Restaurants</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📞 +255 123 456 789</p>
+                <p>✉️ info@foodexpress.com</p>
+                <p>📍 Dar es Salaam, Tanzania</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // SAMPLE DATA - RESTAURANTS
+        const restaurants = [
+            {
+                id: 1,
+                name: "Pizza Palace",
+                category: "pizza",
+                rating: 4.5,
+                deliveryTime: "30-40 min",
+                priceRange: "$$",
+                image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600",
+                items: [
+                    { name: "Margherita Pizza", price: 12.99 },
+                    { name: "Pepperoni Pizza", price: 15.99 },
+                    { name: "BBQ Chicken Pizza", price: 17.99 }
+                ]
+            },
+            {
+                id: 2,
+                name: "Burger Kingdom",
+                category: "burger",
+                rating: 4.3,
+                deliveryTime: "25-35 min",
+                priceRange: "$",
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600",
+                items: [
+                    { name: "Classic Burger", price: 8.99 },
+                    { name: "Cheeseburger", price: 9.99 },
+                    { name: "Double Bacon Burger", price: 12.99 }
+                ]
+            },
+            {
+                id: 3,
+                name: "Sushi Master",
+                category: "sushi",
+                rating: 4.7,
+                deliveryTime: "40-50 min",
+                priceRange: "$$$",
+                image: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=600",
+                items: [
+                    { name: "Salmon Sushi Set", price: 22.99 },
+                    { name: "Dragon Roll", price: 18.99 },
+                    { name: "Tuna Nigiri", price: 15.99 }
+                ]
+            },
+            {
+                id: 4,
+                name: "Pasta Paradise",
+                category: "pasta",
+                rating: 4.4,
+                deliveryTime: "35-45 min",
+                priceRange: "$$",
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=600",
+                items: [
+                    { name: "Spaghetti Carbonara", price: 14.99 },
+                    { name: "Fettuccine Alfredo", price: 16.99 },
+                    { name: "Lasagna", price: 13.99 }
+                ]
+            }
+        ];
+
+        // CART SYSTEM
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        // DISPLAY RESTAURANTS
+        function displayRestaurants(filterCategory = 'all') {
+            const container = document.getElementById('restaurant-container');
+            container.innerHTML = '';
+            
+            const filtered = filterCategory === 'all' 
+                ? restaurants 
+                : restaurants.filter(r => r.category === filterCategory);
+            
+            filtered.forEach(restaurant => {
+                const card = document.createElement('div');
+                card.className = 'restaurant-card';
+                card.innerHTML = `
+                    <div class="restaurant-img" style="background-image: url('${restaurant.image}')"></div>
+                    <div class="restaurant-info">
+                        <h3 class="restaurant-name">${restaurant.name}</h3>
+                        <div class="restaurant-meta">
+                            <div class="rating">⭐ ${restaurant.rating}</div>
+                            <div>${restaurant.deliveryTime}</div>
+                            <div>${restaurant.priceRange}</div>
+                        </div>
+                        <div class="menu-items">
+                            ${restaurant.items.map(item => `
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 5px;">
+                                    <div>
+                                        <strong>${item.name}</strong><br>
+                                        <small>$${item.price.toFixed(2)}</small>
+                                    </div>
+                                    <button onclick="addToCart(${restaurant.id}, '${item.name}', ${item.price})" 
+                                            style="background: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                                        Add
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ADD TO CART
+        function addToCart(restaurantId, itemName, price) {
+            cart.push({
+                restaurantId,
+                itemName,
+                price,
+                quantity: 1
+            });
+            
+            updateCart();
+            alert(`${itemName} added to cart!`);
+        }
+
+        // UPDATE CART DISPLAY
+        function updateCart() {
+            cartCount = cart.length;
+            cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Update cart count in header
+            document.getElementById('cart-count').textContent = cartCount;
+            
+            // Update cart items in sidebar
+            const cartItemsContainer = document.getElementById('cart-items');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #636e72;">Your cart is empty</p>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                        <div>
+                            <strong>${item.itemName}</strong><br>
+                            <small>$${item.price.toFixed(2)} × ${item.quantity}</small>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div>$${(item.price * item.quantity).toFixed(2)}</div>
+                            <button onclick="removeFromCart(${index})" style="background: #ff6b6b; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Update total
+            document.getElementById('cart-total').textContent = `$${cartTotal.toFixed(2)}`;
+        }
+
+        // REMOVE FROM CART
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // TOGGLE CART SIDEBAR
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        // FILTER BY CATEGORY
+        function filterCategory(category) {
+            displayRestaurants(category);
+        }
+
+        // CHECKOUT FUNCTION
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            alert(`Order placed successfully!\nTotal: $${cartTotal.toFixed(2)}\nThank you for your order!`);
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // INITIALIZE PAGE
+        window.onload = function() {
+            displayRestaurants();
+            
+            // Add overlay click to close cart
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('cart-sidebar');
+                if (!sidebar.contains(event.target) && 
+                    !event.target.closest('.cart-btn') && 
+                    sidebar.classList.contains('active')) {
+                    toggleCart();
+                }
+            });
+        };
+    </script>
+</body>
+  </html>
