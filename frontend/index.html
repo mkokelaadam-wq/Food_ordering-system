@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Express - Order Food Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <h1>Food Express</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <button class="cart-btn">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Delicious Food Delivered to Your Door</h2>
+            <p>Order from our wide selection of meals</p>
+            <button class="order-btn">Order Now</button>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Breakfast</button>
+            <button class="filter-btn">Lunch</button>
+            <button class="filter-btn">Dinner</button>
+            <button class="filter-btn">Drinks</button>
+        </div>
+        <div class="menu-items" id="menu-items">
+            <!-- Menu items will be loaded by JavaScript -->
+            <div class="loading">Loading menu...</div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section class="order-form">
+        <h2>Place Your Order</h2>
+        <form id="order-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <textarea id="address" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Payment Method</label>
+                <div class="payment-options">
+                    <label><input type="radio" name="payment" value="cash" checked> Cash on Delivery</label>
+                    <label><input type="radio" name="payment" value="card"> Credit Card</label>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Place Order</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +255 712 345 678</p>
+                <p><i class="fas fa-envelope"></i> info@foodexpress.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dar es Salaam, Tanzania</p>
+            </div>
+            <div class="social-links">
+                <h3>Follow Us</h3>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <p class="copyright">© 2024 Food Express. All rights reserved.</p>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be added here -->
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-total">
+            <p>Total: <span id="cart-total">Tsh 0</span></p>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
