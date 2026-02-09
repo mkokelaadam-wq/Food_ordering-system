@@ -4,84 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Food Ordering</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
         
         .login-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             width: 100%;
-            max-width: 450px;
-            overflow: hidden;
+            max-width: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 40px 30px;
         }
         
         .login-header {
-            background: linear-gradient(to right, #ff6b35, #f0932b);
-            color: white;
-            padding: 30px;
             text-align: center;
+            margin-bottom: 30px;
         }
         
         .login-header h1 {
+            color: #333;
             font-size: 28px;
             margin-bottom: 10px;
         }
         
         .login-header p {
-            opacity: 0.9;
+            color: #666;
+            font-size: 16px;
         }
         
-        .login-form {
-            padding: 40px;
+        .form-group {
+            margin-bottom: 20px;
         }
         
-        .input-group {
-            margin-bottom: 25px;
-        }
-        
-        .input-group label {
+        .form-group label {
             display: block;
             margin-bottom: 8px;
             color: #333;
-            font-weight: 600;
+            font-weight: bold;
+            font-size: 14px;
         }
         
-        .input-group input {
+        .form-group input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             font-size: 16px;
-            transition: border 0.3s;
         }
         
-        .input-group input:focus {
-            border-color: #ff6b35;
+        .form-group input:focus {
             outline: none;
+            border-color: #ff6b35;
         }
         
         .admin-toggle {
             display: flex;
             align-items: center;
-            margin-bottom: 25px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            margin: 20px 0;
         }
         
         .admin-toggle input {
@@ -90,154 +84,116 @@
             height: 18px;
         }
         
-        .admin-toggle label {
-            font-weight: 600;
-            color: #333;
-        }
-        
         .btn-login {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(to right, #ff6b35, #f0932b);
+            padding: 14px;
+            background-color: #ff6b35;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
         }
         
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+            background-color: #e55a2b;
+        }
+        
+        .user-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .user-info h4 {
+            color: #333;
+            margin-bottom: 5px;
         }
         
         .links {
             text-align: center;
             margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
         
         .links a {
             color: #ff6b35;
             text-decoration: none;
-            font-weight: 500;
+            margin: 0 10px;
         }
         
         .links a:hover {
             text-decoration: underline;
-        }
-        
-        .user-type-info {
-            background: #e8f4ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .user-type-info h4 {
-            color: #1a73e8;
-            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>🍽️ Food Ordering System</h1>
+            <h1>Food Ordering System</h1>
             <p>Login to continue</p>
         </div>
         
-        <div class="login-form">
-            <form id="loginForm">
-                <div class="input-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required placeholder="Enter your email">
-                </div>
-                
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required placeholder="Enter your password">
-                </div>
-                
-                <div class="admin-toggle">
-                    <input type="checkbox" id="isAdmin">
-                    <label for="isAdmin">Login as Administrator</label>
-                </div>
-                
-                <button type="submit" class="btn-login">Login</button>
-            </form>
-            
-            <div class="user-type-info" id="adminInfo">
-                <h4>🔐 Admin Login</h4>
-                <p>You will have access to dashboard, orders management, and user controls.</p>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
             </div>
             
-            <div class="user-type-info" id="userInfo">
-                <h4>👤 User Login</h4>
-                <p>Browse menu, place orders, and track your delivery.</p>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
             </div>
             
-            <div class="links">
-                <a href="forgot-password.html">Forgot Password?</a> | 
-                <a href="index.html">Back to Home</a>
+            <div class="admin-toggle">
+                <input type="checkbox" id="isAdmin">
+                <label for="isAdmin">Login as Administrator</label>
             </div>
+            
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+        
+        <div class="user-info" id="userInfo">
+            <h4>User Login</h4>
+            <p>Browse menu, place orders, and track your delivery.</p>
+        </div>
+        
+        <div class="links">
+            <a href="forgot-password.html">Forgot Password?</a>
+            <a href="index.html">Back to Home</a>
         </div>
     </div>
 
     <script>
-        // Toggle admin/user info
-        const adminCheckbox = document.getElementById('isAdmin');
-        const adminInfo = document.getElementById('adminInfo');
-        const userInfo = document.getElementById('userInfo');
-        
-        adminCheckbox.addEventListener('change', function() {
+        document.getElementById('isAdmin').addEventListener('change', function() {
+            const userInfo = document.getElementById('userInfo');
             if(this.checked) {
-                adminInfo.style.display = 'block';
-                userInfo.style.display = 'none';
+                userInfo.innerHTML = '<h4>Admin Login</h4><p>Access dashboard and manage system settings.</p>';
             } else {
-                adminInfo.style.display = 'none';
-                userInfo.style.display = 'block';
+                userInfo.innerHTML = '<h4>User Login</h4><p>Browse menu, place orders, and track your delivery.</p>';
             }
         });
         
-        // Show user info by default
-        userInfo.style.display = 'block';
-        
-        // Handle form submission
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const isAdmin = document.getElementById('isAdmin').checked;
             
-            // Basic validation
-            if(!email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // Simple admin detection (you'll replace with actual logic)
-            if(isAdmin) {
-                // Admin login
-                console.log('Admin login attempt:', email);
-                alert('Redirecting to Admin Dashboard...');
-                // window.location.href = 'admin/dashboard.html';
+            if(email && password) {
+                if(isAdmin) {
+                    alert('Admin login successful!');
+                } else {
+                    alert('User login successful!');
+                }
             } else {
-                // User login
-                console.log('User login attempt:', email);
-                alert('Welcome back! Redirecting to menu...');
-                // window.location.href = 'menu.html';
+                alert('Please fill in all fields');
             }
-            
-            // In production, send to backend API
-            // fetch('/api/login', {
-            //     method: 'POST',
-            //     headers: {'Content-Type': 'application/json'},
-            //     body: JSON.stringify({email, password, isAdmin})
-            // })
         });
     </script>
 </body>
