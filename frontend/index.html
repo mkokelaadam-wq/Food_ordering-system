@@ -4,116 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Express - Order Food Online</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: #333;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b35;
+        }
+        
+        .login-btn {
+            background: #ff6b35;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200');
+            background-size: cover;
+            color: white;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 30px auto;
+            display: flex;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        
+        .search-box button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 0 5px 5px 0;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .categories h3 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-card i {
+            font-size: 40px;
+            color: #ff6b35;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="logo">
-            <i class="fas fa-utensils"></i>
-            <h1>Food Express</h1>
-        </div>
+        <div class="logo">FoodExpress</div>
         <div class="nav-links">
             <a href="#home">Home</a>
-            <a href="#menu">Menu</a>
+            <a href="#restaurants">Restaurants</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
-            <a href="https://mkokelaadam-wq.github.io/Food_ordering-system/frontend/login.html" style="...">Login</a>
-            <button class="cart-btn">
+            <a href="login.html" class="login-btn">Login</a>
+            <a href="#cart" style="position: relative;">
                 <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">0</span>
-            </button>
+                <span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; right: -8px;">0</span>
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Delicious Food Delivered to Your Door</h2>
-            <p>Order from our wide selection of meals</p>
-            <button class="order-btn">Order Now</button>
+        <h2>Delicious Food Delivered To Your Doorstep</h2>
+        <p>Order from your favorite restaurants and get it delivered hot and fresh</p>
+        <div class="search-box">
+            <input type="text" placeholder="Enter your delivery address...">
+            <button>Find Food</button>
         </div>
     </section>
 
-    <!-- Menu Section -->
-    <section class="menu" id="menu">
-        <h2>Our Menu</h2>
-        <div class="menu-filters">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Breakfast</button>
-            <button class="filter-btn">Lunch</button>
-            <button class="filter-btn">Dinner</button>
-            <button class="filter-btn">Drinks</button>
+    <!-- Categories -->
+    <section class="categories">
+        <h3>Browse By Category</h3>
+        <div class="category-grid">
+            <div class="category-card">
+                <i class="fas fa-hamburger"></i>
+                <h4>Burgers</h4>
+                <p>Juicy burgers and fries</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-pizza-slice"></i>
+                <h4>Pizza</h4>
+                <p>Freshly baked pizzas</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-utensils"></i>
+                <h4>Main Course</h4>
+                <p>Hearty meals</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-cocktail"></i>
+                <h4>Drinks</h4>
+                <p>Refreshing beverages</p>
+            </div>
         </div>
-        <div class="menu-items" id="menu-items">
-            <!-- Menu items will be loaded by JavaScript -->
-            <div class="loading">Loading menu...</div>
-        </div>
-    </section>
-
-    <!-- Order Form -->
-    <section class="order-form">
-        <h2>Place Your Order</h2>
-        <form id="order-form">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="address">Delivery Address</label>
-                <textarea id="address" rows="3" required></textarea>
-            </div>
-            <div class="form-group">
-                <label>Payment Method</label>
-                <div class="payment-options">
-                    <label><input type="radio" name="payment" value="cash" checked> Cash on Delivery</label>
-                    <label><input type="radio" name="payment" value="card"> Credit Card</label>
-                </div>
-            </div>
-            <button type="submit" class="submit-btn">Place Order</button>
-        </form>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="contact-info">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-phone"></i> +255 712 345 678</p>
-                <p><i class="fas fa-envelope"></i> info@foodexpress.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Dar es Salaam, Tanzania</p>
-            </div>
-            <div class="social-links">
-                <h3>Follow Us</h3>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-        <p class="copyright">© 2024 Food Express. All rights reserved.</p>
+        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.8;">Order food online from the best restaurants</p>
     </footer>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart">&times;</button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <!-- Cart items will be added here -->
-            <p class="empty-cart">Your cart is empty</p>
-        </div>
-        <div class="cart-total">
-            <p>Total: <span id="cart-total">Tsh 0</span></p>
-            <button class="checkout-btn">Checkout</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        // Simple cart counter
+        let cartCount = 0;
+        const cartBtn = document.querySelector('a[href="#cart"]');
+        
+        // Add sample functionality
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                cartCount++;
+                cartBtn.querySelector('span').textContent = cartCount;
+                alert('Item added to cart!');
+            });
+        });
+    </script>
 </body>
 </html>
