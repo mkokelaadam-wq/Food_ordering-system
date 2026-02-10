@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodExpress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #ff6b35;
+            --primary-light: #ff8e53;
+            --secondary: #667eea;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+        }
+        
+        /* Admin Layout */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .admin-sidebar {
+            width: 250px;
+            background: var(--dark);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+        
+        .admin-logo {
+            padding: 25px 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-logo h2 {
+            color: var(--primary);
+            font-size: 22px;
+        }
+        
+        .admin-logo p {
+            color: #a0aec0;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .admin-profile {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 15px;
+            color: white;
+        }
+        
+        .admin-name {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .admin-role {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        
+        .admin-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-section {
+            margin-bottom: 20px;
+        }
+        
+        .menu-title {
+            padding: 0 20px 10px;
+            color: #a0aec0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .menu-items {
+            list-style: none;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .menu-item:hover,
+        .menu-item.active {
+            background: rgba(255, 107, 53, 0.1);
+            color: white;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .page-title h1 {
+            color: var(--dark);
+            font-size: 24px;
+        }
+        
+        .page-title p {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            padding: 10px 15px 10px 40px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            width: 300px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+        }
+        
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 20px;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c82333;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-icon.orders { background: var(--primary); }
+        .stat-icon.revenue { background: var(--success); }
+        .stat-icon.customers { background: var(--secondary); }
+        .stat-icon.restaurants { background: var(--info); }
+        
+        .stat-info h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        .stat-change {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .stat-change.positive {
+            color: var(--success);
+        }
+        
+        .stat-change.negative {
+            color: var(--danger);
+        }
+        
+        /* Charts and Tables */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-container,
+        .table-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .chart-header,
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-header h3,
+        .table-header h3 {
+            color: var(--dark);
+            font-size: 18px;
+        }
+        
+        .chart-canvas {
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Recent Orders Table */
+        .recent-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .recent-table th {
+            text-align: left;
+            padding: 12px;
+            color: #718096;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .recent-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-preparing { background: #cce5ff; color: #004085; }
+        .status-delivered { background: #d4edda; color: #155724; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .action-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+        
+        .action-card h4 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .action-card p {
+            color: #718096;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+            }
+            
+            .admin-sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .admin-main {
+                margin-left: 0;
+            }
+            
+            .search-box input {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar" id="sidebar">
+            <div class="admin-logo">
+                <h2><i class="fas fa-crown"></i> FoodExpress Admin</h2>
+                <p>Restaurant Management System</p>
+            </div>
+            
+            <div class="admin-profile">
+                <div class="profile-img" id="adminAvatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="admin-name" id="adminName">Loading...</h3>
+                <span class="admin-role" id="adminRole">Admin</span>
+            </div>
+            
+            <div class="admin-menu">
+                <div class="menu-section">
+                    <div class="menu-title">Main</div>
+                    <ul class="menu-items">
+                        <li><a href="#" class="menu-item active" onclick="showSection('dashboard')">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('orders')">
+                            <i class="fas fa-shopping-bag"></i> Orders
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('restaurants')">
+                            <i class="fas fa-utensils"></i> Restaurants
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('menu')">
+                            <i class="fas fa-book"></i> Menu Items
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-title">Management</div>
+                    <ul class="menu-items">
+                        <li><a href="#" class="menu-item" onclick="showSection('customers')">
+                            <i class="fas fa-users"></i> Customers
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('drivers')">
+                            <i class="fas fa-motorcycle"></i> Delivery Drivers
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('admins')">
+                            <i class="fas fa-user-shield"></i> Admin Users
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('reports')">
+                            <i class="fas fa-chart-bar"></i> Reports
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-title">Settings</div>
+                    <ul class="menu-items">
+                        <li><a href="#" class="menu-item" onclick="showSection('profile')">
+                            <i class="fas fa-user-cog"></i> Profile Settings
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('settings')">
+                            <i class="fas fa-cog"></i> System Settings
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="showSection('notifications')">
+                            <i class="fas fa-bell"></i> Notifications
+                        </a></li>
+                        <li><a href="#" class="menu-item" onclick="logoutAdmin()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="admin-main">
+            <!-- Header -->
+            <div class="admin-header">
+                <div class="page-title">
+                    <h1 id="pageTitle">Admin Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back! Here's what's happening with your business today.</p>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search orders, customers, restaurants...">
+                    </div>
+                    
+                    <div class="notification-bell" onclick="showNotifications()">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    
+                    <button class="logout-btn" onclick="logoutAdmin()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="statsSection">
+                <div class="stat-card">
+                    <div class="stat-icon orders">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>142</h3>
+                        <p>Today's Orders</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 12% from yesterday
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon revenue">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Tsh 2.8M</h3>
+                        <p>Today's Revenue</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 8% from yesterday
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon customers">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>842</h3>
+                        <p>Active Customers</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 5% this week
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon restaurants">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Partner Restaurants</p>
+                        <span class="stat-change positive">
+                            <i class="fas fa-plus"></i> 2 new this month
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts and Tables -->
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Revenue Overview</h3>
+                        <select style="padding: 8px; border-radius: 5px; border: 1px solid #e2e8f0;">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 3 months</option>
+                        </select>
+                    </div>
+                    <div class="chart-canvas">
+                        <!-- Chart would go here -->
+                        <div style="display: flex; align-items: flex-end; height: 250px; gap: 20px; margin-top: 20px;">
+                            <div style="flex: 1; background: var(--primary); height: 80%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 60%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 90%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 70%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 85%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 50%; border-radius: 5px;"></div>
+                            <div style="flex: 1; background: var(--primary); height: 95%; border-radius: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Recent Orders</h3>
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-size: 14px;">
+                            View All
+                        </a>
+                    </div>
+                    <table class="recent-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#ORD00145</td>
+                                <td>John Doe</td>
+                                <td>Tsh 22,500</td>
+                                <td><span class="order-status status-preparing">Preparing</span></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD00144</td>
+                                <td>Jane Smith</td>
+                                <td>Tsh 18,000</td>
+                                <td><span class="order-status status-delivered">Delivered</span></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD00143</td>
+                                <td>Mike Johnson</td>
+                                <td>Tsh 32,000</td>
+                                <td><span class="order-status status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD00142</td>
+                                <td>Sarah Williams</td>
+                                <td>Tsh 15,500</td>
+                                <td><span class="order-status status-delivered">Delivered</span></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD00141</td>
+                                <td>Robert Brown</td>
+                                <td>Tsh 28,000</td>
+                                <td><span class="order-status status-cancelled">Cancelled</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="action-card" onclick="showSection('orders')">
+                    <div class="action-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h4>Add New Order</h4>
+                    <p>Create a manual order for walk-in customers</p>
+                </div>
+                
+                <div class="action-card" onclick="showSection('restaurants')">
+                    <div class="action-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h4>Manage Restaurants</h4>
+                    <p>Add or edit restaurant partners</p>
+                </div>
+                
+                <div class="action-card" onclick="showSection('menu')">
+                    <div class="action-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <h4>Update Menu</h4>
+                    <p>Edit restaurant menus and prices</p>
+                </div>
+                
+                <div class="action-card" onclick="showSection('reports')">
+                    <div class="action-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h4>Download Reports</h4>
+                    <p>Export sales and customer data</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check admin session
+        const adminSession = JSON.parse(localStorage.getItem('admin_session'));
+        
+        if (!adminSession) {
+            alert('⚠️ Please login to access the admin dashboard');
+            window.location.href = 'admin-login.html';
+        }
+        
+        // Update admin info
+        document.addEventListener('DOMContentLoaded', function() {
+            if (adminSession) {
+                document.getElementById('adminName').textContent = adminSession.name;
+                document.getElementById('adminRole').textContent = adminSession.role;
+                
+                // Set avatar with initials
+                const initials = adminSession.name.split(' ').map(n => n[0]).join('');
+                document.getElementById('adminAvatar').innerHTML = initials;
+                
+                // Check permissions
+                checkPermissions(adminSession.permissions);
+            }
+        });
+        
+        // Show different sections
+        function showSection(section) {
+            // Update active menu item
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Admin Dashboard',
+                'orders': 'Order Management',
+                'restaurants': 'Restaurant Management',
+                'menu': 'Menu Management',
+                'customers': 'Customer Management',
+                'drivers': 'Delivery Drivers',
+                'admins': 'Admin Users',
+                'reports': 'Reports & Analytics',
+                'profile': 'Profile Settings',
+                'settings': 'System Settings',
+                'notifications': 'Notifications'
+            };
+            
+            const subtitles = {
+                'dashboard': 'Welcome back! Here\'s what\'s happening with your business today.',
+                'orders': 'Manage and track customer orders',
+                'restaurants': 'Manage partner restaurants',
+                'menu': 'Edit food items and prices',
+                'customers': 'View and manage customer accounts',
+                'drivers': 'Manage delivery personnel',
+                'admins': 'Manage admin user accounts',
+                'reports': 'View business analytics and reports',
+                'profile': 'Update your admin profile',
+                'settings': 'Configure system settings',
+                'notifications': 'View system notifications'
+            };
+            
+            document.getElementById('pageTitle').textContent = titles[section];
+            document.getElementById('pageSubtitle').textContent = subtitles[section];
+            
+            // Show section content
+            if (section === 'orders') {
+                showOrdersSection();
+            } else if (section === 'admins') {
+                showAdminsSection();
+            }
+            // Add other sections as needed
+        }
+        
+        // Show orders section
+        function showOrdersSection() {
+            const mainContent = document.querySelector('.admin-main');
+            mainContent.innerHTML = `
+                <div class="admin-header">
+                    <div class="page-title">
+                        <h1>Order Management</h1>
+                        <p>Manage and track customer orders</p>
+                    </div>
+                    <div class="header-actions">
+                        <button onclick="showSection('dashboard')" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>All Orders</h3>
+                        <div>
+                            <select style="padding: 8px; margin-right: 10px;">
+                                <option>All Status</option>
+                                <option>Pending</option>
+                                <option>Preparing</option>
+                                <option>Delivered</option>
+                            </select>
+                            <button style="background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <table class="recent-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Restaurant</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            loadOrdersData();
+        }
+        
+        // Show admins section
+        function showAdminsSection() {
+            const mainContent = document.querySelector('.admin-main');
+            mainContent.innerHTML = `
+                <div class="admin-header">
+                    <div class="page-title">
+                        <h1>Admin Users</h1>
+                        <p>Manage admin user accounts</p>
+                    </div>
+                    <div class="header-actions">
+                        <button onclick="showAddAdminModal()" style="background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-user-plus"></i> Add Admin
+                        </button>
+                        <button onclick="showSection('dashboard')" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Admin Users</h3>
+                        <input type="text" placeholder="Search admins..." style="padding: 8px; border: 1px solid #e2e8f0; border-radius: 5px;">
+                    </div>
+                    <table class="recent-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminsTableBody">
+                            <!-- Admins will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            loadAdminsData();
+        }
+        
+        // Load orders data
+        function loadOrdersData() {
+            // Simulated orders data
+            const orders = [
+                { id: 'ORD00145', customer: 'John Doe', restaurant: "Mama's Kitchen", amount: 'Tsh 22,500', status: 'preparing' },
+                { id: 'ORD00144', customer: 'Jane Smith', restaurant: 'Burger Palace', amount: 'Tsh 18,000', status: 'delivered' },
+                { id: 'ORD00143', customer: 'Mike Johnson', restaurant: 'Dragon Garden', amount: 'Tsh 32,000', status: 'pending' },
+                { id: 'ORD00142', customer: 'Sarah Williams', restaurant: 'Pizza Hub', amount: 'Tsh 15,500', status: 'delivered' },
+                { id: 'ORD00141', customer: 'Robert Brown', restaurant: 'Spice Palace', amount: 'Tsh 28,000', status: 'cancelled' }
+            ];
+            
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '';
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer}</td>
+                    <td>${order.restaurant}</td>
+                    <td>${order.amount}</td>
+                    <td><span class="order-status status-${order.status}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></td>
+                    <td>
+                        <button onclick="viewOrder('${order.id}')" style="background: var(--info); color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px; cursor: pointer;">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="editOrder('${order.id}')" style="background: var(--warning); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Load admins data
+        function loadAdminsData() {
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            const tbody = document.getElementById('adminsTableBody');
+            tbody.innerHTML = '';
+            
+            admins.forEach(admin => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${admin.id}</td>
+                    <td>${admin.firstName} ${admin.lastName}</td>
+                    <td>${admin.email}</td>
+                    <td>${admin.role.replace('_', ' ')}</td>
+                    <td>
+                        <span style="padding: 4px 12px; border-radius: 20px; font-size: 12px; 
+                              background: ${admin.status === 'active' ? '#d4edda' : admin.status === 'pending' ? '#fff3cd' : '#f8d7da'}; 
+                              color: ${admin.status === 'active' ? '#155724' : admin.status === 'pending' ? '#856404' : '#721c24'}">
+                            ${admin.status.charAt(0).toUpperCase() + admin.status.slice(1)}
+                        </span>
+                    </td>
+                    <td>
+                        ${adminSession.role === 'super_admin' ? `
+                        <button onclick="editAdmin('${admin.id}')" style="background: var(--warning); color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px; cursor: pointer;">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteAdmin('${admin.id}')" style="background: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        ` : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Show add admin modal
+        function showAddAdminModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 10px; width: 500px; max-width: 90%;">
+                    <h2 style="margin-bottom: 20px; color: var(--dark);">
+                        <i class="fas fa-user-plus"></i> Add New Admin
+                    </h2>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Full Name</label>
+                        <input type="text" id="newAdminName" placeholder="John Doe" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+                        <input type="email" id="newAdminEmail" placeholder="admin@foodexpress.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Role</label>
+                        <select id="newAdminRole" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="restaurant_manager">Restaurant Manager</option>
+                            <option value="delivery_manager">Delivery Manager</option>
+                            <option value="customer_support">Customer Support</option>
+                            <option value="finance_manager">Finance Manager</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px;">
+                        <button onclick="this.closest('div').remove()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Cancel
+                        </button>
+                        <button onclick="addNewAdmin()" style="padding: 10px 20px; background: var(--success); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-save"></i> Save Admin
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        // Add new admin
+        function addNewAdmin() {
+            const name = document.getElementById('newAdminName').value;
+            const email = document.getElementById('newAdminEmail').value;
+            const role = document.getElementById('newAdminRole').value;
+            
+            if (!name || !email) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            
+            // Check if email exists
+            if (admins.some(a => a.email === email)) {
+                alert('An admin with this email already exists');
+                return;
+            }
+            
+            const nameParts = name.split(' ');
+            const newAdmin = {
+                id: 'ADM' + Date.now().toString().slice(-6),
+                firstName: nameParts[0] || '',
+                lastName: nameParts.slice(1).join(' ') || '',
+                email: email,
+                role: role,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                permissions: getPermissionsByRole(role)
+            };
+            
+            admins.push(newAdmin);
+            localStorage.setItem('foodexpress_admins', JSON.stringify(admins));
+            
+            // Close modal
+            document.querySelector('div[style*="position: fixed"]').remove();
+            
+            // Reload admins table
+            loadAdminsData();
+            
+            alert(`✅ New admin added successfully!\n\nName: ${name}\nEmail: ${email}\nRole: ${role}`);
+        }
+        
+        // Delete admin
+        function deleteAdmin(adminId) {
+            if (!confirm('Are you sure you want to delete this admin?')) return;
+            
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            const filteredAdmins = admins.filter(a => a.id !== adminId);
+            
+            localStorage.setItem('foodexpress_admins', JSON.stringify(filteredAdmins));
+            loadAdminsData();
+            
+            alert('✅ Admin deleted successfully');
+        }
+        
+        // Edit admin
+        function editAdmin(adminId) {
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            const admin = admins.find(a => a.id === adminId);
+            
+            if (!admin) return;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 30px; border-radius: 10px; width: 500px; max-width: 90%;">
+                    <h2 style="margin-bottom: 20px; color: var(--dark);">
+                        <i class="fas fa-edit"></i> Edit Admin
+                    </h2>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">First Name</label>
+                        <input type="text" id="editFirstName" value="${admin.firstName}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Last Name</label>
+                        <input type="text" id="editLastName" value="${admin.lastName}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+                        <input type="email" id="editEmail" value="${admin.email}" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Role</label>
+                        <select id="editRole" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="super_admin" ${admin.role === 'super_admin' ? 'selected' : ''}>Super Admin</option>
+                            <option value="restaurant_manager" ${admin.role === 'restaurant_manager' ? 'selected' : ''}>Restaurant Manager</option>
+                            <option value="delivery_manager" ${admin.role === 'delivery_manager' ? 'selected' : ''}>Delivery Manager</option>
+                            <option value="customer_support" ${admin.role === 'customer_support' ? 'selected' : ''}>Customer Support</option>
+                            <option value="finance_manager" ${admin.role === 'finance_manager' ? 'selected' : ''}>Finance Manager</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Status</label>
+                        <select id="editStatus" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="active" ${admin.status === 'active' ? 'selected' : ''}>Active</option>
+                            <option value="pending" ${admin.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="suspended" ${admin.status === 'suspended' ? 'selected' : ''}>Suspended</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px;">
+                        <button onclick="this.closest('div').remove()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Cancel
+                        </button>
+                        <button onclick="saveAdminEdit('${adminId}')" style="padding: 10px 20px; background: var(--success); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        // Save admin edits
+        function saveAdminEdit(adminId) {
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            const adminIndex = admins.findIndex(a => a.id === adminId);
+            
+            if (adminIndex === -1) return;
+            
+            admins[adminIndex] = {
+                ...admins[adminIndex],
+                firstName: document.getElementById('editFirstName').value,
+                lastName: document.getElementById('editLastName').value,
+                email: document.getElementById('editEmail').value,
+                role: document.getElementById('editRole').value,
+                status: document.getElementById('editStatus').value,
+                permissions: getPermissionsByRole(document.getElementById('editRole').value)
+            };
+            
+            localStorage.setItem('foodexpress_admins', JSON.stringify(admins));
+            document.querySelector('div[style*="position: fixed"]').remove();
+            loadAdminsData();
+            
+            alert('✅ Admin updated successfully');
+        }
+        
+        // Get permissions by role
+        function getPermissionsByRole(role) {
+            const permissions = {
+                super_admin: ['all'],
+                restaurant_manager: ['view_restaurants', 'edit_restaurants', 'view_orders', 'manage_menu'],
+                delivery_manager: ['view_orders', 'assign_drivers', 'track_deliveries', 'view_reports'],
+                customer_support: ['view_orders', 'view_customers', 'handle_complaints', 'process_refunds'],
+                finance_manager: ['view_orders', 'view_reports', 'process_payments', 'view_analytics']
+            };
+            return permissions[role] || [];
+        }
+        
+        // Check permissions
+        function checkPermissions(permissions) {
+            // Hide/show menu items based on permissions
+            if (!permissions.includes('all')) {
+                if (!permissions.includes('view_restaurants')) {
+                    document.querySelector('[onclick="showSection(\'restaurants\')"]').style.display = 'none';
+                }
+                if (!permissions.includes('view_orders')) {
+                    document.querySelector('[onclick="showSection(\'orders\')"]').style.display = 'none';
+                }
+            }
+        }
+        
+        // Logout admin
+        function logoutAdmin() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('admin_session');
+                window.location.href = 'admin-login.html';
+            }
+        }
+        
+        // Show notifications
+        function showNotifications() {
+            alert('You have 3 unread notifications:\n\n1. New order #ORD00145\n2. New restaurant registration\n3. System maintenance scheduled');
+        }
+        
+        // View order details
+        function viewOrder(orderId) {
+            alert(`Viewing order ${orderId}\n\nThis would show detailed order information in a real application.`);
+        }
+        
+        // Edit order
+        function editOrder(orderId) {
+            alert(`Editing order ${orderId}\n\nThis would open order edit form in a real application.`);
+        }
+    </script>
+</body>
+  </html>
