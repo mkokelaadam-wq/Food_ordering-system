@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FoodExpress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+        
+        .nav-links a.active {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        /* Checkout Container */
+        .checkout-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .order-summary h2 {
+            margin-bottom: 20px;
+            color: #333;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        .summary-items {
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            color: #ff6b35;
+        }
+        
+        /* Checkout Form */
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .checkout-form h2 {
+            margin-bottom: 25px;
+            color: #333;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6b35;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ff6b35;
+            outline: none;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            margin: 30px 0;
+        }
+        
+        .payment-option {
+            background: #f8f9fa;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option.active {
+            border-color: #ff6b35;
+            background: #fff8f6;
+        }
+        
+        .payment-option input {
+            margin-right: 10px;
+        }
+        
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .payment-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+        
+        .payment-option.active .payment-details {
+            display: block;
+        }
+        
+        /* Buttons */
+        .btn-place-order {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #28a745, #20c997);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-place-order:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">FoodExpress</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html">Cart</a>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="summary-items">
+                <div class="summary-item">
+                    <span>Margherita Pizza × 1</span>
+                    <span>Tsh 12,000</span>
+                </div>
+                <div class="summary-item">
+                    <span>Fresh Orange Juice × 2</span>
+                    <span>Tsh 7,000</span>
+                </div>
+                <div class="summary-item">
+                    <span>Delivery Fee</span>
+                    <span>Tsh 2,500</span>
+                </div>
+                <div class="summary-item">
+                    <span>Service Charge</span>
+                    <span>Tsh 1,000</span>
+                </div>
+            </div>
+            <div class="summary-total">
+                <span>Total Amount</span>
+                <span>Tsh 22,500</span>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                    <i class="fas fa-clock" style="color: #ff6b35;"></i> 
+                    Estimated delivery: 30-45 minutes
+                </p>
+                <p style="color: #666; font-size: 14px;">
+                    <i class="fas fa-map-marker-alt" style="color: #ff6b35;"></i> 
+                    Delivery to: 123 Main Street
+                </p>
+            </div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="checkout-form">
+            <h2>Checkout Details</h2>
+            
+            <form id="checkoutForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required placeholder="+255 712 345 678">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Delivery Address *</label>
+                    <textarea id="address" required placeholder="Enter complete address with landmarks"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" required placeholder="Dar es Salaam">
+                    </div>
+                    <div class="form-group">
+                        <label for="area">Area/Street *</label>
+                        <input type="text" id="area" required placeholder="Mikocheni">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Delivery Instructions</label>
+                    <textarea id="instructions" placeholder="e.g., Call before delivery, Leave at gate, etc."></textarea>
+                </div>
+                
+                <div class="payment-methods">
+                    <h3 style="margin-bottom: 20px; color: #333;">Payment Method</h3>
+                    
+                    <div class="payment-option active" onclick="selectPayment('cash')">
+                        <label>
+                            <input type="radio" name="payment" value="cash" checked>
+                            <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                        </label>
+                    </div>
+                    
+                    <div class="payment-option" onclick="selectPayment('card')">
+                        <label>
+                            <input type="radio" name="payment" value="card">
+                            <i class="fas fa-credit-card"></i> Credit/Debit Card
+                        </label>
+                        <div class="payment-details">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Card Number</label>
+                                    <input type="text" placeholder="1234 5678 9012 3456" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" placeholder="MM/YY" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Card Holder Name</label>
+                                <input type="text" placeholder="JOHN DOE" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-option" onclick="selectPayment('mobile')">
+                        <label>
+                            <input type="radio" name="payment" value="mobile">
+                            <i class="fas fa-mobile-alt"></i> Mobile Payment (M-Pesa, Tigo Pesa)
+                        </label>
+                        <div class="payment-details">
+                            <div class="form-group">
+                                <label>Phone Number for Payment</label>
+                                <input type="tel" placeholder="+255 712 345 678" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-place-order">
+                    <i class="fas fa-check-circle"></i> Place Order
+                </button>
+                
+                <a href="cart.html" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Cart
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
+        <p style="margin-top: 10px; opacity: 0.8;">Secure checkout powered by FoodExpress</p>
+    </footer>
+
+    <script>
+        // Payment method selection
+        function selectPayment(method) {
+            // Remove active class from all
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('active');
+                option.querySelector('input').checked = false;
+            });
+            
+            // Add active class to selected
+            event.currentTarget.classList.add('active');
+            event.currentTarget.querySelector('input').checked = true;
+        }
+        
+        // Form submission
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            if(!name || !phone || !address) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Simulate order processing
+            const orderData = {
+                orderId: 'ORD' + Date.now().toString().slice(-6),
+                customer: name,
+                phone: phone,
+                address: address,
+                payment: paymentMethod,
+                total: 'Tsh 22,500',
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // Store order data
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+            
+            // Show success message
+            const message = `
+            🎉 Order Placed Successfully!
+            
+            Order ID: ${orderData.orderId}
+            Amount: ${orderData.total}
+            Payment: ${paymentMethod.toUpperCase()}
+            
+            Your food will be delivered in 30-45 minutes.
+            Check your phone for confirmation SMS.
+            `;
+            
+            alert(message);
+            
+            // Redirect to confirmation page
+            setTimeout(() => {
+                window.location.href = 'index.html?order=success';
+            }, 3000);
+        });
+        
+        // Auto-focus name field
+        document.getElementById('name').focus();
+        
+        // Load cart data if available
+        window.addEventListener('load', function() {
+            const cartData = localStorage.getItem('cart');
+            if(cartData) {
+                // In a real app, you would calculate totals from cart
+                console.log('Cart data loaded for checkout');
+            }
+        });
+    </script>
+</body>
+</html>
