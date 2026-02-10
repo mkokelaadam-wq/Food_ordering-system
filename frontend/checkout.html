@@ -250,12 +250,16 @@
         <div class="logo">FoodExpress</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
+            <a href="restaurants.html">Restaurants</a>
             <a href="menu.html">Menu</a>
             <a href="orders.html">Orders</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
             <a href="profile.html">Profile</a>
             <a href="cart.html">Cart</a>
+            <a href="checkout.html" class="active">Checkout</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
         </div>
     </nav>
 
@@ -418,6 +422,32 @@
             event.currentTarget.querySelector('input').checked = true;
         }
         
+        // Save order to orders history
+        function saveOrderToHistory(orderData) {
+            // Get existing orders from localStorage
+            let orders = JSON.parse(localStorage.getItem('foodexpress_orders')) || [];
+            
+            // Add new order
+            orders.unshift({
+                id: orderData.orderId,
+                restaurant: "Mama's Kitchen",
+                date: new Date().toISOString().split('T')[0],
+                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                status: "preparing",
+                items: JSON.parse(localStorage.getItem('cart')) || [],
+                subtotal: 19000,
+                delivery: 2500,
+                service: 1000,
+                total: 22500
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('foodexpress_orders', JSON.stringify(orders));
+            
+            // Clear cart after successful order
+            localStorage.removeItem('cart');
+        }
+        
         // Form submission
         document.getElementById('checkoutForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -446,6 +476,9 @@
             // Store order data
             localStorage.setItem('lastOrder', JSON.stringify(orderData));
             
+            // Save to orders history
+            saveOrderToHistory(orderData);
+            
             // Show success message
             const message = `
             🎉 Order Placed Successfully!
@@ -456,13 +489,15 @@
             
             Your food will be delivered in 30-45 minutes.
             Check your phone for confirmation SMS.
+            
+            Track your order from the "Orders" page.
             `;
             
             alert(message);
             
-            // Redirect to confirmation page
+            // Redirect to orders page
             setTimeout(() => {
-                window.location.href = 'index.html?order=success';
+                window.location.href = 'orders.html?order=success&id=' + orderData.orderId;
             }, 3000);
         });
         
