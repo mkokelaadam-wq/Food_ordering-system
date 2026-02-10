@@ -380,15 +380,35 @@
             .action-btn {
                 width: 100%;
             }
+            
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .nav-links a {
+                margin: 5px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links a {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation with Admin Signup Link -->
     <nav>
         <div class="logo">FoodExpress</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
+            <a href="restaurants.html">Restaurants</a>
             <a href="menu.html">Menu</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
@@ -396,6 +416,13 @@
             <a href="checkout.html">Checkout</a>
             <a href="cart.html">Cart</a>
             <a href="orders.html" class="active">Orders</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
+            
+            <!-- ADMIN SIGNUP LINK ADDED HERE -->
+            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold">
+                <i class="fas fa-user-shield"></i> Partner With Us
+            </a>
         </div>
     </nav>
 
@@ -740,4 +767,4 @@
         });
     </script>
 </body>
-  </html>
+                                                                             </html>
