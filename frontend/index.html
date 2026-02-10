@@ -3,189 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Express - Order Food Online</title>
+    <title>FoodExpress - Order Food Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
             background-color: #ffffff;
             color: #333;
+            overflow-x: hidden;
         }
         
-        /* Navigation */
+        /* Navigation - FIXED */
         nav {
             background: white;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            flex-wrap: wrap;
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             color: #ff6b35;
-        }
-        
-        .nav-links {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 10px;
+            flex-shrink: 0;
         }
         
-        .nav-links a {
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .main-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .auth-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
             text-decoration: none;
             color: #333;
             font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            white-space: nowrap;
         }
         
-        .nav-links a:hover {
-            color: #ff6b35;
+        nav a:hover {
+            background: #ff6b35;
+            color: white;
         }
         
         .login-btn {
             background: #ff6b35;
-            color: white;
+            color: white !important;
             padding: 8px 20px;
             border-radius: 5px;
             font-weight: bold;
         }
         
-        /* Hero Section */
+        .signup-btn {
+            background: #28a745;
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .partner-btn {
+            background: #6c757d;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .admin-btn {
+            background: #2d3748;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .cart-btn {
+            position: relative;
+            padding: 8px 12px !important;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #dc3545;
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero Section - IMPROVED */
         .hero {
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200');
+            padding: 120px 20px 80px;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
+            background-position: center;
             color: white;
+            margin-top: 10px;
         }
         
         .hero h2 {
-            font-size: 36px;
+            font-size: 48px;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         
         .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            max-width: 600px;
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            color: #f0f0f0;
+            line-height: 1.6;
         }
         
         .search-box {
             max-width: 600px;
             margin: 30px auto;
             display: flex;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
         .search-box input {
             flex: 1;
-            padding: 15px;
+            padding: 18px 25px;
             border: none;
-            border-radius: 5px 0 0 5px;
             font-size: 16px;
+            outline: none;
         }
         
         .search-box button {
             background: #ff6b35;
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 0 5px 5px 0;
+            padding: 18px 40px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        /* Categories */
+        /* Categories - IMPROVED */
         .categories {
-            padding: 60px 20px;
+            padding: 80px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .categories h3 {
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 28px;
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: #333;
         }
         
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
         
         .category-card {
             background: white;
-            padding: 25px;
-            border-radius: 10px;
+            padding: 40px 25px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
         }
         
         .category-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .category-card i {
-            font-size: 40px;
+            font-size: 50px;
             color: #ff6b35;
+            margin-bottom: 20px;
+        }
+        
+        .category-card h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .category-card p {
+            color: #666;
+        }
+        
+        /* Restaurants Section */
+        .restaurants {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+        
+        .restaurants h3 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: #333;
+        }
+        
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .restaurant-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .restaurant-info {
+            padding: 25px;
+        }
+        
+        .restaurant-info h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .restaurant-info p {
+            color: #666;
             margin-bottom: 15px;
         }
         
-        footer {
-            background: #333;
+        .restaurant-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rating {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .price {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .order-btn {
+            background: #ff6b35;
             color: white;
-            text-align: center;
-            padding: 30px;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        
+        .order-btn:hover {
+            background: #ff5a1f;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background: #2d3748;
+            color: white;
             margin-top: 50px;
         }
+        
+        .features h3 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .feature i {
+            font-size: 48px;
+            color: #ff6b35;
+            margin-bottom: 20px;
+        }
+        
+        .feature h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        /* Footer - IMPROVED */
+        footer {
+            background: #1a202c;
+            color: white;
+            padding: 60px 20px 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section h4 {
+            color: #ff6b35;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: #cbd5e0;
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+        
+        .footer-section p {
+            color: #a0aec0;
+            margin-bottom: 10px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+            
+            .main-links, .auth-links {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            .search-box input,
+            .search-box button {
+                width: 100%;
+                border-radius: 0;
+                text-align: center;
+            }
+            
+            .category-grid,
+            .restaurant-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-links {
+                gap: 10px;
+            }
+            
+            nav a {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation - ORGANIZED -->
     <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="restaurants.html">Restaurants</a>
-<a href="about.html">About</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="contact.html">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="checkout.html">Checkout</a>
-            <a href="login.html" class="login-btn">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
-            <a href="cart" style="position: relative;">
-                <i class="fas fa-shopping-cart"></i>
-                <span style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; position: absolute; top: -8px; right: -8px;">0</span>
-            </a>
+        <div class="logo">
+            <i class="fas fa-utensils"></i> FoodExpress
+        </div>
+        
+        <div class="nav-container">
+            <div class="main-links">
+                <a href="index.html">Home</a>
+                <a href="restaurants.html">Restaurants</a>
+                <a href="menu.html">Menu</a>
+                <a href="about.html">About</a>
+                <a href="orders.html">Orders</a>
+                <a href="contact.html">Contact</a>
+                <a href="profile.html">Profile</a>
+                <a href="checkout.html">Checkout</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+            
+            <div class="auth-links">
+                <a href="login.html" class="login-btn">Login</a>
+                <a href="signup.html" class="signup-btn">Sign Up</a>
+                <a href="admin-signup.html" class="partner-btn">
+                    <i class="fas fa-handshake"></i> Partner
+                </a>
+                <a href="admin-login.html" class="admin-btn">
+                    <i class="fas fa-user-shield"></i> Admin
+                </a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <h2>Delicious Food Delivered To Your Doorstep</h2>
-        <p>Order from your favorite restaurants and get it delivered hot and fresh</p>
+        <p>Order from your favorite restaurants and get it delivered hot and fresh. Fast delivery, great prices, and amazing food!</p>
         <div class="search-box">
-            <input type="text" placeholder="Enter your delivery address...">
-            <button>Find Food</button>
+            <input type="text" placeholder="Enter your delivery address or search for restaurants...">
+            <button>
+                <i class="fas fa-search"></i> Find Food
+            </button>
         </div>
     </section>
 
@@ -193,48 +533,295 @@
     <section class="categories">
         <h3>Browse By Category</h3>
         <div class="category-grid">
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='menu.html?category=burgers'">
                 <i class="fas fa-hamburger"></i>
                 <h4>Burgers</h4>
-                <p>Juicy burgers and fries</p>
+                <p>Juicy burgers and crispy fries</p>
             </div>
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='menu.html?category=pizza'">
                 <i class="fas fa-pizza-slice"></i>
                 <h4>Pizza</h4>
-                <p>Freshly baked pizzas</p>
+                <p>Freshly baked wood-fired pizzas</p>
             </div>
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='menu.html?category=tanzanian'">
                 <i class="fas fa-utensils"></i>
-                <h4>Main Course</h4>
-                <p>Hearty meals</p>
+                <h4>Tanzanian Food</h4>
+                <p>Chips Mayai, Nyama Choma, Pilau</p>
             </div>
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='menu.html?category=drinks'">
                 <i class="fas fa-cocktail"></i>
-                <h4>Drinks</h4>
-                <p>Refreshing beverages</p>
+                <h4>Drinks & Desserts</h4>
+                <p>Refreshing beverages & sweet treats</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Restaurants -->
+    <section class="restaurants">
+        <h3>Popular Restaurants</h3>
+        <div class="restaurant-grid">
+            <div class="restaurant-card">
+                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <div class="restaurant-info">
+                    <h4>Mama's Kitchen</h4>
+                    <p>Authentic Tanzanian cuisine with traditional recipes</p>
+                    <div class="restaurant-meta">
+                        <div class="rating">⭐⭐⭐⭐☆ 4.5</div>
+                        <div class="price">Tsh 5,000+</div>
+                    </div>
+                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                </div>
+            </div>
+            
+            <div class="restaurant-card">
+                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <div class="restaurant-info">
+                    <h4>Burger Palace</h4>
+                    <p>Best burgers in town with homemade buns</p>
+                    <div class="restaurant-meta">
+                        <div class="rating">⭐⭐⭐⭐⭐ 4.8</div>
+                        <div class="price">Tsh 8,000+</div>
+                    </div>
+                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                </div>
+            </div>
+            
+            <div class="restaurant-card">
+                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <div class="restaurant-info">
+                    <h4>Pizza Hub</h4>
+                    <p>Wood-fired pizza and Italian specialties</p>
+                    <div class="restaurant-meta">
+                        <div class="rating">⭐⭐⭐⭐☆ 4.3</div>
+                        <div class="price">Tsh 12,000+</div>
+                    </div>
+                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h3>Why Choose FoodExpress?</h3>
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h4>Fast Delivery</h4>
+                <p>Get your food in 30 minutes or less</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Safe & Secure</h4>
+                <p>Contactless delivery and secure payments</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-tags"></i>
+                <h4>Best Prices</h4>
+                <p>Great deals and discounts every day</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-utensils"></i>
+                <h4>100+ Restaurants</h4>
+                <p>Wide variety of cuisines to choose from</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.8;">Order food online from the best restaurants</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FoodExpress</h4>
+                <p>Your favorite food, delivered fast. Serving since 2024.</p>
+                <div style="margin-top: 15px; display: flex; gap: 15px;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="restaurants.html">Restaurants</a>
+                <a href="menu.html">Menu</a>
+                <a href="orders.html">My Orders</a>
+                <a href="about.html">About Us</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone"></i> +255 712 345 678</p>
+                <p><i class="fas fa-envelope"></i> info@foodexpress.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Samora Avenue, Dar es Salaam</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Download Our App</h4>
+                <p>Get exclusive deals and faster ordering</p>
+                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <button style="background: #333; color: white; border: 2px solid white; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                        <i class="fab fa-apple"></i> App Store
+                    </button>
+                    <button style="background: #333; color: white; border: 2px solid white; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                        <i class="fab fa-google-play"></i> Google Play
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2024 FoodExpress. All rights reserved. | 
+                <a href="privacy.html" style="color: #ff6b35;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: #ff6b35;">Terms of Service</a>
+            </p>
+        </div>
     </footer>
 
     <script>
-        // Simple cart counter
+        // Cart functionality
         let cartCount = 0;
-        const cartBtn = document.querySelector('a[href="#cart"]');
+        const cartCountElement = document.querySelector('.cart-count');
         
-        // Add sample functionality
+        // Update cart count from localStorage
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartCount = cart.length;
+            cartCountElement.textContent = cartCount;
+        }
+        
+        // Add to cart from category cards
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', function() {
                 cartCount++;
-                cartBtn.querySelector('span').textContent = cartCount;
-                alert('Item added to cart!');
+                cartCountElement.textContent = cartCount;
+                
+                // Save to localStorage
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const category = this.querySelector('h4').textContent;
+                cart.push({
+                    id: Date.now(),
+                    name: `Category: ${category}`,
+                    price: 0,
+                    quantity: 1
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Show notification
+                showNotification(`${category} added to cart!`);
             });
+        });
+        
+        // Add to cart from restaurant buttons
+        document.querySelectorAll('.order-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent card click
+                const restaurant = this.closest('.restaurant-card').querySelector('h4').textContent;
+                
+                cartCount++;
+                cartCountElement.textContent = cartCount;
+                
+                // Save to localStorage
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: Date.now(),
+                    name: `Restaurant: ${restaurant}`,
+                    price: 0,
+                    quantity: 1
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                showNotification(`Viewing ${restaurant} menu!`);
+            });
+        });
+        
+        // Search functionality
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value;
+            if (searchTerm.trim()) {
+                alert(`Searching for: ${searchTerm}`);
+                // In real app: window.location.href = `search.html?q=${searchTerm}`;
+            }
+        });
+        
+        // Enter key for search
+        document.querySelector('.search-box input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-box button').click();
+            }
+        });
+        
+        // Check login status
+        function checkLoginStatus() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const authLinks = document.querySelector('.auth-links');
+            
+            if (user) {
+                authLinks.innerHTML = `
+                    <a href="profile.html" style="background: #4CAF50; color: white !important;">
+                        <i class="fas fa-user"></i> ${user.name.split(' ')[0]}
+                    </a>
+                    <button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                        Logout
+                    </button>
+                    ${authLinks.innerHTML}
+                `;
+            }
+        }
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('cart');
+                window.location.reload();
+            }
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 5px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideIn 0.3s;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            checkLoginStatus();
         });
     </script>
 </body>
-</html>
+        </html>
