@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - FoodExpress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(to right, #ff6b35, #ff8e53);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .login-form {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #ff6b35;
+            outline: none;
+        }
+        
+        .btn-admin-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #ff6b35, #ff8e53);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn-admin-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .login-footer a {
+            color: #ff6b35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .forgot-password {
+            color: #ff6b35;
+            text-decoration: none;
+        }
+        
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1><i class="fas fa-user-shield"></i> Admin Login</h1>
+            <p>Access the FoodExpress admin dashboard</p>
+        </div>
+        
+        <div class="login-form">
+            <!-- Success message for pending approval -->
+            <div id="successAlert" class="alert alert-success" style="display: none;">
+                <i class="fas fa-check-circle"></i> Your admin account is pending approval
+            </div>
+            
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" required placeholder="admin@foodexpress.com">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" required placeholder="Enter your password">
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        Remember me
+                    </label>
+                    <a href="admin-forgot-password.html" class="forgot-password">
+                        Forgot Password?
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn-admin-login">
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                </button>
+            </form>
+        </div>
+        
+        <div class="login-footer">
+            <p>Don't have an admin account? <a href="admin-signup.html">Sign up here</a></p>
+            <p>Return to <a href="index.html">FoodExpress Home</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Check for pending approval status
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'pending') {
+            document.getElementById('successAlert').style.display = 'block';
+        }
+        
+        // Form submission
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Get admins from localStorage
+            const admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            
+            // Find admin by email
+            const admin = admins.find(a => a.email === email);
+            
+            if (!admin) {
+                alert('❌ No admin account found with this email');
+                return;
+            }
+            
+            // Check if account is approved
+            if (admin.status !== 'active') {
+                alert('⏳ Your account is pending approval. Please wait for super admin approval.');
+                return;
+            }
+            
+            // In a real app, you would verify password hash here
+            // For demo, we'll accept any password
+            if (password.length < 6) {
+                alert('❌ Invalid password');
+                return;
+            }
+            
+            // Set admin session
+            const adminSession = {
+                id: admin.id,
+                name: `${admin.firstName} ${admin.lastName}`,
+                email: admin.email,
+                role: admin.role,
+                permissions: admin.permissions,
+                loginTime: new Date().toISOString()
+            };
+            
+            localStorage.setItem('admin_session', JSON.stringify(adminSession));
+            
+            // Set remember me cookie (simulated)
+            if (rememberMe) {
+                localStorage.setItem('admin_remember_email', email);
+            } else {
+                localStorage.removeItem('admin_remember_email');
+            }
+            
+            // Show success and redirect
+            alert(`✅ Login successful!\n\nWelcome, ${admin.firstName} ${admin.lastName}\nRole: ${admin.role}\n\nRedirecting to dashboard...`);
+            
+            setTimeout(() => {
+                window.location.href = 'admin-dashboard.html';
+            }, 1500);
+        });
+        
+        // Auto-fill remembered email
+        window.addEventListener('load', function() {
+            const rememberedEmail = localStorage.getItem('admin_remember_email');
+            if (rememberedEmail) {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('rememberMe').checked = true;
+            }
+        });
+        
+        // Demo admin accounts (for testing)
+        function createDemoAdmins() {
+            const demoAdmins = [
+                {
+                    id: 'ADM001',
+                    firstName: 'Super',
+                    lastName: 'Admin',
+                    email: 'superadmin@foodexpress.com',
+                    phone: '+255 712 000 001',
+                    role: 'super_admin',
+                    status: 'active',
+                    createdAt: new Date().toISOString(),
+                    permissions: ['all']
+                },
+                {
+                    id: 'ADM002',
+                    firstName: 'Restaurant',
+                    lastName: 'Manager',
+                    email: 'manager@foodexpress.com',
+                    phone: '+255 712 000 002',
+                    role: 'restaurant_manager',
+                    status: 'active',
+                    createdAt: new Date().toISOString(),
+                    permissions: ['view_restaurants', 'edit_restaurants', 'view_orders', 'manage_menu']
+                }
+            ];
+            
+            // Only create if not exists
+            const existingAdmins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
+            demoAdmins.forEach(demoAdmin => {
+                if (!existingAdmins.some(a => a.email === demoAdmin.email)) {
+                    existingAdmins.push(demoAdmin);
+                }
+            });
+            
+            localStorage.setItem('foodexpress_admins', JSON.stringify(existingAdmins));
+        }
+        
+        // Create demo admins on first load
+        createDemoAdmins();
+    </script>
+</body>
+</html>
