@@ -236,6 +236,13 @@
             text-decoration: none;
         }
         
+        .admin-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
         @media (max-width: 480px) {
             .signup-card {
                 padding: 30px 20px;
@@ -363,7 +370,14 @@
             </div>
             
             <div class="login-link">
-                Already have an account? <a href="login.html">Log in here</a>
+                <p>Already have an account? <a href="login.html">Log in here</a></p>
+            </div>
+            
+            <!-- ADMIN SIGNUP LINK ADDED HERE -->
+            <div class="admin-link">
+                <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
+                    <i class="fas fa-user-shield"></i> Restaurant Owner? Partner With Us
+                </a>
             </div>
         </div>
     </div>
@@ -480,6 +494,36 @@
         
         // Auto-focus first input
         document.getElementById('firstName').focus();
+        
+        // If user selects "Restaurant Owner", suggest admin signup
+        document.getElementById('userType').addEventListener('change', function() {
+            if(this.value === 'restaurant') {
+                const suggestion = document.createElement('div');
+                suggestion.innerHTML = `
+                    <div style="background:#fff8f6; padding:10px; border-radius:5px; margin-top:10px; border-left:3px solid #ff6b35;">
+                        <small>
+                            <i class="fas fa-info-circle" style="color:#ff6b35;"></i>
+                            <strong>Restaurant Owners:</strong> For restaurant management features, 
+                            <a href="admin-signup.html" style="color:#ff6b35; font-weight:bold;">sign up here</a> for admin access.
+                        </small>
+                    </div>
+                `;
+                
+                // Remove existing suggestion if any
+                const existingSuggestion = document.querySelector('.restaurant-suggestion');
+                if(existingSuggestion) {
+                    existingSuggestion.remove();
+                }
+                
+                suggestion.className = 'restaurant-suggestion';
+                this.parentNode.parentNode.appendChild(suggestion);
+            } else {
+                const existingSuggestion = document.querySelector('.restaurant-suggestion');
+                if(existingSuggestion) {
+                    existingSuggestion.remove();
+                }
+            }
+        });
     </script>
 </body>
 </html>
