@@ -337,6 +337,18 @@
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
+            
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .nav-links a {
+                margin: 5px;
+                font-size: 14px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -347,22 +359,35 @@
             .btn-group {
                 flex-direction: column;
             }
+            
+            .nav-links a {
+                font-size: 12px;
+                padding: 5px 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation with Admin Signup Link -->
     <nav>
         <div class="logo">FoodExpress</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
+            <a href="restaurants.html">Restaurants</a>
             <a href="menu.html">Menu</a>
-            <a href="about.html">About</a>
             <a href="orders.html">Orders</a>
+            <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
-            <a href="cart.html">Cart</a>
             <a href="checkout.html">Checkout</a>
+            <a href="cart.html">Cart</a>
             <a href="profile.html" class="active">Profile</a>
+            <a href="login.html">Login</a>
+            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
+            
+            <!-- ADMIN SIGNUP LINK ADDED HERE -->
+            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold">
+                <i class="fas fa-user-shield"></i> Partner With Us
+            </a>
         </div>
     </nav>
 
@@ -374,7 +399,7 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="profile-name">Adam Ajida</div>
-                < class="profile-email"div>adam.ajida@example.com</div>
+                <div class="profile-email">adam.ajida@example.com</div>
                 <div style="margin-top: 10px; color: #666; font-size: 14px;">
                     <i class="fas fa-crown" style="color: #ffc107;"></i> Gold Member
                 </div>
@@ -404,7 +429,7 @@
                     </div>
                     <div class="info-row">
                         <div class="info-label">Email Address</div>
-                        <div class="info-value">adamu.ajida@example.com</div>
+                        <div class="info-value">adam.ajida@example.com</div>
                     </div>
                     <div class="info-row">
                         <div class="info-label">Phone Number</div>
@@ -614,4 +639,4 @@
         }
     </script>
 </body>
-                                          </html>
+</html>
