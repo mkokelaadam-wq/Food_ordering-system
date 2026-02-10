@@ -243,6 +243,13 @@
             border-top: 1px solid #eee;
         }
         
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
         @media (max-width: 480px) {
             .signup-card {
                 padding: 30px 20px;
@@ -254,6 +261,10 @@
             
             .logo-header h1 {
                 font-size: 28px;
+            }
+            
+            .admin-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -373,11 +384,27 @@
                 <p>Already have an account? <a href="login.html">Log in here</a></p>
             </div>
             
-            <!-- ADMIN SIGNUP LINK ADDED HERE -->
+            <!-- ADMIN LINKS SECTION -->
             <div class="admin-link">
-                <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
-                    <i class="fas fa-user-shield"></i> Restaurant Owner? Partner With Us
-                </a>
+                <h4 style="text-align: center; color: #666; margin-bottom: 15px; font-size: 14px;">
+                    <i class="fas fa-store-alt"></i> Restaurant Partner Portal
+                </h4>
+                
+                <div class="admin-buttons">
+                    <!-- Admin Signup Link -->
+                    <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
+                        <i class="fas fa-user-plus"></i> Register Restaurant
+                    </a>
+                    
+                    <!-- Admin Login Link -->
+                    <a href="admin-login.html" style="background:#5a6268;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
+                        <i class="fas fa-sign-in-alt"></i> Admin Login
+                    </a>
+                </div>
+                
+                <p style="text-align: center; color: #666; font-size: 12px; margin-top: 10px;">
+                    Manage orders, update menu, track deliveries & analytics
+                </p>
             </div>
         </div>
     </div>
