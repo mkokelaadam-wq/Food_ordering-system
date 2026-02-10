@@ -59,6 +59,20 @@
             font-size: 36px;
             margin-bottom: 15px;
         }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
         
         /* Filters */
         .filters {
@@ -191,6 +205,16 @@
         .view-menu:hover {
             background: #e55a2b;
         }
+
+        /* Search Results Message */
+        .search-results-msg {
+            text-align: center;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +238,26 @@
         <h1>Discover Restaurants</h1>
         <p>Browse through our partner restaurants and order your favorite meals</p>
     </div>
+
+    <!-- 🔍 Search Section -->
+    <div class="search-section">
+        <div class="search-box">
+            <h3 style="margin-bottom: 15px; color: #333; text-align: center;">🔍 What are you craving?</h3>
+            <form id="foodSearchForm" style="display: flex; gap: 10px; max-width: 800px; margin: 0 auto;">
+                <input type="text" id="foodSearchInput" placeholder="Search pizza, burgers, rice, drinks..." style="flex: 1; padding: 15px; border: 2px solid #ff6b35; border-radius: 5px; font-size: 16px;">
+                <button type="submit" style="background: #ff6b35; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">Search</button>
+            </form>
+            <div style="margin-top: 15px; text-align: center; color: #666; font-size: 14px;">
+                Try: <button onclick="quickSearch('pizza')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Pizza</button> • 
+                <button onclick="quickSearch('burger')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Burgers</button> • 
+                <button onclick="quickSearch('chicken')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Chicken</button> • 
+                <button onclick="quickSearch('rice')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Rice</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results Message -->
+    <div id="searchResultsMsg" class="search-results-msg" style="display: none;"></div>
 
     <!-- Filters -->
     <div class="filters">
@@ -314,16 +358,89 @@
         // Filter functionality
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Remove active class from all buttons in same group
                 this.parentElement.querySelectorAll('.filter-btn').forEach(b => {
                     b.classList.remove('active');
                 });
-                // Add active class to clicked button
                 this.classList.add('active');
-                
-                // In real app, here you would filter restaurants
                 console.log('Filter clicked:', this.textContent);
             });
+        });
+
+        // 🔍 FOOD SEARCH FUNCTIONALITY
+        document.getElementById('foodSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = document.getElementById('foodSearchInput').value.toLowerCase();
+            if(searchTerm.trim()) {
+                searchRestaurants(searchTerm);
+            }
+        });
+
+        function quickSearch(foodType) {
+            document.getElementById('foodSearchInput').value = foodType;
+            searchRestaurants(foodType);
+        }
+
+        function searchRestaurants(searchTerm) {
+            const cards = document.querySelectorAll('.restaurant-card');
+            let found = 0;
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                const cuisine = card.querySelector('.cuisine');
+                
+                if(text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    found++;
+                    
+                    // Highlight matching text in cuisine
+                    if(cuisine) {
+                        const original = cuisine.textContent;
+                        const highlighted = original.replace(
+                            new RegExp(searchTerm, 'gi'), 
+                            match => `<span style="background:yellow;padding:0 2px;">${match}</span>`
+                        );
+                        cuisine.innerHTML = highlighted;
+                    }
+                } else {
+                    card.style.display = 'none';
+                    // Reset cuisine highlight if hidden
+                    if(cuisine) {
+                        cuisine.innerHTML = cuisine.textContent;
+                    }
+                }
+            });
+            
+            // Show results message
+            const msg = document.getElementById('searchResultsMsg');
+            if(found > 0) {
+                msg.textContent = `✅ Found ${found} restaurant(s) for "${searchTerm}"`;
+                msg.style.display = 'block';
+                msg.style.background = '#e8f4ff';
+                msg.style.color = '#1a73e8';
+            } else {
+                msg.textContent = `❌ No restaurants found for "${searchTerm}"`;
+                msg.style.display = 'block';
+                msg.style.background = '#ffebee';
+                msg.style.color = '#d32f2f';
+            }
+            
+            // Scroll to results message
+            msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Clear search when clicking "All" filter
+        document.querySelector('.filter-btn.active').addEventListener('click', function() {
+            if(this.textContent === 'All') {
+                document.getElementById('foodSearchInput').value = '';
+                document.getElementById('searchResultsMsg').style.display = 'none';
+                
+                // Show all restaurants
+                document.querySelectorAll('.restaurant-card').forEach(card => {
+                    card.style.display = 'block';
+                    const cuisine = card.querySelector('.cuisine');
+                    if(cuisine) cuisine.innerHTML = cuisine.textContent;
+                });
+            }
         });
     </script>
 </body>
