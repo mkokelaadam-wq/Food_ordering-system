@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Food Delivery Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .redirect-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease;
+        }
+        
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .logo i {
+            font-size: 50px;
+            color: #ff6b35;
+        }
+        
+        .logo h1 {
+            font-size: 48px;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #2d3748;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .redirect-info {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 5px solid #ff6b35;
+        }
+        
+        .redirect-info h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        .redirect-info p {
+            color: #718096;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .redirect-info i {
+            color: #ff6b35;
+        }
+        
+        .countdown {
+            font-size: 64px;
+            color: #ff6b35;
+            font-weight: bold;
+            margin: 30px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+            border: 2px solid #ff6b35;
+        }
+        
+        .btn-primary:hover {
+            background: #ff5a1f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .project-structure {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            text-align: left;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .project-structure h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .folder-structure {
+            font-family: 'Courier New', monospace;
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        .folder {
+            color: #4299e1;
+            font-weight: bold;
+        }
+        
+        .file {
+            color: #38a169;
+            margin-left: 20px;
+        }
+        
+        .loading {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .redirect-container {
+                padding: 40px 20px;
+            }
+            
+            .logo h1 {
+                font-size: 36px;
+            }
+            
+            h2 {
+                font-size: 28px;
+            }
+            
+            .countdown {
+                font-size: 48px;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+                font-size: 16px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <h1>FoodExpress</h1>
+        </div>
+        
+        <h2>Food Delivery System</h2>
+        
+        <p class="message">
+            Welcome to FoodExpress! Your one-stop solution for ordering food online from your favorite restaurants.
+            Fast delivery, great prices, and amazing food experience.
+        </p>
+        
+        <div class="redirect-info">
+            <h3><i class="fas fa-info-circle"></i> Automatic Redirect</h3>
+            <p>
+                <i class="fas fa-clock"></i>
+                <span id="redirectText">Redirecting to FoodExpress frontend in <span id="countdown">10</span> seconds...</span>
+            </p>
+            <p>
+                <i class="fas fa-folder-open"></i>
+                Project location: <strong>/frontend/index.html</strong>
+            </p>
+        </div>
+        
+        <div class="countdown" id="countdownDisplay">10</div>
+        
+        <div class="buttons">
+            <a href="frontend/index.html" class="btn btn-primary" id="redirectNow">
+                <i class="fas fa-rocket"></i> Go to FoodExpress Now
+            </a>
+            
+            <button class="btn btn-secondary" id="viewAdmin">
+                <i class="fas fa-user-shield"></i> Admin Dashboard
+            </button>
+            
+            <button class="btn btn-secondary" id="viewGithub">
+                <i class="fab fa-github"></i> View on GitHub
+            </button>
+        </div>
+        
+        <div class="project-structure">
+            <h3><i class="fas fa-folder-tree"></i> Project Structure</h3>
+            <div class="folder-structure">
+                <div class="folder">Food_ordering-system/</div>
+                <div class="folder">├── frontend/</div>
+                <div class="file">│   ├── index.html <span class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+                <div class="file">│   ├── login.html</div>
+                <div class="file">│   ├── restaurants.html</div>
+                <div class="file">│   ├── menu.html</div>
+                <div class="file">│   ├── cart.html</div>
+                <div class="file">│   ├── checkout.html</div>
+                <div class="file">│   ├── orders.html</div>
+                <div class="file">│   ├── profile.html</div>
+                <div class="file">│   ├── admin-dashboard.html</div>
+                <div class="file">│   ├── admin-login.html</div>
+                <div class="file">│   ├── style.css</div>
+                <div class="file">│   └── script.js</div>
+                <div class="folder">├── backend/ <span style="color:#a0aec0;">(Coming Soon)</span></div>
+                <div class="file">├── README.md</div>
+                <div class="file">└── index.html <span style="color:#ff6b35;">(You are here)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer for redirect
+        let countdown = 10;
+        const countdownElement = document.getElementById('countdown');
+        const countdownDisplay = document.getElementById('countdownDisplay');
+        const redirectText = document.getElementById('redirectText');
+        
+        function updateCountdown() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            countdownDisplay.textContent = countdown;
+            
+            if (countdown <= 0) {
+                redirectText.innerHTML = '<i class="fas fa-rocket"></i> Redirecting now...';
+                window.location.href = 'frontend/index.html';
+            }
+        }
+        
+        // Start countdown
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Manual redirect button
+        document.getElementById('redirectNow').addEventListener('click', function(e) {
+            e.preventDefault();
+            clearInterval(countdownInterval);
+            redirectText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+            setTimeout(() => {
+                window.location.href = 'frontend/index.html';
+            }, 500);
+        });
+        
+        // Admin dashboard button
+        document.getElementById('viewAdmin').addEventListener('click', function() {
+            clearInterval(countdownInterval);
+            redirectText.innerHTML = '<i class="fas fa-user-shield"></i> Opening Admin Login...';
+            setTimeout(() => {
+                window.location.href = 'frontend/admin-login.html';
+            }, 500);
+        });
+        
+        // GitHub button (optional)
+        document.getElementById('viewGithub').addEventListener('click', function() {
+            const githubUrl = 'https://github.com/mkokelaadam-wq/Food_ordering-system';
+            redirectText.innerHTML = '<i class="fab fa-github"></i> Opening GitHub repository...';
+            
+            // Open in new tab
+            window.open(githubUrl, '_blank');
+            
+            // Reset countdown
+            clearInterval(countdownInterval);
+            countdown = 10;
+            countdownElement.textContent = countdown;
+            countdownDisplay.textContent = countdown;
+            redirectText.innerHTML = `Redirecting to FoodExpress in <span id="countdown">10</span> seconds...`;
+            
+            // Restart countdown
+            setInterval(updateCountdown, 1000);
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Enter key - redirect now
+            if (e.key === 'Enter') {
+                clearInterval(countdownInterval);
+                window.location.href = 'frontend/index.html';
+            }
+            
+            // A key - admin dashboard
+            if (e.key === 'a' || e.key === 'A') {
+                clearInterval(countdownInterval);
+                window.location.href = 'frontend/admin-login.html';
+            }
+            
+            // Escape key - cancel redirect
+            if (e.key === 'Escape') {
+                clearInterval(countdownInterval);
+                redirectText.innerHTML = '<i class="fas fa-pause-circle"></i> Redirect cancelled. Click button to proceed.';
+                countdownDisplay.style.animation = 'none';
+            }
+        });
+        
+        // Add service worker for PWA (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').catch(function(error) {
+                    console.log('ServiceWorker registration failed:', error);
+                });
+            });
+        }
+        
+        // Add animation for project structure
+        setTimeout(() => {
+            document.querySelectorAll('.file').forEach((file, index) => {
+                setTimeout(() => {
+                    file.style.opacity = '1';
+                    file.style.transform = 'translateX(0)';
+                }, index * 100);
+            });
+        }, 1000);
+        
+        // Initial animation setup
+        document.querySelectorAll('.file').forEach(file => {
+            file.style.opacity = '0';
+            file.style.transform = 'translateX(-10px)';
+            file.style.transition = 'opacity 0.3s, transform 0.3s';
+        });
+    </script>
+</body>
+</html>
