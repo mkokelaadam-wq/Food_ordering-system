@@ -1,44 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Login - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #e54e1e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+        }
+        
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
         }
         
         .login-container {
             width: 100%;
-            max-width: 450px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 480px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
             overflow: hidden;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .login-header {
             background: var(--primary);
             color: white;
-            padding: 30px;
+            padding: 35px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .login-header i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            background: white;
+            color: var(--primary);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .login-header:hover i {
+            transform: rotate(0deg) scale(1.05);
         }
         
         .login-header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-header p {
+            font-size: 16px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Demo Credentials */
+        .demo-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            margin: 25px 30px 0 30px;
+            border-radius: 16px;
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.15);
+        }
+        
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .demo-title i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .demo-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(108,117,125,0.2);
+        }
+        
+        .demo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-label {
+            font-weight: 600;
+            color: var(--secondary);
+            width: 80px;
+            font-size: 14px;
+        }
+        
+        .demo-value {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .login-form {
-            padding: 40px;
+            padding: 30px;
         }
         
         .form-group {
@@ -49,80 +204,321 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--secondary);
+            font-size: 15px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            margin-right: 8px;
+            width: 18px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 15px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
         }
         
         .form-group input:focus {
             border-color: var(--primary);
+            background: white;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.1);
             outline: none;
+        }
+        
+        .form-group input::placeholder {
+            color: #adb5bd;
+            font-weight: 300;
+        }
+        
+        /* Checkbox Styling */
+        .admin-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-checkbox:hover {
+            background: white;
+            border-color: var(--primary);
+        }
+        
+        .admin-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .admin-checkbox label {
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .admin-checkbox label i {
+            color: var(--primary);
+            font-size: 18px;
         }
         
         .btn-login {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-login i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
         }
         
         .btn-login:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.3);
+        }
+        
+        .btn-login:hover i {
+            transform: translateX(5px);
+        }
+        
+        .user-login-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 25px 0 15px;
+        }
+        
+        .user-login-info h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .user-login-info h4 i {
+            font-size: 22px;
+        }
+        
+        .user-login-info p {
+            opacity: 0.95;
+            font-size: 14px;
+            margin-bottom: 5px;
         }
         
         .signup-link {
             text-align: center;
             margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .signup-link p {
+            margin-bottom: 12px;
+            color: var(--gray);
         }
         
         .signup-link a {
             color: var(--primary);
             text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .signup-link a:hover {
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+        
+        .signup-link a i {
+            margin-right: 5px;
+            font-size: 14px;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: var(--light);
+            color: var(--secondary);
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .back-home:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 480px) {
+            .login-container {
+                max-width: 100%;
+            }
+            
+            .login-header {
+                padding: 25px 20px;
+            }
+            
+            .login-header i {
+                font-size: 40px;
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+            }
+            
+            .login-header h1 {
+                font-size: 26px;
+            }
+            
+            .demo-box {
+                margin: 15px 20px 0 20px;
+                padding: 15px;
+            }
+            
+            .login-form {
+                padding: 25px 20px;
+            }
+            
+            .form-group input {
+                padding: 14px 16px;
+            }
+            
+            .btn-login {
+                padding: 14px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <!-- Header Section -->
         <div class="login-header">
-            <h1><i class="fas fa-utensils"></i> FoodExpress</h1>
-            <p>Welcome back!</p>
+            <i class="fas fa-utensils"></i>
+            <h1>Welcome Back!</h1>
+            <p>Login to continue to FoodExpress</p>
         </div>
         
+        <!-- 🔥 DEMO CREDENTIALS - Ipo hapa kama ulivyoona kwenye picha -->
+        <div class="demo-box">
+            <div class="demo-title">
+                <i class="fas fa-flask"></i>
+                <span>Demo Credentials</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Email:</span>
+                <span class="demo-value">admin@foodexpress.com</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Password:</span>
+                <span class="demo-value">admin123</span>
+            </div>
+        </div>
+        
+        <!-- Login Form -->
         <div class="login-form">
             <form id="login-form">
+                <!-- Email Field -->
                 <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" placeholder="you@example.com" required>
+                    <label>
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" placeholder="Enter your email" value="admin@foodexpress.com" required>
                 </div>
                 
+                <!-- Password Field -->
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <label>
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="password" placeholder="Enter your password" value="admin123" required>
                 </div>
                 
+                <!-- ✅ Login as Administrator Checkbox -->
+                <div class="admin-checkbox">
+                    <input type="checkbox" id="admin-checkbox">
+                    <label for="admin-checkbox">
+                        <i class="fas fa-shield-alt"></i> Login as Administrator
+                    </label>
+                </div>
+                
+                <!-- Login Button -->
                 <button type="submit" class="btn-login">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
+                
+                <!-- 🔥 User Login Info -->
+                <div class="user-login-info">
+                    <h4>
+                        <i class="fas fa-user"></i>
+                        User Login
+                    </h4>
+                    <p>Browse menu, place orders, and track your delivery.</p>
+                </div>
             </form>
             
+            <!-- Links Section -->
             <div class="signup-link">
-                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
-                <p style="margin-top: 10px;"><a href="admin-login.html">Admin Login</a></p>
+                <p>
+                    <i class="fas fa-question-circle"></i>
+                    <a href="forgot-password.html">Forgot Password?</a>
+                </p>
+                <p>
+                    Don't have an account? 
+                    <a href="signup.html">
+                        <i class="fas fa-user-plus"></i> Sign up
+                    </a>
+                </p>
+                <p>
+                    <a href="admin-login.html">
+                        <i class="fas fa-user-tie"></i> Admin Login
+                    </a>
+                </p>
+                
+                <!-- Back to Home Link -->
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
             </div>
         </div>
     </div>
@@ -133,11 +529,26 @@
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const isAdmin = document.getElementById('admin-checkbox').checked;
             
-            if (email && password) {
+            // Demo login validation
+            if (email === 'admin@foodexpress.com' && password === 'admin123') {
                 alert('✅ Login successful! Welcome back.');
-                window.location.href = 'index.html';
+                
+                if (isAdmin) {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                alert('❌ Invalid email or password. Please use demo credentials.');
             }
+        });
+        
+        // Auto-populate demo credentials on page load
+        window.addEventListener('load', function() {
+            // Demo credentials tayari zimewekwa kwenye value attributes
+            console.log('Login page ready with demo credentials');
         });
     </script>
 </body>
