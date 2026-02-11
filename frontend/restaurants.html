@@ -5,96 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurants - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-        }
-        
-        /* Navigation - Same as homepage */
-        nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-        
-        .nav-links a.active {
-            color: #ff6b35;
-            font-weight: bold;
-        }
-        
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200');
+        .restaurants-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200');
             background-size: cover;
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+            margin-top: 80px;
         }
         
-        .page-header h1 {
-            font-size: 36px;
-            margin-bottom: 15px;
-        }
-
-        /* Search Section */
-        .search-section {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        .search-box {
+        .filters-section {
+            padding: 40px 0;
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        /* Filters */
-        .filters {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
         }
         
         .filter-group {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            flex: 1;
-            min-width: 200px;
+            margin-bottom: 30px;
         }
         
-        .filter-group h3 {
+        .filter-title {
+            font-size: 18px;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--dark);
         }
         
         .filter-options {
@@ -104,351 +39,206 @@
         }
         
         .filter-btn {
-            background: #f0f0f0;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .filter-btn.active {
-            background: #ff6b35;
-            color: white;
-        }
-        
-        /* Restaurants Grid */
-        .restaurants {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .restaurant-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .restaurant-card {
+            padding: 8px 20px;
+            border: 2px solid var(--primary);
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            color: var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .restaurant-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .restaurant-img {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .restaurant-info {
-            padding: 20px;
-        }
-        
-        .restaurant-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .restaurant-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .rating {
-            background: #ff6b35;
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
             color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        .cuisine {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        
-        .restaurant-details {
-            display: flex;
-            justify-content: space-between;
-            color: #777;
-            font-size: 14px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        
-        .view-menu {
-            display: block;
-            text-align: center;
-            background: #ff6b35;
-            color: white;
-            padding: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-            border-radius: 5px;
-        }
-        
-        .view-menu:hover {
-            background: #e55a2b;
-        }
-
-        /* Search Results Message */
-        .search-results-msg {
-            text-align: center;
-            padding: 15px;
-            margin: 20px auto;
-            max-width: 1200px;
-            border-radius: 8px;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="restaurants.html" class="active">Restaurants</a>
-            <a href="about.html">About</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="contact.html">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="checkout.html">Checkout</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
-            <a href="cart.html" style="position:relative;">
-                <i class="fas fa-shopping-cart"></i> Cart (0)
-            </a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link active"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin">Admin</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1>Discover Restaurants</h1>
-        <p>Browse through our partner restaurants and order your favorite meals</p>
+    <div class="restaurants-hero">
+        <h1>Restaurants Near You</h1>
+        <p>Discover the best restaurants in Dar es Salaam</p>
     </div>
 
-    <!-- 🔍 Search Section -->
-    <div class="search-section">
-        <div class="search-box">
-            <h3 style="margin-bottom: 15px; color: #333; text-align: center;">🔍 What are you craving?</h3>
-            <form id="foodSearchForm" style="display: flex; gap: 10px; max-width: 800px; margin: 0 auto;">
-                <input type="text" id="foodSearchInput" placeholder="Search pizza, burgers, rice, drinks..." style="flex: 1; padding: 15px; border: 2px solid #ff6b35; border-radius: 5px; font-size: 16px;">
-                <button type="submit" style="background: #ff6b35; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">Search</button>
-            </form>
-            <div style="margin-top: 15px; text-align: center; color: #666; font-size: 14px;">
-                Try: <button onclick="quickSearch('pizza')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Pizza</button> • 
-                <button onclick="quickSearch('burger')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Burgers</button> • 
-                <button onclick="quickSearch('chicken')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Chicken</button> • 
-                <button onclick="quickSearch('rice')" style="background:none;border:none;color:#ff6b35;cursor:pointer;padding:5px 10px;">Rice</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Search Results Message -->
-    <div id="searchResultsMsg" class="search-results-msg" style="display: none;"></div>
-
-    <!-- Filters -->
-    <div class="filters">
-        <div class="filter-group">
-            <h3>Cuisine Type</h3>
-            <div class="filter-options">
-                <button class="filter-btn active">All</button>
-                <button class="filter-btn">Italian</button>
-                <button class="filter-btn">Chinese</button>
-                <button class="filter-btn">Indian</button>
-                <button class="filter-btn">Mexican</button>
-                <button class="filter-btn">Burgers</button>
-                <button class="filter-btn">Pizza</button>
-            </div>
-        </div>
-        
-        <div class="filter-group">
-            <h3>Rating</h3>
-            <div class="filter-options">
-                <button class="filter-btn">4.5+ Stars</button>
-                <button class="filter-btn">4.0+ Stars</button>
-                <button class="filter-btn">3.5+ Stars</button>
-            </div>
-        </div>
-        
-        <div class="filter-group">
-            <h3>Delivery Time</h3>
-            <div class="filter-options">
-                <button class="filter-btn">Under 30 min</button>
-                <button class="filter-btn">Under 45 min</button>
-                <button class="filter-btn">Under 60 min</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Restaurants Grid -->
-    <div class="restaurants">
-        <div class="restaurant-grid">
-            <!-- Restaurant 1 -->
-            <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600');"></div>
-                <div class="restaurant-info">
-                    <div class="restaurant-header">
-                        <div class="restaurant-name">Mama's Kitchen</div>
-                        <div class="rating">4.5 ★</div>
-                    </div>
-                    <div class="cuisine">Italian • Pizza • Pasta</div>
-                    <p>Authentic Italian cuisine with homemade pasta and wood-fired pizza.</p>
-                    <div class="restaurant-details">
-                        <span>$$ • Medium Price</span>
-                        <span>⏱️ 30-40 min</span>
-                    </div>
-                    <a href="menu.html?restaurant=1" class="view-menu">View Menu</a>
+    <section class="filters-section">
+        <div class="container">
+            <div class="filter-group">
+                <h3 class="filter-title">Cuisine</h3>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="tanzanian">Tanzanian</button>
+                    <button class="filter-btn" data-filter="italian">Italian</button>
+                    <button class="filter-btn" data-filter="american">American</button>
+                    <button class="filter-btn" data-filter="chinese">Chinese</button>
+                    <button class="filter-btn" data-filter="indian">Indian</button>
                 </div>
             </div>
-
-            <!-- Restaurant 2 -->
-            <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1554679665-f5537f187268?auto=format&fit=crop&w=600');"></div>
-                <div class="restaurant-info">
-                    <div class="restaurant-header">
-                        <div class="restaurant-name">Burger Palace</div>
-                        <div class="rating">4.3 ★</div>
-                    </div>
-                    <div class="cuisine">American • Burgers • Fast Food</div>
-                    <p>Juicy burgers, crispy fries, and refreshing milkshakes.</p>
-                    <div class="restaurant-details">
-                        <span>$ • Budget Friendly</span>
-                        <span>⏱️ 20-30 min</span>
-                    </div>
-                    <a href="menu.html?restaurant=2" class="view-menu">View Menu</a>
-                </div>
-            </div>
-
-            <!-- Restaurant 3 -->
-            <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600');"></div>
-                <div class="restaurant-info">
-                    <div class="restaurant-header">
-                        <div class="restaurant-name">Dragon Garden</div>
-                        <div class="rating">4.7 ★</div>
-                    </div>
-                    <div class="cuisine">Chinese • Asian • Sushi</div>
-                    <p>Traditional Chinese dishes and fresh sushi prepared by expert chefs.</p>
-                    <div class="restaurant-details">
-                        <span>$$$ • Premium</span>
-                        <span>⏱️ 40-50 min</span>
-                    </div>
-                    <a href="menu.html?restaurant=3" class="view-menu">View Menu</a>
-                </div>
-            </div>
-
-            <!-- Add more restaurants as needed -->
         </div>
-    </div>
+    </section>
 
+    <section class="restaurants">
+        <div class="container">
+            <div class="restaurants-grid" id="restaurants-grid">
+                <!-- Restaurant 1 -->
+                <div class="restaurant-card" data-cuisine="tanzanian">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500" alt="Mama's Kitchen">
+                        <span class="rating-badge">4.5 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Mama's Kitchen</h3>
+                        <p class="cuisine">Tanzanian • African</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 30-45 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 5,000+</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=1'">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 2 -->
+                <div class="restaurant-card" data-cuisine="american">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500" alt="Burger Palace">
+                        <span class="rating-badge">4.8 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Burger Palace</h3>
+                        <p class="cuisine">American • Fast Food</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 20-35 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 8,000+</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=2'">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 3 -->
+                <div class="restaurant-card" data-cuisine="italian">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500" alt="Pizza Hub">
+                        <span class="rating-badge">4.3 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Pizza Hub</h3>
+                        <p class="cuisine">Italian • Pizza</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 25-40 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 12,000+</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=3'">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 4 -->
+                <div class="restaurant-card" data-cuisine="tanzanian">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500" alt="Nyama Choma House">
+                        <span class="rating-badge">4.6 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Nyama Choma House</h3>
+                        <p class="cuisine">Tanzanian • Grills</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 35-50 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 10,000+</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=4'">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p>Your favorite food, delivered fast.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
     <script>
-        // Filter functionality
+        // Restaurant filtering
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                this.parentElement.querySelectorAll('.filter-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                console.log('Filter clicked:', this.textContent);
-            });
-        });
-
-        // 🔍 FOOD SEARCH FUNCTIONALITY
-        document.getElementById('foodSearchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const searchTerm = document.getElementById('foodSearchInput').value.toLowerCase();
-            if(searchTerm.trim()) {
-                searchRestaurants(searchTerm);
-            }
-        });
-
-        function quickSearch(foodType) {
-            document.getElementById('foodSearchInput').value = foodType;
-            searchRestaurants(foodType);
-        }
-
-        function searchRestaurants(searchTerm) {
-            const cards = document.querySelectorAll('.restaurant-card');
-            let found = 0;
-            
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                const cuisine = card.querySelector('.cuisine');
                 
-                if(text.includes(searchTerm)) {
-                    card.style.display = 'block';
-                    found++;
-                    
-                    // Highlight matching text in cuisine
-                    if(cuisine) {
-                        const original = cuisine.textContent;
-                        const highlighted = original.replace(
-                            new RegExp(searchTerm, 'gi'), 
-                            match => `<span style="background:yellow;padding:0 2px;">${match}</span>`
-                        );
-                        cuisine.innerHTML = highlighted;
-                    }
-                } else {
-                    card.style.display = 'none';
-                    // Reset cuisine highlight if hidden
-                    if(cuisine) {
-                        cuisine.innerHTML = cuisine.textContent;
-                    }
-                }
-            });
-            
-            // Show results message
-            const msg = document.getElementById('searchResultsMsg');
-            if(found > 0) {
-                msg.textContent = `✅ Found ${found} restaurant(s) for "${searchTerm}"`;
-                msg.style.display = 'block';
-                msg.style.background = '#e8f4ff';
-                msg.style.color = '#1a73e8';
-            } else {
-                msg.textContent = `❌ No restaurants found for "${searchTerm}"`;
-                msg.style.display = 'block';
-                msg.style.background = '#ffebee';
-                msg.style.color = '#d32f2f';
-            }
-            
-            // Scroll to results message
-            msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        // Clear search when clicking "All" filter
-        document.querySelector('.filter-btn.active').addEventListener('click', function() {
-            if(this.textContent === 'All') {
-                document.getElementById('foodSearchInput').value = '';
-                document.getElementById('searchResultsMsg').style.display = 'none';
+                const filter = this.dataset.filter;
+                const restaurants = document.querySelectorAll('.restaurant-card');
                 
-                // Show all restaurants
-                document.querySelectorAll('.restaurant-card').forEach(card => {
-                    card.style.display = 'block';
-                    const cuisine = card.querySelector('.cuisine');
-                    if(cuisine) cuisine.innerHTML = cuisine.textContent;
+                restaurants.forEach(restaurant => {
+                    if (filter === 'all' || restaurant.dataset.cuisine === filter) {
+                        restaurant.style.display = 'block';
+                    } else {
+                        restaurant.style.display = 'none';
+                    }
                 });
-            }
+            });
         });
     </script>
 </body>
-</html>
+                            </html>
