@@ -1,62 +1,468 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Cart - FoodExpress</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
         .cart-page {
             margin-top: 100px;
             padding: 40px 0;
+            min-height: 60vh;
         }
+        
         .cart-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+        
+        .page-title {
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
         .cart-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
+        
+        .cart-items-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .cart-summary-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .cart-item-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary);
+            border: 1px solid #ddd;
+        }
+        
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .item-total {
+            font-weight: bold;
+            color: var(--primary);
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-cart i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart h3 {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row.total {
+            border-bottom: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary);
+            padding-top: 15px;
+        }
+        
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn-checkout:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .btn-clear {
+            width: 100%;
+            padding: 12px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
         @media (max-width: 768px) {
             .cart-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .cart-item-actions {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Same navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin">Admin</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
     <div class="cart-page">
         <div class="cart-container">
-            <h1>Your Cart</h1>
-            <div id="empty-cart" style="display: none; text-align: center; padding: 60px;">
-                <i class="fas fa-shopping-cart" style="font-size: 60px; color: #ddd;"></i>
-                <h3 style="margin: 20px 0;">Your cart is empty</h3>
-                <a href="restaurants.html" class="btn btn-primary">Browse Restaurants</a>
+            <h1 class="page-title"><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+            
+            <!-- Empty Cart State -->
+            <div id="empty-cart" class="empty-cart" style="display: none;">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p style="color: #666; margin-bottom: 30px;">Looks like you haven't added any items yet.</p>
+                <a href="restaurants.html" class="btn btn-primary" style="padding: 12px 30px;">
+                    <i class="fas fa-store"></i> Browse Restaurants
+                </a>
             </div>
             
-            <div class="cart-grid" id="cart-content">
-                <div id="cart-items-container"></div>
-                <div class="cart-summary">
-                    <h3>Order Summary</h3>
-                    <div style="padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <p>Subtotal: <span id="cart-subtotal">Tsh 0</span></p>
-                        <p>Delivery: <span id="cart-delivery">Tsh 2,500</span></p>
-                        <p>Service: <span id="cart-service">Tsh 1,000</span></p>
-                        <hr style="margin: 15px 0;">
-                        <p style="font-size: 20px; font-weight: bold;">Total: <span id="cart-total">Tsh 0</span></p>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="window.location.href='checkout.html'">
-                            Proceed to Checkout
+            <!-- Cart Content -->
+            <div id="cart-content" style="display: none;">
+                <div class="cart-grid">
+                    <!-- Cart Items -->
+                    <div class="cart-items-section">
+                        <h3 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--primary);">
+                            Cart Items (<span id="cart-total-items">0</span>)
+                        </h3>
+                        <div id="cart-items-container"></div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="cart-summary-section">
+                        <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">Tsh 0</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Delivery Fee</span>
+                            <span id="summary-delivery">Tsh 2,500</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Service Fee</span>
+                            <span id="summary-service">Tsh 1,000</span>
+                        </div>
+                        
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="summary-total">Tsh 0</span>
+                        </div>
+                        
+                        <button class="btn-checkout" onclick="window.location.href='checkout.html'">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
                         </button>
+                        
+                        <button class="btn-clear" onclick="clearCart()">
+                            <i class="fas fa-trash"></i> Clear Cart
+                        </button>
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <a href="restaurants.html" style="color: var(--primary); text-decoration: none;">
+                                <i class="fas fa-arrow-left"></i> Continue Shopping
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p>Your favorite food, delivered fast.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
     <script src="cart.js"></script>
+    <script>
+        // Display cart items
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            const container = document.getElementById('cart-items-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartContent = document.getElementById('cart-content');
+            const totalItemsSpan = document.getElementById('cart-total-items');
+            
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            cartContent.style.display = 'block';
+            
+            let html = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * (item.quantity || 1);
+                subtotal += itemTotal;
+                
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>Tsh ${item.price.toLocaleString()} each</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus" onclick="updateQuantity('${item.id}', -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="quantity">${item.quantity || 1}</span>
+                                <button class="quantity-btn plus" onclick="updateQuantity('${item.id}', 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <span class="item-total">Tsh ${itemTotal.toLocaleString()}</span>
+                            <button class="remove-btn" onclick="removeFromCart('${item.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Update totals
+            const deliveryFee = subtotal > 20000 ? 0 : 2500;
+            const serviceFee = 1000;
+            const total = subtotal + deliveryFee + serviceFee;
+            
+            document.getElementById('summary-subtotal').textContent = `Tsh ${subtotal.toLocaleString()}`;
+            document.getElementById('summary-delivery').textContent = `Tsh ${deliveryFee.toLocaleString()}`;
+            document.getElementById('summary-service').textContent = `Tsh ${serviceFee.toLocaleString()}`;
+            document.getElementById('summary-total').textContent = `Tsh ${total.toLocaleString()}`;
+            
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            totalItemsSpan.textContent = totalItems;
+            
+            // Update cart count in navbar
+            const cartCounts = document.querySelectorAll('.cart-count');
+            cartCounts.forEach(el => {
+                el.textContent = totalItems;
+            });
+        }
+        
+        // Update quantity
+        window.updateQuantity = function(itemId, change) {
+            let cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            const itemIndex = cart.findIndex(i => i.id === itemId);
+            
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = (cart[itemIndex].quantity || 1) + change;
+                
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                
+                localStorage.setItem('foodexpress_cart', JSON.stringify(cart));
+                displayCartItems();
+            }
+        };
+        
+        // Remove item
+        window.removeFromCart = function(itemId) {
+            let cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('foodexpress_cart', JSON.stringify(cart));
+            displayCartItems();
+            showNotification('Item removed from cart');
+        };
+        
+        // Clear cart
+        window.clearCart = function() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                localStorage.removeItem('foodexpress_cart');
+                displayCartItems();
+                showNotification('Cart cleared');
+            }
+        };
+        
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #28a745;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 5px;
+                z-index: 9999;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Initialize
+        displayCartItems();
+    </script>
 </body>
 </html>
