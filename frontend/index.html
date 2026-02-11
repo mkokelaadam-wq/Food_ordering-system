@@ -5,129 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodExpress - Order Food Online</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* ALL YOUR CSS STYLES HERE - SAME AS BEFORE */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #ffffff;
-            color: #333;
-            overflow-x: hidden;
-        }
-        
-        /* ... (ALL YOUR EXISTING CSS) ... */
-        
-        /* RESPONSIVE STYLES */
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .search-box {
-                flex-direction: column;
-                border-radius: 15px;
-            }
-            
-            .search-box input,
-            .search-box button {
-                width: 100%;
-                border-radius: 0;
-                text-align: center;
-            }
-            
-            .category-grid,
-            .restaurant-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .main-links {
-                gap: 10px;
-            }
-            
-            nav a {
-                padding: 6px 12px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">
-            <i class="fas fa-utensils"></i> FoodExpress
-        </div>
-        
+    <!-- Navigation Bar -->
+    <div class="navbar">
         <div class="nav-container">
-            <div class="main-links">
-                <a href="index.html">Home</a>
-                <a href="restaurants.html">Restaurants</a>
-                <a href="menu.html">Menu</a>
-                <a href="about.html">About</a>
-                <a href="orders.html">Orders</a>
-                <a href="contact.html">Contact</a>
-                <a href="profile.html">Profile</a>
-                <a href="checkout.html">Checkout</a>
-                <a href="cart.html" class="cart-btn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </a>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
             </div>
             
-            <div class="auth-links">
-                <a href="login.html" class="login-btn">Login</a>
-                <a href="signup.html" class="signup-btn">Sign Up</a>
-                <a href="admin-signup.html" class="partner-btn">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="restaurants.html">Restaurants</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                    <a href="cart.html" class="cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="signup.html" class="btn-signup">Sign Up</a>
+                <a href="admin-signup.html" class="btn-signup" style="background: #6c757d;">
                     <i class="fas fa-handshake"></i> Partner
-                </a>
-                <a href="admin-login.html" class="admin-btn">
-                    <i class="fas fa-user-shield"></i> Admin
                 </a>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
-        <h2>Delicious Food Delivered To Your Doorstep</h2>
-        <p>Order from your favorite restaurants and get it delivered hot and fresh. Fast delivery, great prices, and amazing food!</p>
-        <div class="search-box">
-            <input type="text" placeholder="Enter your delivery address or search for restaurants...">
-            <button>
-                <i class="fas fa-search"></i> Find Food
-            </button>
+        <div class="hero-content">
+            <h2>Delicious Food Delivered To Your Doorstep</h2>
+            <p>Order from your favorite restaurants and get it delivered hot and fresh. Fast delivery, great prices, and amazing food!</p>
+            <div class="search-container">
+                <input type="text" placeholder="Enter your delivery address or search for restaurants...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i> Find Food
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- Categories -->
-    <section class="categories">
+    <!-- Categories Section -->
+    <section class="features">
         <h3>Browse By Category</h3>
-        <div class="category-grid">
-            <div class="category-card" onclick="window.location.href='menu.html?category=burgers'">
+        <div class="features-grid">
+            <div class="feature" onclick="filterMenu('Burgers')">
                 <i class="fas fa-hamburger"></i>
                 <h4>Burgers</h4>
                 <p>Juicy burgers and crispy fries</p>
             </div>
-            <div class="category-card" onclick="window.location.href='menu.html?category=pizza'">
+            <div class="feature" onclick="filterMenu('Pizza')">
                 <i class="fas fa-pizza-slice"></i>
                 <h4>Pizza</h4>
                 <p>Freshly baked wood-fired pizzas</p>
             </div>
-            <div class="category-card" onclick="window.location.href='menu.html?category=tanzanian'">
+            <div class="feature" onclick="filterMenu('Tanzanian Food')">
                 <i class="fas fa-utensils"></i>
                 <h4>Tanzanian Food</h4>
                 <p>Chips Mayai, Nyama Choma, Pilau</p>
             </div>
-            <div class="category-card" onclick="window.location.href='menu.html?category=drinks'">
+            <div class="feature" onclick="filterMenu('Drinks & Desserts')">
                 <i class="fas fa-cocktail"></i>
                 <h4>Drinks & Desserts</h4>
                 <p>Refreshing beverages & sweet treats</p>
@@ -135,53 +82,73 @@
         </div>
     </section>
 
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <h3>Popular Menu Items</h3>
+        
+        <!-- Filter Buttons -->
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Burgers</button>
+            <button class="filter-btn">Pizza</button>
+            <button class="filter-btn">Tanzanian Food</button>
+            <button class="filter-btn">Drinks & Desserts</button>
+        </div>
+        
+        <!-- Menu Items Grid -->
+        <div class="menu-grid" id="menu-items">
+            <!-- Menu items will be loaded here by JavaScript -->
+            <div class="loading">Loading menu...</div>
+        </div>
+    </section>
+
     <!-- Popular Restaurants -->
     <section class="restaurants">
         <h3>Popular Restaurants</h3>
-        <div class="restaurant-grid">
+        <div class="restaurants-grid">
             <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mama's Kitchen">
                 <div class="restaurant-info">
                     <h4>Mama's Kitchen</h4>
                     <p>Authentic Tanzanian cuisine with traditional recipes</p>
-                    <div class="restaurant-meta">
-                        <div class="rating">⭐⭐⭐⭐☆ 4.5</div>
-                        <div class="price">Tsh 5,000+</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.5</span>
+                        <span class="price">Tsh 5,000+</span>
                     </div>
-                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
                 </div>
             </div>
             
             <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Burger Palace">
                 <div class="restaurant-info">
                     <h4>Burger Palace</h4>
                     <p>Best burgers in town with homemade buns</p>
-                    <div class="restaurant-meta">
-                        <div class="rating">⭐⭐⭐⭐⭐ 4.8</div>
-                        <div class="price">Tsh 8,000+</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.8</span>
+                        <span class="price">Tsh 8,000+</span>
                     </div>
-                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
                 </div>
             </div>
             
             <div class="restaurant-card">
-                <div class="restaurant-img" style="background-image: url('https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')"></div>
+                <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Pizza Hub">
                 <div class="restaurant-info">
                     <h4>Pizza Hub</h4>
                     <p>Wood-fired pizza and Italian specialties</p>
-                    <div class="restaurant-meta">
-                        <div class="rating">⭐⭐⭐⭐☆ 4.3</div>
-                        <div class="price">Tsh 12,000+</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.3</span>
+                        <span class="price">Tsh 12,000+</span>
                     </div>
-                    <button class="order-btn" onclick="window.location.href='menu.html'">View Menu</button>
+                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Why Choose Us -->
+    <section class="features" style="background: #f8f9fa;">
         <h3>Why Choose FoodExpress?</h3>
         <div class="features-grid">
             <div class="feature">
@@ -207,16 +174,78 @@
         </div>
     </section>
 
+    <!-- Order Form -->
+    <section class="order-form" id="order-form-section">
+        <h3>Place Your Order</h3>
+        <form id="order-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div>
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
+                </div>
+            </div>
+            
+            <div>
+                <textarea id="address" placeholder="Delivery Address" rows="3" required></textarea>
+            </div>
+            
+            <div>
+                <h4 style="margin: 20px 0 10px 0;">Payment Method</h4>
+                <div class="payment-options">
+                    <label>
+                        <input type="radio" name="payment" value="cash" checked>
+                        Cash on Delivery
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="card">
+                        Credit/Debit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="mobile">
+                        Mobile Payment
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-order">
+                <i class="fas fa-shopping-bag"></i> Place Order Now
+            </button>
+        </form>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0;">Your Cart</h3>
+            <button class="close-cart" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+        </div>
+        
+        <div id="cart-items" style="max-height: 400px; overflow-y: auto;">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div class="cart-total" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; font-size: 20px;">
+            Total: <span id="cart-total" style="font-weight: bold; color: #27ae60;">Tsh 0</span>
+        </div>
+        
+        <button class="checkout-btn">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+        </button>
+    </div>
+
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-container">
             <div class="footer-section">
                 <h4>FoodExpress</h4>
                 <p>Your favorite food, delivered fast. Serving since 2024.</p>
-                <div style="margin-top: 15px; display: flex; gap: 15px;">
+                <div class="social-links">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             
@@ -227,6 +256,7 @@
                 <a href="menu.html">Menu</a>
                 <a href="orders.html">My Orders</a>
                 <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
             </div>
             
             <div class="footer-section">
@@ -237,20 +267,14 @@
             </div>
             
             <div class="footer-section">
-                <h4>Download Our App</h4>
-                <p>Get exclusive deals and faster ordering</p>
-                <div style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <button style="background: #333; color: white; border: 2px solid white; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                        <i class="fab fa-apple"></i> App Store
-                    </button>
-                    <button style="background: #333; color: white; border: 2px solid white; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                        <i class="fab fa-google-play"></i> Google Play
-                    </button>
-                </div>
+                <h4>Working Hours</h4>
+                <p>Monday - Friday: 8:00 AM - 10:00 PM</p>
+                <p>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
+                <p>24/7 Delivery Available</p>
             </div>
         </div>
         
-        <div class="copyright">
+        <div class="footer-bottom">
             <p>&copy; 2024 FoodExpress. All rights reserved. | 
                 <a href="privacy.html" style="color: #ff6b35;">Privacy Policy</a> | 
                 <a href="terms.html" style="color: #ff6b35;">Terms of Service</a>
@@ -258,149 +282,16 @@
         </div>
     </footer>
 
+    <!-- Link to JavaScript -->
+    <script src="script.js"></script>
+    
+    <!-- Global filter function -->
     <script>
-        // Cart functionality
-        let cartCount = 0;
-        const cartCountElement = document.querySelector('.cart-count');
-        
-        // Update cart count from localStorage
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cartCount = cart.length;
-            cartCountElement.textContent = cartCount;
+        function filterMenu(category) {
+            // Dispatch event to JavaScript
+            const event = new CustomEvent('filterMenu', { detail: category });
+            document.dispatchEvent(event);
         }
-        
-        // Add to cart from category cards
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
-                cartCount++;
-                cartCountElement.textContent = cartCount;
-                
-                // Save to localStorage
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const category = this.querySelector('h4').textContent;
-                cart.push({
-                    id: Date.now(),
-                    name: `Category: ${category}`,
-                    price: 0,
-                    quantity: 1
-                });
-                localStorage.setItem('cart', JSON.stringify(cart));
-                
-                // Show notification
-                showNotification(`${category} added to cart!`);
-            });
-        });
-        
-        // Add to cart from restaurant buttons
-        document.querySelectorAll('.order-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent card click
-                const restaurant = this.closest('.restaurant-card').querySelector('h4').textContent;
-                
-                cartCount++;
-                cartCountElement.textContent = cartCount;
-                
-                // Save to localStorage
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cart.push({
-                    id: Date.now(),
-                    name: `Restaurant: ${restaurant}`,
-                    price: 0,
-                    quantity: 1
-                });
-                localStorage.setItem('cart', JSON.stringify(cart));
-                
-                showNotification(`Viewing ${restaurant} menu!`);
-            });
-        });
-        
-        // Search functionality
-        document.querySelector('.search-box button').addEventListener('click', function() {
-            const searchTerm = document.querySelector('.search-box input').value;
-            if (searchTerm.trim()) {
-                alert(`Searching for: ${searchTerm}`);
-                // In real app: window.location.href = `search.html?q=${searchTerm}`;
-            }
-        });
-        
-        // Enter key for search
-        document.querySelector('.search-box input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.querySelector('.search-box button').click();
-            }
-        });
-        
-        // Check login status
-        function checkLoginStatus() {
-            const user = JSON.parse(localStorage.getItem('user'));
-            const authLinks = document.querySelector('.auth-links');
-            
-            if (user) {
-                authLinks.innerHTML = `
-                    <a href="profile.html" style="background: #4CAF50; color: white !important;">
-                        <i class="fas fa-user"></i> ${user.name.split(' ')[0]}
-                    </a>
-                    <button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                        Logout
-                    </button>
-                    ${authLinks.innerHTML}
-                `;
-            }
-        }
-        
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('user');
-                localStorage.removeItem('cart');
-                window.location.reload();
-            }
-        }
-        
-        // Notification function
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: #28a745;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 5px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 1000;
-                animation: slideIn 0.3s;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Add CSS for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCount();
-            checkLoginStatus();
-        });
     </script>
 </body>
-    </html>
+            </html>
