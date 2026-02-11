@@ -1,496 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart - FoodExpress</title>
+    <title>Cart - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .cart-page {
+            margin-top: 100px;
+            padding: 40px 0;
         }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        
-        /* Navigation */
-        nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-        
-        .nav-links a.active {
-            color: #ff6b35;
-            font-weight: bold;
-        }
-        
-        .cart-icon {
-            position: relative;
-        }
-        
-        .cart-count {
-            background: #ff6b35;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 8px;
-            font-size: 12px;
-            position: absolute;
-            top: -8px;
-            right: -8px;
-        }
-        
-        /* Page Header */
-        .cart-header {
-            background: white;
-            padding: 30px 20px;
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .cart-header h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        /* Main Content */
-        .container {
+        .cart-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+        .cart-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
-        
         @media (max-width: 768px) {
-            .container {
+            .cart-grid {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        /* Cart Items */
-        .cart-items {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .cart-items h2 {
-            margin-bottom: 20px;
-            color: #333;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ff6b35;
-        }
-        
-        .cart-item {
-            display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 20px;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-            align-items: center;
-        }
-        
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        
-        .item-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .item-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .item-details h3 {
-            margin-bottom: 5px;
-            color: #333;
-        }
-        
-        .item-details p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        
-        .item-price {
-            color: #ff6b35;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .quantity-btn {
-            background: #f0f0f0;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .quantity-btn:hover {
-            background: #ff6b35;
-            color: white;
-        }
-        
-        .quantity {
-            font-size: 18px;
-            font-weight: bold;
-            min-width: 30px;
-            text-align: center;
-        }
-        
-        .remove-btn {
-            background: none;
-            border: none;
-            color: #ff6b35;
-            cursor: pointer;
-            margin-left: 15px;
-        }
-        
-        .remove-btn:hover {
-            text-decoration: underline;
-        }
-        
-        /* Order Summary */
-        .order-summary {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 100px;
-        }
-        
-        .order-summary h2 {
-            margin-bottom: 20px;
-            color: #333;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ff6b35;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .summary-row.total {
-            border-bottom: none;
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
-        }
-        
-        .checkout-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(to right, #ff6b35, #f0932b);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-        
-        .checkout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
-        }
-        
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #ff6b35;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        
-        .empty-cart i {
-            font-size: 60px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-        
-        .empty-cart p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-        
-        .shop-btn {
-            display: inline-block;
-            background: #ff6b35;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="restaurants.html">Restaurants</a>
-            <a href="about.html">About</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="contact.html">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
-            <a href="checkout.html" style="background:#28a745;color:white;padding:10px 20px;border-radius:5px;text-decoration:none;">
-    Proceed to Checkout
-            </a>
-            <a href="cart.html" class="active cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">3</span>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Page Header -->
-    <div class="cart-header">
-        <h1>🛒 Your Shopping Cart</h1>
-        <p>Review your items and proceed to checkout</p>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Cart Items -->
-        <div class="cart-items">
-            <h2>Order Items (3)</h2>
-            
-            <!-- Item 1 -->
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=200" alt="Pizza">
-                </div>
-                <div class="item-details">
-                    <h3>Margherita Pizza</h3>
-                    <p>Classic pizza with tomato sauce, mozzarella, and basil</p>
-                    <div class="item-price">Tsh 12,000</div>
-                </div>
-                <div class="item-controls">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">1</span>
-                    <button class="quantity-btn plus">+</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
+    <!-- Same navigation -->
+    <div class="cart-page">
+        <div class="cart-container">
+            <h1>Your Cart</h1>
+            <div id="empty-cart" style="display: none; text-align: center; padding: 60px;">
+                <i class="fas fa-shopping-cart" style="font-size: 60px; color: #ddd;"></i>
+                <h3 style="margin: 20px 0;">Your cart is empty</h3>
+                <a href="restaurants.html" class="btn btn-primary">Browse Restaurants</a>
             </div>
             
-            <!-- Item 2 -->
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=200" alt="Burger">
+            <div class="cart-grid" id="cart-content">
+                <div id="cart-items-container"></div>
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div style="padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                        <p>Subtotal: <span id="cart-subtotal">Tsh 0</span></p>
+                        <p>Delivery: <span id="cart-delivery">Tsh 2,500</span></p>
+                        <p>Service: <span id="cart-service">Tsh 1,000</span></p>
+                        <hr style="margin: 15px 0;">
+                        <p style="font-size: 20px; font-weight: bold;">Total: <span id="cart-total">Tsh 0</span></p>
+                        <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="window.location.href='checkout.html'">
+                            Proceed to Checkout
+                        </button>
+                    </div>
                 </div>
-                <div class="item-details">
-                    <h3>Beef Burger</h3>
-                    <p>Juicy beef patty with cheese, lettuce, and special sauce</p>
-                    <div class="item-price">Tsh 8,500</div>
-                </div>
-                <div class="item-controls">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">2</span>
-                    <button class="quantity-btn plus">+</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
-            </div>
-            
-            <!-- Item 3 -->
-            <div class="cart-item">
-                <div class="item-img">
-                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=200" alt="Drink">
-                </div>
-                <div class="item-details">
-                    <h3>Fresh Orange Juice</h3>
-                    <p>Freshly squeezed orange juice, no additives</p>
-                    <div class="item-price">Tsh 3,500</div>
-                </div>
-                <div class="item-controls">
-                    <button class="quantity-btn minus">-</button>
-                    <span class="quantity">1</span>
-                    <button class="quantity-btn plus">+</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Order Summary -->
-        <div class="order-summary">
-            <h2>Order Summary</h2>
-            
-            <div class="summary-row">
-                <span>Subtotal (3 items)</span>
-                <span>Tsh 24,000</span>
-            </div>
-            
-            <div class="summary-row">
-                <span>Delivery Fee</span>
-                <span>Tsh 2,000</span>
-            </div>
-            
-            <div class="summary-row">
-                <span>Service Charge</span>
-                <span>Tsh 500</span>
-            </div>
-            
-            <div class="summary-row">
-                <span>Tax (18%)</span>
-                <span>Tsh 4,770</span>
-            </div>
-            
-            <div class="summary-row total">
-                <span>Total</span>
-                <span>Tsh 31,270</span>
-            </div>
-            
-            <button class="checkout-btn">
-                <i class="fas fa-lock"></i> Proceed to Checkout
-            </button>
-            
-            <a href="restaurants.html" class="continue-shopping">
-                <i class="fas fa-arrow-left"></i> Continue Shopping
-            </a>
-            
-            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                <p style="font-size: 14px; color: #666;">
-                    <i class="fas fa-info-circle"></i> 
-                    Estimated delivery time: <strong>30-45 minutes</strong>
-                </p>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.8;">Delivering happiness to your doorstep</p>
-    </footer>
-
-    <script>
-        // Cart functionality
-        document.querySelectorAll('.plus').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const quantityElement = this.previousElementSibling;
-                let quantity = parseInt(quantityElement.textContent);
-                quantityElement.textContent = quantity + 1;
-                updateCartTotal();
-            });
-        });
-        
-        document.querySelectorAll('.minus').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const quantityElement = this.nextElementSibling;
-                let quantity = parseInt(quantityElement.textContent);
-                if(quantity > 1) {
-                    quantityElement.textContent = quantity - 1;
-                    updateCartTotal();
-                }
-            });
-        });
-        
-        document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const cartItem = this.closest('.cart-item');
-                cartItem.style.opacity = '0.5';
-                setTimeout(() => {
-                    cartItem.remove();
-                    updateCartTotal();
-                    updateCartCount();
-                }, 300);
-            });
-        });
-        
-        function updateCartTotal() {
-            // This would calculate total in real app
-            console.log('Cart updated');
-        }
-        
-        function updateCartCount() {
-            const items = document.querySelectorAll('.cart-item').length;
-            document.querySelector('.cart-count').textContent = items;
-        }
-        
-        // Checkout button
-        document.querySelector('.checkout-btn').addEventListener('click', function() {
-            const items = document.querySelectorAll('.cart-item').length;
-            if(items > 0) {
-                alert(`Proceeding to checkout with ${items} items`);
-                // In real app: window.location.href = 'checkout.html';
-            } else {
-                alert('Your cart is empty!');
-            }
-        });
-    </script>
+    
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
 </body>
 </html>
