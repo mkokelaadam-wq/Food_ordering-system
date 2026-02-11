@@ -1,116 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Your Cart - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(255,107,53,0.12);
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ===== NAVIGATION (same as index) ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+            transform: rotate(-10deg);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .nav-link i {
+            margin-right: 8px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            text-decoration: none;
+            color: var(--secondary);
+            padding: 10px 15px;
+            margin-left: 5px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-admin {
+            background: var(--gray);
+            color: white;
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-admin:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+        
+        /* ===== CART PAGE ===== */
         .cart-page {
             margin-top: 100px;
-            padding: 40px 0;
-            min-height: 60vh;
+            padding: 40px 0 80px;
+            min-height: 70vh;
         }
         
         .cart-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
         
         .page-title {
-            margin-bottom: 30px;
-            color: var(--dark);
+            margin-bottom: 40px;
+            color: var(--secondary);
+            font-size: 36px;
+            font-weight: 700;
         }
         
+        .page-title i {
+            color: var(--primary);
+            margin-right: 12px;
+        }
+        
+        /* ===== CART GRID ===== */
         .cart-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
+            align-items: start;
         }
         
+        /* ===== CART ITEMS SECTION ===== */
         .cart-items-section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: var(--white);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.03);
         }
         
-        .cart-summary-section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 100px;
+        .cart-items-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary);
         }
         
+        .cart-items-header h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .cart-items-header h3 i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .restaurant-tag {
+            background: var(--light);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .restaurant-tag i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+        
+        /* ===== CART ITEM ===== */
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
+            padding: 25px 0;
+            border-bottom: 1px solid #f0f0f0;
+            animation: slideIn 0.3s ease;
         }
         
         .cart-item:last-child {
             border-bottom: none;
         }
         
+        .cart-item-info {
+            flex: 2;
+        }
+        
         .cart-item-info h4 {
-            margin-bottom: 5px;
-            color: var(--dark);
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-weight: 700;
         }
         
         .cart-item-info p {
-            color: #666;
+            color: var(--gray);
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .cart-item-info p i {
+            color: var(--primary);
         }
         
         .cart-item-actions {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 25px;
+            flex: 3;
+            justify-content: flex-end;
         }
         
+        /* ===== QUANTITY CONTROLS ===== */
         .quantity-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #f8f9fa;
-            padding: 5px;
-            border-radius: 5px;
+            gap: 8px;
+            background: var(--light);
+            padding: 6px;
+            border-radius: 50px;
+            border: 1px solid #e9ecef;
         }
         
         .quantity-btn {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border: none;
             background: white;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
             color: var(--primary);
-            border: 1px solid #ddd;
+            border: 1px solid #e9ecef;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn i {
+            font-size: 12px;
         }
         
         .quantity-btn:hover {
             background: var(--primary);
             color: white;
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .quantity-btn:active {
+            transform: scale(0.95);
         }
         
         .quantity {
-            font-weight: bold;
+            font-weight: 700;
             min-width: 30px;
             text-align: center;
+            color: var(--secondary);
         }
         
         .item-total {
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary);
             min-width: 100px;
             text-align: right;
+            font-size: 18px;
         }
         
         .remove-btn {
@@ -118,96 +387,442 @@
             border: none;
             color: var(--danger);
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
         }
         
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
+        .remove-btn:hover {
+            background: rgba(220,53,69,0.1);
+            transform: scale(1.1);
         }
         
-        .empty-cart i {
-            font-size: 60px;
-            color: #ddd;
-            margin-bottom: 20px;
+        /* ===== ORDER SUMMARY ===== */
+        .cart-summary-section {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 120px;
+            border: 1px solid rgba(0,0,0,0.03);
         }
         
-        .empty-cart h3 {
-            margin-bottom: 10px;
-            color: #666;
+        .cart-summary-section h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary);
+            color: var(--secondary);
+            font-weight: 700;
         }
         
         .summary-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f0f0f0;
+            color: var(--gray);
+            font-size: 16px;
         }
         
         .summary-row.total {
             border-bottom: none;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 700;
             color: var(--primary);
-            padding-top: 15px;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px dashed #e9ecef;
+        }
+        
+        .free-delivery {
+            color: var(--success);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 5px;
+        }
+        
+        .free-delivery i {
+            color: var(--success);
         }
         
         .btn-checkout {
             width: 100%;
-            padding: 15px;
-            background: var(--success);
+            padding: 18px;
+            background: linear-gradient(135deg, var(--success) 0%, #218838 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 16px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-checkout i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
         }
         
         .btn-checkout:hover {
-            background: #218838;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(40,167,69,0.3);
+        }
+        
+        .btn-checkout:hover i {
+            transform: translateX(5px);
         }
         
         .btn-clear {
             width: 100%;
-            padding: 12px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 5px;
+            padding: 16px;
+            background: white;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+            border-radius: 16px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
-        @media (max-width: 768px) {
+        .btn-clear:hover {
+            background: var(--danger);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220,53,69,0.2);
+        }
+        
+        .continue-shopping {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .continue-shopping i {
+            transition: transform 0.3s ease;
+        }
+        
+        .continue-shopping:hover {
+            color: var(--primary-dark);
+        }
+        
+        .continue-shopping:hover i {
+            transform: translateX(-5px);
+        }
+        
+        /* ===== EMPTY CART ===== */
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .empty-cart i {
+            font-size: 80px;
+            color: #e9ecef;
+            margin-bottom: 25px;
+        }
+        
+        .empty-cart h3 {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .empty-cart p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        /* ===== NOTIFICATION ===== */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(40,167,69,0.3);
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        
+        .notification i {
+            font-size: 18px;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+            font-size: 36px;
+        }
+        
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .footer-col p {
+            color: #a0aec0;
+            line-height: 1.8;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+        
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            text-align: center;
+            color: #a0aec0;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 1024px) {
+            .cart-grid {
+                grid-template-columns: 1.5fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 880px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
             .cart-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .cart-summary-section {
+                position: static;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 12px 20px;
+            }
+            
+            .cart-page {
+                margin-top: 120px;
+            }
+            
+            .page-title {
+                font-size: 30px;
             }
             
             .cart-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 20px;
             }
             
             .cart-item-actions {
                 width: 100%;
                 justify-content: space-between;
+                gap: 15px;
+            }
+            
+            .quantity-controls {
+                padding: 4px;
+            }
+            
+            .quantity-btn {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .item-total {
+                min-width: 80px;
+            }
+            
+            .cart-items-section,
+            .cart-summary-section {
+                padding: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .cart-container {
+                padding: 0 20px;
+            }
+            
+            .page-title {
+                font-size: 26px;
+            }
+            
+            .cart-item-actions {
+                flex-wrap: wrap;
+            }
+            
+            .item-total {
+                text-align: left;
+                min-width: auto;
+            }
+            
+            .btn {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .btn-checkout,
+            .btn-clear {
+                padding: 14px;
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
+            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
@@ -216,11 +831,12 @@
                 <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
                 <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
             </div>
+            
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-login">Login</a>
                 <a href="signup.html" class="btn btn-signup">Sign Up</a>
                 <a href="admin-login.html" class="btn btn-admin">Admin</a>
-                <a href="cart.html" class="cart-btn">
+                <a href="cart.html" class="cart-btn active">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a>
@@ -228,16 +844,19 @@
         </div>
     </nav>
 
+    <!-- ===== CART PAGE ===== -->
     <div class="cart-page">
         <div class="cart-container">
-            <h1 class="page-title"><i class="fas fa-shopping-cart"></i> Your Shopping Cart</h1>
+            <h1 class="page-title">
+                <i class="fas fa-shopping-cart"></i> Your Shopping Cart
+            </h1>
             
             <!-- Empty Cart State -->
             <div id="empty-cart" class="empty-cart" style="display: none;">
                 <i class="fas fa-shopping-cart"></i>
                 <h3>Your cart is empty</h3>
-                <p style="color: #666; margin-bottom: 30px;">Looks like you haven't added any items yet.</p>
-                <a href="restaurants.html" class="btn btn-primary" style="padding: 12px 30px;">
+                <p>Looks like you haven't added any delicious items yet.</p>
+                <a href="restaurants.html" class="btn-primary">
                     <i class="fas fa-store"></i> Browse Restaurants
                 </a>
             </div>
@@ -245,17 +864,27 @@
             <!-- Cart Content -->
             <div id="cart-content" style="display: none;">
                 <div class="cart-grid">
-                    <!-- Cart Items -->
+                    <!-- Cart Items Section -->
                     <div class="cart-items-section">
-                        <h3 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--primary);">
-                            Cart Items (<span id="cart-total-items">0</span>)
-                        </h3>
+                        <div class="cart-items-header">
+                            <h3>
+                                <i class="fas fa-shopping-bag"></i> 
+                                Cart Items (<span id="cart-total-items">0</span>)
+                            </h3>
+                            <span class="restaurant-tag">
+                                <i class="fas fa-truck"></i> Delivery in 30-45 min
+                            </span>
+                        </div>
+                        
+                        <!-- Cart Items Container -->
                         <div id="cart-items-container"></div>
                     </div>
                     
-                    <!-- Order Summary -->
+                    <!-- Order Summary Section -->
                     <div class="cart-summary-section">
-                        <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                        <h3>
+                            <i class="fas fa-receipt"></i> Order Summary
+                        </h3>
                         
                         <div class="summary-row">
                             <span>Subtotal</span>
@@ -265,6 +894,10 @@
                         <div class="summary-row">
                             <span>Delivery Fee</span>
                             <span id="summary-delivery">Tsh 2,500</span>
+                        </div>
+                        
+                        <div id="free-delivery-message" class="free-delivery" style="display: none;">
+                            <i class="fas fa-check-circle"></i> Free delivery applied!
                         </div>
                         
                         <div class="summary-row">
@@ -277,25 +910,24 @@
                             <span id="summary-total">Tsh 0</span>
                         </div>
                         
-                        <button class="btn-checkout" onclick="window.location.href='checkout.html'">
+                        <button class="btn-checkout" id="checkout-btn">
                             <i class="fas fa-lock"></i> Proceed to Checkout
                         </button>
                         
                         <button class="btn-clear" onclick="clearCart()">
-                            <i class="fas fa-trash"></i> Clear Cart
+                            <i class="fas fa-trash-alt"></i> Clear Cart
                         </button>
                         
-                        <div style="margin-top: 20px; text-align: center;">
-                            <a href="restaurants.html" style="color: var(--primary); text-decoration: none;">
-                                <i class="fas fa-arrow-left"></i> Continue Shopping
-                            </a>
-                        </div>
+                        <a href="restaurants.html" class="continue-shopping">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -304,7 +936,7 @@
                         <i class="fas fa-utensils"></i>
                         <h2>FoodExpress</h2>
                     </div>
-                    <p>Your favorite food, delivered fast.</p>
+                    <p>Your favorite food, delivered fast. Serving Dar es Salaam with love.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
@@ -312,6 +944,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="restaurants.html">Restaurants</a></li>
                         <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -320,29 +953,35 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="login.html">Login</a></li>
                         <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="admin-login.html">Partner Login</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+                <p>&copy; 2024 FoodExpress. All rights reserved. Delivering happiness since 2024.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="cart.js"></script>
     <script>
-        // Display cart items
+        // ===== DISPLAY CART ITEMS =====
         function displayCartItems() {
             const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
             const container = document.getElementById('cart-items-container');
             const emptyCart = document.getElementById('empty-cart');
             const cartContent = document.getElementById('cart-content');
             const totalItemsSpan = document.getElementById('cart-total-items');
+            const cartCountElements = document.querySelectorAll('.cart-count');
             
+            // Check if cart is empty
             if (cart.length === 0) {
                 emptyCart.style.display = 'block';
                 cartContent.style.display = 'none';
+                
+                // Update cart count in navbar
+                cartCountElements.forEach(el => {
+                    el.textContent = '0';
+                });
                 return;
             }
             
@@ -352,29 +991,35 @@
             let html = '';
             let subtotal = 0;
             
-            cart.forEach(item => {
-                const itemTotal = item.price * (item.quantity || 1);
+            cart.forEach((item, index) => {
+                const quantity = item.quantity || 1;
+                const itemTotal = item.price * quantity;
                 subtotal += itemTotal;
                 
                 html += `
-                    <div class="cart-item">
+                    <div class="cart-item" data-item-id="${item.id}" style="animation-delay: ${index * 0.1}s">
                         <div class="cart-item-info">
                             <h4>${item.name}</h4>
-                            <p>Tsh ${item.price.toLocaleString()} each</p>
+                            <p>
+                                <i class="fas fa-store"></i> ${item.restaurant || 'FoodExpress'}
+                                <span style="margin-left: 15px;">
+                                    <i class="fas fa-tag"></i> Tsh ${item.price.toLocaleString()} each
+                                </span>
+                            </p>
                         </div>
                         <div class="cart-item-actions">
                             <div class="quantity-controls">
                                 <button class="quantity-btn minus" onclick="updateQuantity('${item.id}', -1)">
                                     <i class="fas fa-minus"></i>
                                 </button>
-                                <span class="quantity">${item.quantity || 1}</span>
+                                <span class="quantity">${quantity}</span>
                                 <button class="quantity-btn plus" onclick="updateQuantity('${item.id}', 1)">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                             <span class="item-total">Tsh ${itemTotal.toLocaleString()}</span>
                             <button class="remove-btn" onclick="removeFromCart('${item.id}')">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
                     </div>
@@ -383,86 +1028,115 @@
             
             container.innerHTML = html;
             
-            // Update totals
-            const deliveryFee = subtotal > 20000 ? 0 : 2500;
+            // Calculate totals
+            const deliveryFee = subtotal >= 20000 ? 0 : 2500;
             const serviceFee = 1000;
             const total = subtotal + deliveryFee + serviceFee;
             
+            // Update summary
             document.getElementById('summary-subtotal').textContent = `Tsh ${subtotal.toLocaleString()}`;
-            document.getElementById('summary-delivery').textContent = `Tsh ${deliveryFee.toLocaleString()}`;
+            document.getElementById('summary-delivery').textContent = deliveryFee === 0 ? 'Tsh 0' : 'Tsh 2,500';
             document.getElementById('summary-service').textContent = `Tsh ${serviceFee.toLocaleString()}`;
             document.getElementById('summary-total').textContent = `Tsh ${total.toLocaleString()}`;
             
+            // Show/hide free delivery message
+            const freeDeliveryMsg = document.getElementById('free-delivery-message');
+            if (freeDeliveryMsg) {
+                freeDeliveryMsg.style.display = deliveryFee === 0 ? 'flex' : 'none';
+            }
+            
+            // Update total items count
             const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
             totalItemsSpan.textContent = totalItems;
             
             // Update cart count in navbar
-            const cartCounts = document.querySelectorAll('.cart-count');
-            cartCounts.forEach(el => {
+            cartCountElements.forEach(el => {
                 el.textContent = totalItems;
             });
         }
-        
-        // Update quantity
+
+        // ===== UPDATE QUANTITY =====
         window.updateQuantity = function(itemId, change) {
             let cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
-            const itemIndex = cart.findIndex(i => i.id === itemId);
+            const itemIndex = cart.findIndex(item => item.id == itemId);
             
             if (itemIndex !== -1) {
-                cart[itemIndex].quantity = (cart[itemIndex].quantity || 1) + change;
+                const currentQty = cart[itemIndex].quantity || 1;
+                const newQty = currentQty + change;
                 
-                if (cart[itemIndex].quantity <= 0) {
+                if (newQty <= 0) {
+                    // Remove item if quantity becomes 0
                     cart.splice(itemIndex, 1);
+                    showNotification('Item removed from cart', 'danger');
+                } else {
+                    cart[itemIndex].quantity = newQty;
+                    showNotification('Cart updated', 'success');
                 }
                 
                 localStorage.setItem('foodexpress_cart', JSON.stringify(cart));
                 displayCartItems();
             }
         };
-        
-        // Remove item
+
+        // ===== REMOVE FROM CART =====
         window.removeFromCart = function(itemId) {
             let cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
-            cart = cart.filter(item => item.id !== itemId);
+            cart = cart.filter(item => item.id != itemId);
             localStorage.setItem('foodexpress_cart', JSON.stringify(cart));
             displayCartItems();
-            showNotification('Item removed from cart');
+            showNotification('Item removed from cart', 'danger');
         };
-        
-        // Clear cart
+
+        // ===== CLEAR CART =====
         window.clearCart = function() {
-            if (confirm('Are you sure you want to clear your cart?')) {
+            if (confirm('Are you sure you want to clear your entire cart?')) {
                 localStorage.removeItem('foodexpress_cart');
                 displayCartItems();
-                showNotification('Cart cleared');
+                showNotification('Cart cleared', 'danger');
             }
         };
-        
-        // Show notification
-        function showNotification(message) {
+
+        // ===== SHOW NOTIFICATION =====
+        function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: #28a745;
-                color: white;
-                padding: 15px 25px;
-                border-radius: 5px;
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
+            notification.className = 'notification';
+            
+            const bgColor = type === 'success' ? '#28a745' : '#dc3545';
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            
+            notification.style.background = bgColor;
+            notification.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
             `;
-            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
+                notification.style.animation = 'slideOutRight 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
-        
-        // Initialize
-        displayCartItems();
+
+        // ===== CHECKOUT BUTTON =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+                    
+                    if (cart.length === 0) {
+                        showNotification('Your cart is empty!', 'danger');
+                    } else {
+                        window.location.href = 'checkout.html';
+                    }
+                });
+            }
+            
+            // Initialize cart
+            displayCartItems();
+        });
     </script>
 </body>
 </html>
