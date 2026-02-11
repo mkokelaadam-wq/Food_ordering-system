@@ -1,96 +1,892 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodExpress - Order Food Online</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>FoodExpress | Tanzania Food Delivery</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-        body{background:#f8f9fa;color:#333;padding-top:80px;}
-        .navbar{background:white;box-shadow:0 2px 15px rgba(0,0,0,0.1);position:fixed;width:100%;top:0;z-index:1000;}
-        .nav-container{display:flex;justify-content:space-between;align-items:center;padding:15px 40px;max-width:1400px;margin:0 auto;}
-        .logo{display:flex;align-items:center;gap:10px;}
-        .logo i{color:#ff6b35;font-size:28px;}
-        .logo h1{color:#ff6b35;font-size:24px;}
-        .nav-menu{display:flex;gap:20px;align-items:center;}
-        .nav-link{text-decoration:none;color:#444;font-weight:500;padding:10px 18px;border-radius:6px;}
-        .nav-link:hover,.nav-link.active{background:#ff6b35;color:white;}
-        .cart-btn{position:relative;text-decoration:none;color:#444;padding:10px;}
-        .cart-count{position:absolute;top:-8px;right:-8px;background:#dc3545;color:white;font-size:12px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-        .auth-buttons{display:flex;gap:15px;}
-        .btn-login,.btn-signup,.btn-admin{padding:10px 25px;border-radius:25px;text-decoration:none;font-weight:bold;border:2px solid #ff6b35;}
-        .btn-login{background:transparent;color:#ff6b35;}
-        .btn-signup{background:#ff6b35;color:white;}
-        .btn-admin{background:#6c757d;border-color:#6c757d;color:white;}
-        .hero{background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200');background-size:cover;color:white;padding:100px 20px;text-align:center;}
-        .hero-content{max-width:800px;margin:0 auto;}
-        .hero-content h1{font-size:48px;margin-bottom:25px;}
-        .hero-content p{font-size:20px;margin-bottom:50px;}
-        .search-box{max-width:700px;margin:0 auto;display:flex;background:white;border-radius:60px;overflow:hidden;}
-        .search-input{flex:1;display:flex;align-items:center;padding:0 20px;}
-        .search-input i{color:#ff6b35;margin-right:10px;}
-        .search-input input{flex:1;padding:22px 0;border:none;font-size:17px;outline:none;}
-        .btn-search{background:#ff6b35;color:white;border:none;padding:0 50px;font-size:17px;font-weight:600;cursor:pointer;}
-        .hero-stats{display:flex;justify-content:center;gap:50px;margin-top:50px;}
-        .stat{display:flex;align-items:center;gap:15px;}
-        .stat i{font-size:32px;color:#ff6b35;}
-        .stat h3{font-size:24px;}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
-        .section-title{text-align:center;font-size:36px;margin-bottom:50px;position:relative;}
-        .section-title::after{content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:#ff6b35;}
-        .categories{padding:80px 20px;background:white;}
-        .categories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-        .category-card{text-align:center;padding:40px 25px;border-radius:15px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:0.4s;}
-        .category-card:hover{transform:translateY(-10px);border-color:#ff6b35;}
-        .category-icon i{font-size:50px;color:#ff6b35;margin-bottom:25px;}
-        .btn-category{background:#ff6b35;color:white;border:none;padding:12px 30px;border-radius:30px;cursor:pointer;font-weight:600;}
-        .restaurants{padding:80px 20px;background:#f8f9fa;}
-        .restaurants-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:30px;}
-        .restaurant-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
-        .restaurant-img{position:relative;height:200px;}
-        .restaurant-img img{width:100%;height:100%;object-fit:cover;}
-        .rating-badge{position:absolute;top:15px;right:15px;background:#ff6b35;color:white;padding:8px 15px;border-radius:25px;}
-        .restaurant-info{padding:25px;}
-        .restaurant-details{display:flex;gap:15px;margin-bottom:20px;color:#777;font-size:13px;}
-        .btn-order{width:100%;background:#ff6b35;color:white;border:none;padding:14px;border-radius:8px;cursor:pointer;font-weight:600;}
-        .footer{background:#1a202c;color:white;padding:70px 20px 20px;margin-top:80px;}
-        .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;}
-        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
-        .footer-logo i{color:#ff6b35;font-size:28px;}
-        .footer-logo h2{color:#ff6b35;}
-        .social-icons{display:flex;gap:15px;}
-        .social-icons a{display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:50%;color:white;}
-        .footer-col h3{font-size:18px;margin-bottom:25px;position:relative;}
-        .footer-col h3::after{content:'';position:absolute;bottom:-10px;left:0;width:40px;height:2px;background:#ff6b35;}
-        .footer-col ul{list-style:none;}
-        .footer-col ul li{margin-bottom:12px;}
-        .footer-col ul a{color:#a0aec0;text-decoration:none;}
-        .contact-info li{display:flex;align-items:center;gap:10px;color:#a0aec0;margin-bottom:15px;}
-        .contact-info i{color:#ff6b35;width:20px;}
-        .footer-bottom{max-width:1200px;margin:50px auto 0;padding-top:30px;border-top:1px solid #4a5568;display:flex;justify-content:space-between;color:#a0aec0;}
-        .payment-methods{display:flex;gap:15px;font-size:24px;}
-        .cart-sidebar{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:white;box-shadow:-5px 0 25px rgba(0,0,0,0.15);padding:25px;z-index:2000;transition:0.3s;overflow-y:auto;}
-        .cart-sidebar.active{right:0;}
-        .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;padding-bottom:15px;border-bottom:2px solid #ff6b35;}
-        .close-cart{background:none;border:none;font-size:28px;cursor:pointer;color:#666;}
-        .cart-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1999;display:none;}
-        .cart-overlay.active{display:block;}
-        .btn-checkout{width:100%;padding:14px;background:#28a745;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-top:10px;}
-        @media(max-width:768px){.nav-container{flex-direction:column;}.hero-content h1{font-size:32px;}.search-box{flex-direction:column;border-radius:15px;}.btn-search{width:100%;padding:15px;}.cart-sidebar{width:100%;right:-100%;}}
+        /* ===== RESET & VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --accent: #00b894;
+            --light: #f8f9fa;
+            --dark: #1a202c;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(255,107,53,0.12);
+        }
+
+        body {
+            background: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+            transform: rotate(-10deg);
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .cart-btn {
+            position: relative;
+            text-decoration: none;
+            color: var(--secondary);
+            padding: 10px 15px;
+            margin-left: 5px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: #dc3545;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-login,
+        .btn-signup,
+        .btn-admin {
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-admin {
+            background: var(--gray);
+            color: white;
+            border: 2px solid var(--gray);
+        }
+
+        .btn-admin:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.75) 100%), 
+                        url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1400');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 140px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .search-box {
+            max-width: 750px;
+            margin: 0 auto 50px;
+            display: flex;
+            background: white;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,107,53,0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+        }
+
+        .search-input i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .search-input input {
+            flex: 1;
+            padding: 22px 0;
+            border: none;
+            font-size: 17px;
+            outline: none;
+            background: transparent;
+        }
+
+        .search-input input::placeholder {
+            color: #999;
+            font-weight: 300;
+        }
+
+        .btn-search {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 60px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-search:hover {
+            background: var(--primary-dark);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat i {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .stat h3 {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* ===== CONTAINER & SECTIONS ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--secondary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* ===== CATEGORIES ===== */
+        .categories {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            text-align: center;
+            padding: 45px 30px;
+            border-radius: 20px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .category-icon i {
+            font-size: 60px;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .category-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .btn-category {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-category:hover {
+            background: white;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* ===== RESTAURANTS ===== */
+        .restaurants {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 35px;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255,107,53,0.15);
+        }
+
+        .restaurant-img {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .restaurant-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .restaurant-card:hover .restaurant-img img {
+            transform: scale(1.08);
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+
+        .restaurant-info {
+            padding: 28px;
+        }
+
+        .restaurant-info h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .cuisine {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+
+        .restaurant-details {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .restaurant-details i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+
+        .btn-order {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-order:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== CART SIDEBAR ===== */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -480px;
+            width: 450px;
+            height: 100vh;
+            background: white;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            z-index: 2000;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .cart-header h3 {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 36px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1999;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 18px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-checkout:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo i {
+            color: var(--primary);
+            font-size: 36px;
+        }
+
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            color: #a0aec0;
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 18px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #a0aec0;
+            margin-bottom: 18px;
+            font-size: 16px;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            width: 24px;
+            font-size: 18px;
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #a0aec0;
+            font-size: 15px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 20px;
+            font-size: 28px;
+        }
+
+        .payment-methods i {
+            transition: all 0.3s ease;
+        }
+
+        .payment-methods i:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* ===== RESPONSIVE DESIGN (MUONONEKANO MZURI KWA SIMU) ===== */
+        @media screen and (max-width: 1024px) {
+            .nav-container {
+                padding: 12px 25px;
+            }
+            
+            .hero-content h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media screen and (max-width: 880px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .auth-buttons {
+                order: 2;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 12px 20px;
+            }
+            
+            .nav-menu {
+                gap: 5px;
+            }
+            
+            .nav-link {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .hero-content p {
+                font-size: 18px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+                margin: 0 15px 30px;
+            }
+            
+            .btn-search {
+                width: 100%;
+                padding: 18px;
+                border-radius: 0 0 20px 20px;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .stat {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .categories-grid,
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                justify-content: center;
+            }
+            
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 28px;
+            }
+            
+            .hero {
+                padding: 120px 15px 60px;
+            }
+            
+            .btn-login,
+            .btn-signup,
+            .btn-admin {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .category-card {
+                padding: 35px 20px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- ===== NAVIGATION BAR ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
+            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link active">Home</a>
-                <a href="#restaurants" class="nav-link">Restaurants</a>
-                <a href="#menu" class="nav-link">Menu</a>
+                <a href="restaurants.html" class="nav-link">Restaurants</a>
+                <a href="menu.html" class="nav-link">Menu</a>
                 <a href="orders.html" class="nav-link">Orders</a>
                 <a href="about.html" class="nav-link">About</a>
                 <a href="contact.html" class="nav-link">Contact</a>
@@ -99,6 +895,7 @@
                     <span class="cart-count" id="cart-count">0</span>
                 </a>
             </div>
+            
             <div class="auth-buttons">
                 <a href="login.html" class="btn-login">Login</a>
                 <a href="signup.html" class="btn-signup">Sign Up</a>
@@ -107,10 +904,12 @@
         </div>
     </nav>
 
+    <!-- ===== HERO SECTION ===== -->
     <section class="hero">
         <div class="hero-content">
             <h1>Delicious Food Delivered To Your Doorstep</h1>
-            <p>Order from your favorite restaurants and get it delivered hot and fresh.</p>
+            <p>Order from your favorite restaurants in Dar es Salaam and get it delivered hot and fresh.</p>
+            
             <div class="search-box">
                 <div class="search-input">
                     <i class="fas fa-map-marker-alt"></i>
@@ -118,88 +917,264 @@
                 </div>
                 <button class="btn-search" id="search-food">Find Food</button>
             </div>
+            
             <div class="hero-stats">
-                <div class="stat"><i class="fas fa-users"></i><div><h3>10,000+</h3><p>Happy Customers</p></div></div>
-                <div class="stat"><i class="fas fa-utensils"></i><div><h3>50+</h3><p>Restaurants</p></div></div>
-                <div class="stat"><i class="fas fa-truck"></i><div><h3>5000+</h3><p>Deliveries</p></div></div>
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h3>10,000+</h3>
+                        <p>Happy Customers</p>
+                    </div>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-utensils"></i>
+                    <div>
+                        <h3>50+</h3>
+                        <p>Restaurants</p>
+                    </div>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-truck"></i>
+                    <div>
+                        <h3>5,000+</h3>
+                        <p>Deliveries</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ===== CATEGORIES SECTION ===== -->
     <section class="categories">
         <div class="container">
             <h2 class="section-title">Browse By Category</h2>
             <div class="categories-grid">
-                <div class="category-card"><div class="category-icon"><i class="fas fa-hamburger"></i></div><h3>Burgers</h3><p>Juicy burgers and crispy fries</p><button class="btn-category">View All</button></div>
-                <div class="category-card"><div class="category-icon"><i class="fas fa-pizza-slice"></i></div><h3>Pizza</h3><p>Freshly baked wood-fired pizzas</p><button class="btn-category">View All</button></div>
-                <div class="category-card"><div class="category-icon"><i class="fas fa-utensils"></i></div><h3>Tanzanian Food</h3><p>Chips Mayai, Nyama Choma, Pilau</p><button class="btn-category">View All</button></div>
-                <div class="category-card"><div class="category-icon"><i class="fas fa-cocktail"></i></div><h3>Drinks & Desserts</h3><p>Refreshing beverages & sweet treats</p><button class="btn-category">View All</button></div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <h3>Burgers</h3>
+                    <p>Juicy burgers, crispy fries, and more</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <h3>Pizza</h3>
+                    <p>Wood-fired pizzas with fresh toppings</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Tanzanian Food</h3>
+                    <p>Chips Mayai, Nyama Choma, Pilau</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <h3>Drinks & Desserts</h3>
+                    <p>Refreshing drinks & sweet treats</p>
+                    <button class="btn-category">View All</button>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ===== POPULAR RESTAURANTS SECTION ===== -->
     <section class="restaurants" id="restaurants">
         <div class="container">
             <h2 class="section-title">Popular Restaurants</h2>
             <div class="restaurants-grid">
                 <div class="restaurant-card">
-                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600" alt="Mama's Kitchen"><span class="rating-badge">4.5 ★</span></div>
-                    <div class="restaurant-info"><h3>Mama's Kitchen</h3><p class="cuisine">Tanzanian Cuisine</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 30-45 min</span><span><i class="fas fa-shipping-fast"></i> Free</span></div><button class="btn-order">View Menu</button></div>
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600" alt="Mama's Kitchen">
+                        <span class="rating-badge">4.5 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Mama's Kitchen</h3>
+                        <p class="cuisine">Tanzanian Cuisine</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 30-45 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Free</span>
+                        </div>
+                        <button class="btn-order">View Menu</button>
+                    </div>
                 </div>
+                
                 <div class="restaurant-card">
-                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600" alt="Burger Palace"><span class="rating-badge">4.8 ★</span></div>
-                    <div class="restaurant-info"><h3>Burger Palace</h3><p class="cuisine">American • Burgers</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 20-35 min</span><span><i class="fas fa-shipping-fast"></i> Tsh 1,500</span></div><button class="btn-order">View Menu</button></div>
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600" alt="Burger Palace">
+                        <span class="rating-badge">4.8 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Burger Palace</h3>
+                        <p class="cuisine">American • Burgers</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 20-35 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Tsh 1,500</span>
+                        </div>
+                        <button class="btn-order">View Menu</button>
+                    </div>
                 </div>
+                
                 <div class="restaurant-card">
-                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600" alt="Pizza Hub"><span class="rating-badge">4.3 ★</span></div>
-                    <div class="restaurant-info"><h3>Pizza Hub</h3><p class="cuisine">Italian • Pizza</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 25-40 min</span><span><i class="fas fa-shipping-fast"></i> Tsh 2,000</span></div><button class="btn-order">View Menu</button></div>
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600" alt="Pizza Hub">
+                        <span class="rating-badge">4.3 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Pizza Hub</h3>
+                        <p class="cuisine">Italian • Pizza</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 25-40 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Tsh 2,000</span>
+                        </div>
+                        <button class="btn-order">View Menu</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ===== CART SIDEBAR ===== -->
     <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header"><h3>Your Cart</h3><button class="close-cart" id="close-cart">&times;</button></div>
-        <div class="cart-items" id="cart-items"><div class="empty-cart">Your cart is empty</div></div>
-        <div class="cart-summary"><button class="btn-checkout" id="checkout-btn">Proceed to Checkout</button></div>
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart" style="text-align: center; padding: 40px 0; color: var(--gray);">
+                <i class="fas fa-shopping-cart" style="font-size: 60px; margin-bottom: 20px; opacity: 0.3;"></i>
+                <p style="font-size: 18px;">Your cart is empty</p>
+            </div>
+        </div>
+        <div class="cart-summary">
+            <button class="btn-checkout" id="checkout-btn">Proceed to Checkout</button>
+        </div>
     </div>
     <div class="cart-overlay" id="cart-overlay"></div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col"><div class="footer-logo"><i class="fas fa-utensils"></i><h2>FoodExpress</h2></div><p class="footer-description">Your favorite food, delivered fast.</p><div class="social-icons"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div></div>
-                <div class="footer-col"><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="#restaurants">Restaurants</a></li><li><a href="#menu">Menu</a></li><li><a href="orders.html">Orders</a></li><li><a href="about.html">About</a></li></ul></div>
-                <div class="footer-col"><h3>Contact</h3><ul class="contact-info"><li><i class="fas fa-map-marker-alt"></i> Dar es Salaam</li><li><i class="fas fa-phone"></i> +255 712 345 678</li><li><i class="fas fa-envelope"></i> info@foodexpress.com</li></ul></div>
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p class="footer-description">
+                        Your favorite food, delivered fast to your doorstep. 
+                        Serving Dar es Salaam with the best local and international cuisines.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Dar es Salaam, Tanzania</li>
+                        <li><i class="fas fa-phone"></i> +255 712 345 678</li>
+                        <li><i class="fas fa-envelope"></i> info@foodexpress.com</li>
+                        <li><i class="fas fa-clock"></i> Mon - Sun: 8am - 11pm</li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2024 FoodExpress</p><div class="payment-methods"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-paypal"></i><i class="fas fa-mobile-alt"></i></div></div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+            </div>
         </div>
     </footer>
 
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ===== CART FUNCTIONALITY =====
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
             const cartBtn = document.getElementById('cart-btn');
             const closeCartBtn = document.getElementById('close-cart');
             const cartSidebar = document.getElementById('cart-sidebar');
             const cartOverlay = document.getElementById('cart-overlay');
             const cartCount = document.getElementById('cart-count');
             
+            // Update cart count
             function updateCartCount() {
-                if(cartCount) cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
+                if(cartCount) {
+                    const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                    cartCount.textContent = totalItems;
+                }
             }
             
+            // Toggle cart sidebar
             function toggleCart(open) {
-                if(open) { cartSidebar.classList.add('active'); cartOverlay.classList.add('active'); }
-                else { cartSidebar.classList.remove('active'); cartOverlay.classList.remove('active'); }
+                if(open) {
+                    cartSidebar?.classList.add('active');
+                    cartOverlay?.classList.add('active');
+                } else {
+                    cartSidebar?.classList.remove('active');
+                    cartOverlay?.classList.remove('active');
+                }
             }
             
-            if(cartBtn) cartBtn.addEventListener('click', ()=>toggleCart(true));
-            if(closeCartBtn) closeCartBtn.addEventListener('click', ()=>toggleCart(false));
-            if(cartOverlay) cartOverlay.addEventListener('click', ()=>toggleCart(false));
+            // Event listeners
+            if(cartBtn) cartBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleCart(true);
+            });
             
+            if(closeCartBtn) closeCartBtn.addEventListener('click', () => toggleCart(false));
+            if(cartOverlay) cartOverlay.addEventListener('click', () => toggleCart(false));
+            
+            // Initialize cart count
             updateCartCount();
+            
+            // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if(href !== '#' && href.length > 1) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if(target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
-  </html>
+                        </html>
