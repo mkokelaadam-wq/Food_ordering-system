@@ -6,292 +6,358 @@
     <title>FoodExpress - Order Food Online</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <div class="navbar">
+    <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
             
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="restaurants.html">Restaurants</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="orders.html">My Orders</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li>
-                    <a href="cart.html" class="cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cart-count">0</span>
-                    </a>
-                </li>
-            </ul>
-            
-            <div class="auth-buttons">
-                <a href="login.html" class="btn-login">Login</a>
-                <a href="signup.html" class="btn-signup">Sign Up</a>
-                <a href="admin-signup.html" class="btn-signup" style="background: #6c757d;">
-                    <i class="fas fa-handshake"></i> Partner
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+                <a href="#" class="cart-btn" id="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
                 </a>
             </div>
+            
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="signup.html" class="btn btn-signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin"><i class="fas fa-user-shield"></i> Admin</a>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h2>Delicious Food Delivered To Your Doorstep</h2>
-            <p>Order from your favorite restaurants and get it delivered hot and fresh. Fast delivery, great prices, and amazing food!</p>
-            <div class="search-container">
-                <input type="text" placeholder="Enter your delivery address or search for restaurants...">
-                <button class="search-btn">
-                    <i class="fas fa-search"></i> Find Food
-                </button>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Delicious Food Delivered To Your Doorstep</h1>
+                <p>Order from your favorite restaurants and get it delivered hot and fresh. Fast delivery, great prices, and amazing food!</p>
+                <div class="search-box">
+                    <div class="search-input">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" placeholder="Enter your delivery address..." id="delivery-address">
+                    </div>
+                    <button class="btn-search" id="search-food">
+                        <i class="fas fa-search"></i> Find Food
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>10,000+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-utensils"></i>
+                        <div>
+                            <h3>50+</h3>
+                            <p>Restaurants</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-truck"></i>
+                        <div>
+                            <h3>5000+</h3>
+                            <p>Deliveries</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="features">
-        <h3>Browse By Category</h3>
-        <div class="features-grid">
-            <div class="feature" onclick="filterMenu('Burgers')">
-                <i class="fas fa-hamburger"></i>
-                <h4>Burgers</h4>
-                <p>Juicy burgers and crispy fries</p>
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse By Category</h2>
+            <div class="categories-grid">
+                <div class="category-card" data-category="burgers">
+                    <div class="category-icon">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <h3>Burgers</h3>
+                    <p>Juicy burgers and crispy fries</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                <div class="category-card" data-category="pizza">
+                    <div class="category-icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <h3>Pizza</h3>
+                    <p>Freshly baked wood-fired pizzas</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                <div class="category-card" data-category="tanzanian">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Tanzanian Food</h3>
+                    <p>Chips Mayai, Nyama Choma, Pilau</p>
+                    <button class="btn-category">View All</button>
+                </div>
+                <div class="category-card" data-category="drinks">
+                    <div class="category-icon">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <h3>Drinks & Desserts</h3>
+                    <p>Refreshing beverages & sweet treats</p>
+                    <button class="btn-category">View All</button>
+                </div>
             </div>
-            <div class="feature" onclick="filterMenu('Pizza')">
-                <i class="fas fa-pizza-slice"></i>
-                <h4>Pizza</h4>
-                <p>Freshly baked wood-fired pizzas</p>
-            </div>
-            <div class="feature" onclick="filterMenu('Tanzanian Food')">
-                <i class="fas fa-utensils"></i>
-                <h4>Tanzanian Food</h4>
-                <p>Chips Mayai, Nyama Choma, Pilau</p>
-            </div>
-            <div class="feature" onclick="filterMenu('Drinks & Desserts')">
-                <i class="fas fa-cocktail"></i>
-                <h4>Drinks & Desserts</h4>
-                <p>Refreshing beverages & sweet treats</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section class="menu-section">
-        <h3>Popular Menu Items</h3>
-        
-        <!-- Filter Buttons -->
-        <div class="filters">
-            <button class="filter-btn active">All</button>
-            <button class="filter-btn">Burgers</button>
-            <button class="filter-btn">Pizza</button>
-            <button class="filter-btn">Tanzanian Food</button>
-            <button class="filter-btn">Drinks & Desserts</button>
-        </div>
-        
-        <!-- Menu Items Grid -->
-        <div class="menu-grid" id="menu-items">
-            <!-- Menu items will be loaded here by JavaScript -->
-            <div class="loading">Loading menu...</div>
         </div>
     </section>
 
     <!-- Popular Restaurants -->
     <section class="restaurants">
-        <h3>Popular Restaurants</h3>
-        <div class="restaurants-grid">
-            <div class="restaurant-card">
-                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Mama's Kitchen">
-                <div class="restaurant-info">
-                    <h4>Mama's Kitchen</h4>
-                    <p>Authentic Tanzanian cuisine with traditional recipes</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
-                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.5</span>
-                        <span class="price">Tsh 5,000+</span>
-                    </div>
-                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
-                </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Popular Restaurants</h2>
+                <a href="restaurants.html" class="btn-view-all">View All <i class="fas fa-arrow-right"></i></a>
             </div>
             
-            <div class="restaurant-card">
-                <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Burger Palace">
-                <div class="restaurant-info">
-                    <h4>Burger Palace</h4>
-                    <p>Best burgers in town with homemade buns</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
-                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.8</span>
-                        <span class="price">Tsh 8,000+</span>
+            <div class="restaurants-grid">
+                <div class="restaurant-card">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mama's Kitchen">
+                        <span class="rating-badge">4.5 ★</span>
                     </div>
-                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
+                    <div class="restaurant-info">
+                        <h3>Mama's Kitchen</h3>
+                        <p class="cuisine">Tanzanian Cuisine</p>
+                        <p class="description">Authentic Tanzanian dishes with traditional recipes passed down for generations.</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 30-45 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Free delivery</span>
+                            <span class="price-range">Tsh 5,000+</span>
+                        </div>
+                        <button class="btn-order" data-restaurant="1">View Menu</button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="restaurant-card">
-                <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Pizza Hub">
-                <div class="restaurant-info">
-                    <h4>Pizza Hub</h4>
-                    <p>Wood-fired pizza and Italian specialties</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
-                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.3</span>
-                        <span class="price">Tsh 12,000+</span>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Burger Palace">
+                        <span class="rating-badge">4.8 ★</span>
                     </div>
-                    <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
+                    <div class="restaurant-info">
+                        <h3>Burger Palace</h3>
+                        <p class="cuisine">American • Burgers</p>
+                        <p class="description">Best burgers in town with homemade buns and fresh ingredients.</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 20-35 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Tsh 1,500</span>
+                            <span class="price-range">Tsh 8,000+</span>
+                        </div>
+                        <button class="btn-order" data-restaurant="2">View Menu</button>
+                    </div>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pizza Hub">
+                        <span class="rating-badge">4.3 ★</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Pizza Hub</h3>
+                        <p class="cuisine">Italian • Pizza</p>
+                        <p class="description">Wood-fired pizza and Italian specialties made with authentic recipes.</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 25-40 min</span>
+                            <span><i class="fas fa-shipping-fast"></i> Tsh 2,000</span>
+                            <span class="price-range">Tsh 12,000+</span>
+                        </div>
+                        <button class="btn-order" data-restaurant="3">View Menu</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="features" style="background: #f8f9fa;">
-        <h3>Why Choose FoodExpress?</h3>
-        <div class="features-grid">
-            <div class="feature">
-                <i class="fas fa-bolt"></i>
-                <h4>Fast Delivery</h4>
-                <p>Get your food in 30 minutes or less</p>
+    <!-- Featured Menu Items -->
+    <section class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Today's Specials</h2>
+            <div class="menu-filters">
+                <button class="filter-btn active" data-filter="all">All Items</button>
+                <button class="filter-btn" data-filter="burgers">Burgers</button>
+                <button class="filter-btn" data-filter="pizza">Pizza</button>
+                <button class="filter-btn" data-filter="tanzanian">Tanzanian</button>
+                <button class="filter-btn" data-filter="drinks">Drinks</button>
             </div>
-            <div class="feature">
-                <i class="fas fa-shield-alt"></i>
-                <h4>Safe & Secure</h4>
-                <p>Contactless delivery and secure payments</p>
+            
+            <div class="menu-grid" id="menu-items-container">
+                <!-- Menu items loaded by JavaScript -->
             </div>
-            <div class="feature">
-                <i class="fas fa-tags"></i>
-                <h4>Best Prices</h4>
-                <p>Great deals and discounts every day</p>
-            </div>
-            <div class="feature">
-                <i class="fas fa-utensils"></i>
-                <h4>100+ Restaurants</h4>
-                <p>Wide variety of cuisines to choose from</p>
+            
+            <div class="text-center">
+                <button class="btn-load-more" id="load-more">Load More Items</button>
             </div>
         </div>
     </section>
 
-    <!-- Order Form -->
-    <section class="order-form" id="order-form-section">
-        <h3>Place Your Order</h3>
-        <form id="order-form">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div>
-                    <input type="text" id="name" placeholder="Your Name" required>
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Choose Location</h3>
+                    <p>Enter your delivery address to find restaurants near you</p>
                 </div>
-                <div>
-                    <input type="tel" id="phone" placeholder="Phone Number" required>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <i class="fas fa-utensils"></i>
+                    <h3>Order Food</h3>
+                    <p>Browse menus and add items to your cart</p>
                 </div>
-            </div>
-            
-            <div>
-                <textarea id="address" placeholder="Delivery Address" rows="3" required></textarea>
-            </div>
-            
-            <div>
-                <h4 style="margin: 20px 0 10px 0;">Payment Method</h4>
-                <div class="payment-options">
-                    <label>
-                        <input type="radio" name="payment" value="cash" checked>
-                        Cash on Delivery
-                    </label>
-                    <label>
-                        <input type="radio" name="payment" value="card">
-                        Credit/Debit Card
-                    </label>
-                    <label>
-                        <input type="radio" name="payment" value="mobile">
-                        Mobile Payment
-                    </label>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Make Payment</h3>
+                    <p>Pay online or with cash on delivery</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <i class="fas fa-truck"></i>
+                    <h3>Delivery</h3>
+                    <p>Get your food delivered hot and fresh</p>
                 </div>
             </div>
-            
-            <button type="submit" class="submit-order">
-                <i class="fas fa-shopping-bag"></i> Place Order Now
-            </button>
-        </form>
+        </div>
     </section>
 
     <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="cart-sidebar">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h3 style="margin: 0;">Your Cart</h3>
-            <button class="close-cart" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
         </div>
-        
-        <div id="cart-items" style="max-height: 400px; overflow-y: auto;">
-            <!-- Cart items will be loaded here -->
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items loaded by JavaScript -->
         </div>
-        
-        <div class="cart-total" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; font-size: 20px;">
-            Total: <span id="cart-total" style="font-weight: bold; color: #27ae60;">Tsh 0</span>
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">Tsh 0</span>
+            </div>
+            <div class="cart-total">
+                <span>Delivery:</span>
+                <span id="cart-delivery">Tsh 0</span>
+            </div>
+            <div class="cart-total grand-total">
+                <span>Total:</span>
+                <span id="cart-total-price">Tsh 0</span>
+            </div>
+            <button class="btn-checkout" id="checkout-btn">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+            <button class="btn-continue" id="continue-shopping">
+                <i class="fas fa-shopping-bag"></i> Continue Shopping
+            </button>
         </div>
-        
-        <button class="checkout-btn">
-            <i class="fas fa-credit-card"></i> Proceed to Checkout
-        </button>
     </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>FoodExpress</h4>
-                <p>Your favorite food, delivered fast. Serving since 2024.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p class="footer-description">
+                        Your favorite food, delivered fast to your doorstep. Serving Dar es Salaam since 2024.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="restaurants.html"><i class="fas fa-chevron-right"></i> Restaurants</a></li>
+                        <li><a href="menu.html"><i class="fas fa-chevron-right"></i> Menu</a></li>
+                        <li><a href="orders.html"><i class="fas fa-chevron-right"></i> My Orders</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                        <li><a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                        <li><a href="privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="careers.html"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Samora Avenue, Dar es Salaam</li>
+                        <li><i class="fas fa-phone"></i> +255 712 345 678</li>
+                        <li><i class="fas fa-envelope"></i> info@foodexpress.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Sun: 8:00 AM - 11:00 PM</li>
+                    </ul>
+                    <div class="app-download">
+                        <h4>Download Our App</h4>
+                        <div class="app-buttons">
+                            <a href="#" class="app-btn">
+                                <i class="fab fa-google-play"></i>
+                                <span>Google Play</span>
+                            </a>
+                            <a href="#" class="app-btn">
+                                <i class="fab fa-apple"></i>
+                                <span>App Store</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="restaurants.html">Restaurants</a>
-                <a href="menu.html">Menu</a>
-                <a href="orders.html">My Orders</a>
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact Us</a>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
             </div>
-            
-            <div class="footer-section">
-                <h4>Contact Us</h4>
-                <p><i class="fas fa-phone"></i> +255 712 345 678</p>
-                <p><i class="fas fa-envelope"></i> info@foodexpress.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Samora Avenue, Dar es Salaam</p>
-            </div>
-            
-            <div class="footer-section">
-                <h4>Working Hours</h4>
-                <p>Monday - Friday: 8:00 AM - 10:00 PM</p>
-                <p>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
-                <p>24/7 Delivery Available</p>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 FoodExpress. All rights reserved. | 
-                <a href="privacy.html" style="color: #ff6b35;">Privacy Policy</a> | 
-                <a href="terms.html" style="color: #ff6b35;">Terms of Service</a>
-            </p>
         </div>
     </footer>
 
-    <!-- Link to JavaScript -->
+    <!-- JavaScript -->
     <script src="script.js"></script>
-    
-    <!-- Global filter function -->
-    <script>
-        function filterMenu(category) {
-            // Dispatch event to JavaScript
-            const event = new CustomEvent('filterMenu', { detail: category });
-            document.dispatchEvent(event);
-        }
-    </script>
+    <script src="cart.js"></script>
 </body>
-            </html>
+    </html>
