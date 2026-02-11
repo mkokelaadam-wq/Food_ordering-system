@@ -1,101 +1,363 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>My Profile - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(255,107,53,0.12);
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+            transform: rotate(-10deg);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .nav-link i {
+            margin-right: 8px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            text-decoration: none;
+            color: var(--secondary);
+            padding: 10px 15px;
+            margin-left: 5px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: var(--danger);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-admin {
+            background: var(--gray);
+            color: white;
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-admin:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+        
+        /* ===== PROFILE PAGE ===== */
         .profile-page {
             margin-top: 100px;
-            padding: 40px 0;
-            min-height: 60vh;
+            padding: 40px 0 80px;
+            min-height: 70vh;
         }
         
         .profile-container {
-            max-width: 1000px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 30px;
         }
         
+        .profile-header {
+            margin-bottom: 30px;
+        }
+        
+        .profile-header h1 {
+            color: var(--secondary);
+            font-size: 36px;
+            font-weight: 700;
+        }
+        
+        .profile-header h1 i {
+            color: var(--primary);
+            margin-right: 12px;
+        }
+        
+        /* ===== PROFILE GRID ===== */
         .profile-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 320px 1fr;
             gap: 30px;
+            align-items: start;
         }
         
+        /* ===== PROFILE SIDEBAR ===== */
         .profile-sidebar {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: var(--white);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--shadow);
             text-align: center;
+            border: 1px solid rgba(0,0,0,0.03);
+            position: sticky;
+            top: 120px;
+            animation: slideInLeft 0.5s ease;
         }
         
         .profile-avatar {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 48px;
+            font-size: 56px;
+            box-shadow: 0 15px 30px rgba(255,107,53,0.3);
+            border: 4px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-sidebar:hover .profile-avatar {
+            transform: scale(1.05) rotate(5deg);
         }
         
         .profile-name {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--secondary);
         }
         
         .profile-email {
-            color: #666;
+            color: var(--gray);
             margin-bottom: 20px;
+            font-size: 15px;
+            word-break: break-all;
+        }
+        
+        .membership-badge {
+            background: linear-gradient(135deg, #f9e7b3 0%, #f5d742 100%);
+            color: #856404;
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.2);
+        }
+        
+        .membership-badge i {
+            margin-right: 6px;
+            color: #856404;
         }
         
         .profile-menu {
             list-style: none;
-            margin-top: 30px;
+            margin-top: 35px;
             text-align: left;
         }
         
         .profile-menu li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .profile-menu a {
-            display: block;
-            padding: 12px 15px;
-            color: #555;
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            color: var(--secondary);
             text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .profile-menu a i {
+            margin-right: 14px;
+            width: 22px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 18px;
+            transition: all 0.3s ease;
         }
         
         .profile-menu a:hover,
         .profile-menu a.active {
-            background: #fff8f6;
+            background: linear-gradient(135deg, #fff8f6 0%, #fff0ec 100%);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .profile-menu a:hover i,
+        .profile-menu a.active i {
             color: var(--primary);
         }
         
-        .profile-menu i {
-            margin-right: 10px;
-            width: 20px;
+        .profile-menu a.logout {
+            color: var(--danger);
+            margin-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 20px;
         }
         
+        .profile-menu a.logout i {
+            color: var(--danger);
+        }
+        
+        .profile-menu a.logout:hover {
+            background: rgba(220,53,69,0.1);
+        }
+        
+        /* ===== PROFILE CONTENT ===== */
         .profile-content {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: var(--white);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+            animation: slideInRight 0.5s ease;
         }
         
         .profile-section {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
         
         .profile-section.active {
@@ -103,94 +365,568 @@
         }
         
         .section-title {
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary);
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--secondary);
         }
         
+        .section-title i {
+            color: var(--primary);
+        }
+        
+        /* ===== INFO ROWS ===== */
         .info-row {
             display: flex;
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-row:hover {
+            background: #fafafa;
+            padding-left: 15px;
+            border-radius: 12px;
         }
         
         .info-label {
-            width: 150px;
+            width: 160px;
             font-weight: 600;
-            color: #555;
+            color: var(--gray);
         }
         
         .info-value {
             flex: 1;
-            color: #333;
+            color: var(--secondary);
+            font-weight: 500;
         }
         
-        .form-group {
+        /* ===== ORDER CARDS ===== */
+        .orders-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .orders-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .orders-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .orders-list::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        .order-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .order-card:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .order-id {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .order-status {
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-preparing {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .order-restaurant {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .order-total {
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #e0e0e0;
+        }
+        
+        .view-all-link {
+            display: inline-block;
             margin-bottom: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .view-all-link:hover {
+            transform: translateX(5px);
+        }
+        
+        /* ===== ADDRESS CARDS ===== */
+        .address-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .address-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+        
+        .address-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .address-title h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .default-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .address-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-icon {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gray);
+        }
+        
+        .btn-icon:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-icon.delete:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .address-details {
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        /* ===== FORMS ===== */
+        .form-group {
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            color: #555;
+            color: var(--secondary);
+            font-size: 15px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            margin-right: 8px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 14px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: var(--light);
         }
         
         .form-group input:focus {
             border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(255,107,53,0.1);
             outline: none;
         }
         
         .btn-save {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 14px 30px;
+            border-radius: 14px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-save i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
         }
         
         .btn-save:hover {
-            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.3);
+        }
+        
+        .btn-save:hover i {
+            transform: scale(1.1);
+        }
+        
+        .btn-add {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 25px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-add:hover {
+            background: var(--primary);
+            color: white;
             transform: translateY(-2px);
         }
         
-        @media (max-width: 768px) {
+        /* ===== NOTIFICATION ===== */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(40,167,69,0.3);
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            box-shadow: 0 10px 25px rgba(220,53,69,0.3);
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+            font-size: 36px;
+        }
+        
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .footer-col p {
+            color: #a0aec0;
+            line-height: 1.8;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+        
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            text-align: center;
+            color: #a0aec0;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 1024px) {
+            .profile-grid {
+                grid-template-columns: 280px 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 880px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
             .profile-grid {
                 grid-template-columns: 1fr;
             }
             
+            .profile-sidebar {
+                position: static;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 12px 20px;
+            }
+            
+            .profile-page {
+                margin-top: 120px;
+            }
+            
+            .profile-header h1 {
+                font-size: 30px;
+            }
+            
+            .profile-container {
+                padding: 0 20px;
+            }
+            
+            .profile-sidebar,
+            .profile-content {
+                padding: 25px;
+            }
+            
             .info-row {
                 flex-direction: column;
-                gap: 5px;
+                gap: 8px;
             }
             
             .info-label {
                 width: 100%;
             }
         }
+        
+        @media screen and (max-width: 480px) {
+            .profile-header h1 {
+                font-size: 26px;
+            }
+            
+            .profile-name {
+                font-size: 20px;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+            
+            .btn {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .btn-save {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .address-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .address-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
+            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
@@ -200,6 +936,7 @@
                 <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
                 <a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profile</a>
             </div>
+            
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-login">Login</a>
                 <a href="signup.html" class="btn btn-signup">Sign Up</a>
@@ -212,140 +949,134 @@
         </div>
     </nav>
 
+    <!-- ===== PROFILE PAGE ===== -->
     <div class="profile-page">
         <div class="profile-container">
-            <h1 style="margin-bottom: 30px; color: var(--dark);">
-                <i class="fas fa-user-circle"></i> My Profile
-            </h1>
+            <div class="profile-header">
+                <h1>
+                    <i class="fas fa-user-circle"></i> My Profile
+                </h1>
+            </div>
             
             <div class="profile-grid">
-                <!-- Sidebar -->
+                <!-- ===== PROFILE SIDEBAR ===== -->
                 <div class="profile-sidebar">
                     <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user" id="profile-avatar-icon"></i>
                     </div>
-                    <div class="profile-name">John Doe</div>
-                    <div class="profile-email">john.doe@example.com</div>
-                    <div style="background: #e8f5e9; color: #2e7d32; padding: 5px 15px; border-radius: 20px; display: inline-block; font-size: 13px; font-weight: 600;">
+                    <div class="profile-name" id="profile-name">John Doe</div>
+                    <div class="profile-email" id="profile-email">john.doe@example.com</div>
+                    <div class="membership-badge">
                         <i class="fas fa-crown"></i> Gold Member
                     </div>
                     
-                    <ul class="profile-menu">
-                        <li><a href="#" onclick="showSection('personal')" class="active"><i class="fas fa-user"></i> Personal Info</a></li>
-                        <li><a href="#" onclick="showSection('orders')"><i class="fas fa-shopping-bag"></i> Order History</a></li>
-                        <li><a href="#" onclick="showSection('addresses')"><i class="fas fa-map-marker-alt"></i> Saved Addresses</a></li>
-                        <li><a href="#" onclick="showSection('password')"><i class="fas fa-lock"></i> Change Password</a></li>
-                        <li><a href="index.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    <ul class="profile-menu" id="profile-menu">
+                        <li><a href="#" data-section="personal" class="active"><i class="fas fa-user"></i> Personal Info</a></li>
+                        <li><a href="#" data-section="orders"><i class="fas fa-shopping-bag"></i> Order History</a></li>
+                        <li><a href="#" data-section="addresses"><i class="fas fa-map-marker-alt"></i> Saved Addresses</a></li>
+                        <li><a href="#" data-section="password"><i class="fas fa-lock"></i> Change Password</a></li>
+                        <li><a href="#" data-section="logout" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </div>
                 
-                <!-- Content -->
+                <!-- ===== PROFILE CONTENT ===== -->
                 <div class="profile-content">
-                    <!-- Personal Info -->
+                    <!-- Personal Info Section -->
                     <div id="section-personal" class="profile-section active">
-                        <h3 class="section-title"><i class="fas fa-user"></i> Personal Information</h3>
+                        <h3 class="section-title">
+                            <i class="fas fa-user-circle"></i> Personal Information
+                        </h3>
                         
                         <div class="info-row">
-                            <div class="info-label">Full Name</div>
-                            <div class="info-value">John Doe</div>
+                            <div class="info-label"><i class="fas fa-user"></i> Full Name</div>
+                            <div class="info-value" id="display-name">John Doe</div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">Email Address</div>
-                            <div class="info-value">john.doe@example.com</div>
+                            <div class="info-label"><i class="fas fa-envelope"></i> Email Address</div>
+                            <div class="info-value" id="display-email">john.doe@example.com</div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">Phone Number</div>
-                            <div class="info-value">+255 712 345 678</div>
+                            <div class="info-label"><i class="fas fa-phone-alt"></i> Phone Number</div>
+                            <div class="info-value" id="display-phone">+255 712 345 678</div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">Member Since</div>
+                            <div class="info-label"><i class="fas fa-calendar"></i> Member Since</div>
                             <div class="info-value">January 2024</div>
                         </div>
+                        <div class="info-row">
+                            <div class="info-label"><i class="fas fa-tag"></i> Member Tier</div>
+                            <div class="info-value">
+                                <span style="color: var(--gold);">Gold Member</span> 
+                                <span style="background: #f0f0f0; padding: 3px 10px; border-radius: 20px; font-size: 12px; margin-left: 10px;">
+                                    <i class="fas fa-star"></i> 2,450 points
+                                </span>
+                            </div>
+                        </div>
                         
-                        <button class="btn-save" onclick="editProfile()">
+                        <button class="btn-save" id="edit-profile-btn">
                             <i class="fas fa-edit"></i> Edit Profile
                         </button>
                     </div>
                     
-                    <!-- Order History -->
+                    <!-- Order History Section -->
                     <div id="section-orders" class="profile-section">
-                        <h3 class="section-title"><i class="fas fa-shopping-bag"></i> Recent Orders</h3>
+                        <h3 class="section-title">
+                            <i class="fas fa-shopping-bag"></i> Recent Orders
+                        </h3>
                         
-                        <div style="margin-bottom: 20px;">
-                            <a href="orders.html" style="color: var(--primary);">View all orders →</a>
-                        </div>
+                        <a href="orders.html" class="view-all-link">
+                            View all orders <i class="fas fa-arrow-right"></i>
+                        </a>
                         
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <span style="font-weight: bold;">#ORD-123456</span>
-                                <span style="color: #28a745;">Delivered</span>
-                            </div>
-                            <div style="color: #666;">Mama's Kitchen • 2 items</div>
-                            <div style="font-weight: bold; margin-top: 10px;">Tsh 16,500</div>
-                        </div>
-                        
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                                <span style="font-weight: bold;">#ORD-123455</span>
-                                <span style="color: #28a745;">Delivered</span>
-                            </div>
-                            <div style="color: #666;">Burger Palace • 3 items</div>
-                            <div style="font-weight: bold; margin-top: 10px;">Tsh 19,500</div>
+                        <div id="recent-orders" class="orders-list">
+                            <!-- Orders will be loaded here -->
                         </div>
                     </div>
                     
-                    <!-- Addresses -->
+                    <!-- Saved Addresses Section -->
                     <div id="section-addresses" class="profile-section">
-                        <h3 class="section-title"><i class="fas fa-map-marker-alt"></i> Saved Addresses</h3>
+                        <h3 class="section-title">
+                            <i class="fas fa-map-marker-alt"></i> Saved Addresses
+                        </h3>
                         
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                            <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <div>
-                                    <span style="font-weight: bold;">Home</span>
-                                    <span style="background: var(--primary); color: white; padding: 3px 10px; border-radius: 15px; font-size: 12px; margin-left: 10px;">Default</span>
-                                    <p style="margin-top: 10px; color: #666;">123 Main Street, Mikocheni, Dar es Salaam</p>
-                                </div>
-                                <button style="background: none; border: none; color: var(--primary); cursor: pointer;">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </div>
+                        <div id="addresses-list">
+                            <!-- Addresses will be loaded here -->
                         </div>
                         
-                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                            <div style="display: flex; justify-content: space-between; align-items: start;">
-                                <div>
-                                    <span style="font-weight: bold;">Office</span>
-                                    <p style="margin-top: 10px; color: #666;">456 Samora Avenue, City Center, Dar es Salaam</p>
-                                </div>
-                                <button style="background: none; border: none; color: var(--primary); cursor: pointer;">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <button class="btn-save" onclick="addAddress()">
+                        <button class="btn-add" id="add-address-btn">
                             <i class="fas fa-plus"></i> Add New Address
                         </button>
                     </div>
                     
-                    <!-- Change Password -->
+                    <!-- Change Password Section -->
                     <div id="section-password" class="profile-section">
-                        <h3 class="section-title"><i class="fas fa-lock"></i> Change Password</h3>
+                        <h3 class="section-title">
+                            <i class="fas fa-lock"></i> Change Password
+                        </h3>
                         
-                        <form onsubmit="changePassword(event)">
+                        <form id="password-form">
                             <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password" id="current-password" required>
+                                <label>
+                                    <i class="fas fa-lock"></i> Current Password
+                                </label>
+                                <input type="password" id="current-password" placeholder="Enter current password" required>
                             </div>
                             
                             <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" id="new-password" required minlength="6">
+                                <label>
+                                    <i class="fas fa-lock"></i> New Password
+                                </label>
+                                <input type="password" id="new-password" placeholder="Enter new password" required minlength="6">
+                                <small style="color: var(--gray); display: block; margin-top: 5px;">
+                                    Minimum 6 characters
+                                </small>
                             </div>
                             
                             <div class="form-group">
-                                <label>Confirm New Password</label>
-                                <input type="password" id="confirm-password" required>
+                                <label>
+                                    <i class="fas fa-check-circle"></i> Confirm New Password
+                                </label>
+                                <input type="password" id="confirm-password" placeholder="Confirm new password" required>
                             </div>
                             
                             <button type="submit" class="btn-save">
@@ -358,6 +1089,7 @@
         </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -366,7 +1098,7 @@
                         <i class="fas fa-utensils"></i>
                         <h2>FoodExpress</h2>
                     </div>
-                    <p>Your favorite food, delivered fast.</p>
+                    <p>Your favorite food, delivered fast. Serving Dar es Salaam with love since 2024.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
@@ -374,6 +1106,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="restaurants.html">Restaurants</a></li>
                         <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -382,90 +1115,348 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="login.html">Login</a></li>
                         <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="admin-login.html">Partner Login</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+                <p>&copy; 2024 FoodExpress. All rights reserved. Delivering happiness since 2024.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="cart.js"></script>
     <script>
-        // Show profile section
-        window.showSection = function(section) {
-            // Hide all sections
-            document.querySelectorAll('.profile-section').forEach(el => {
-                el.classList.remove('active');
+        // ===== USER DATA =====
+        let currentUser = JSON.parse(localStorage.getItem('foodexpress_user')) || {
+            name: 'John Doe',
+            email: 'john.doe@example.com',
+            phone: '+255 712 345 678',
+            memberSince: 'January 2024',
+            tier: 'Gold',
+            points: 2450
+        };
+
+        // ===== ADDRESSES =====
+        let addresses = JSON.parse(localStorage.getItem('foodexpress_addresses')) || [
+            {
+                id: 1,
+                title: 'Home',
+                address: '123 Main Street, Mikocheni, Dar es Salaam',
+                isDefault: true
+            },
+            {
+                id: 2,
+                title: 'Office',
+                address: '456 Samora Avenue, City Center, Dar es Salaam',
+                isDefault: false
+            }
+        ];
+
+        // ===== SHOW NOTIFICATION =====
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type === 'error' ? 'error' : ''}`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // ===== SWITCH SECTIONS =====
+        function setupSectionSwitching() {
+            const menuLinks = document.querySelectorAll('.profile-menu a[data-section]');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const section = this.dataset.section;
+                    
+                    if (section === 'logout') {
+                        logout();
+                        return;
+                    }
+                    
+                    // Remove active class from all links
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Hide all sections
+                    document.querySelectorAll('.profile-section').forEach(s => {
+                        s.classList.remove('active');
+                    });
+                    
+                    // Show selected section
+                    const targetSection = document.getElementById(`section-${section}`);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // ===== LOAD USER DATA =====
+        function loadUserData() {
+            // Update sidebar
+            document.getElementById('profile-name').textContent = currentUser.name;
+            document.getElementById('profile-email').textContent = currentUser.email;
+            
+            // Update personal info section
+            document.getElementById('display-name').textContent = currentUser.name;
+            document.getElementById('display-email').textContent = currentUser.email;
+            document.getElementById('display-phone').textContent = currentUser.phone || '+255 712 345 678';
+        }
+
+        // ===== EDIT PROFILE =====
+        function setupEditProfile() {
+            const editBtn = document.getElementById('edit-profile-btn');
+            
+            editBtn.addEventListener('click', function() {
+                const newName = prompt('Enter your full name:', currentUser.name);
+                if (newName && newName.trim() !== '') {
+                    currentUser.name = newName.trim();
+                    localStorage.setItem('foodexpress_user', JSON.stringify(currentUser));
+                    loadUserData();
+                    showNotification('Profile updated successfully!');
+                }
+            });
+        }
+
+        // ===== LOAD ORDERS =====
+        function loadOrders() {
+            const ordersContainer = document.getElementById('recent-orders');
+            const orders = JSON.parse(localStorage.getItem('foodexpress_orders')) || [];
+            
+            if (orders.length === 0) {
+                ordersContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; background: var(--light); border-radius: 16px;">
+                        <i class="fas fa-shopping-bag" style="font-size: 48px; color: #ddd; margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--gray);">No orders yet</h4>
+                        <p style="color: #999; margin-top: 10px;">Your orders will appear here</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show only last 3 orders
+            const recentOrders = orders.slice(0, 3);
+            let html = '';
+            
+            recentOrders.forEach(order => {
+                const statusClass = `status-${order.status.toLowerCase()}`;
+                const statusIcon = order.status === 'Delivered' ? 'fa-check-circle' : 
+                                 order.status === 'Preparing' ? 'fa-cog' : 'fa-clock';
+                
+                html += `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-id"><i class="fas fa-receipt"></i> ${order.id}</span>
+                            <span class="order-status ${statusClass}">
+                                <i class="fas ${statusIcon}"></i> ${order.status}
+                            </span>
+                        </div>
+                        <div class="order-restaurant">
+                            <i class="fas fa-store"></i> ${order.restaurant || 'FoodExpress'} • ${order.items?.length || 0} items
+                        </div>
+                        <div class="order-total">
+                            Total: ${order.total || 'Tsh 0'}
+                        </div>
+                    </div>
+                `;
             });
             
-            // Show selected section
-            document.getElementById(`section-${section}`).classList.add('active');
+            ordersContainer.innerHTML = html;
+        }
+
+        // ===== LOAD ADDRESSES =====
+        function loadAddresses() {
+            const addressesContainer = document.getElementById('addresses-list');
             
-            // Update active menu
-            document.querySelectorAll('.profile-menu a').forEach(el => {
-                el.classList.remove('active');
+            if (addresses.length === 0) {
+                addressesContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; background: var(--light); border-radius: 16px;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 48px; color: #ddd; margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--gray);">No addresses saved</h4>
+                        <p style="color: #999; margin-top: 10px;">Add your first delivery address</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            addresses.forEach((addr, index) => {
+                html += `
+                    <div class="address-card">
+                        <div class="address-header">
+                            <div class="address-title">
+                                <h4><i class="fas fa-${addr.title === 'Home' ? 'home' : 'building'}" style="color: var(--primary);"></i> ${addr.title}</h4>
+                                ${addr.isDefault ? '<span class="default-badge"><i class="fas fa-check"></i> Default</span>' : ''}
+                            </div>
+                            <div class="address-actions">
+                                <button class="btn-icon" onclick="setDefaultAddress(${addr.id})" title="Set as default">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="btn-icon" onclick="editAddress(${addr.id})" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-icon delete" onclick="deleteAddress(${addr.id})" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="address-details">
+                            <i class="fas fa-map-pin" style="color: var(--primary); margin-right: 8px;"></i>
+                            ${addr.address}
+                        </div>
+                    </div>
+                `;
             });
-            event.target.classList.add('active');
+            
+            addressesContainer.innerHTML = html;
+        }
+
+        // ===== ADDRESS FUNCTIONS =====
+        window.setDefaultAddress = function(id) {
+            addresses = addresses.map(addr => ({
+                ...addr,
+                isDefault: addr.id === id
+            }));
+            localStorage.setItem('foodexpress_addresses', JSON.stringify(addresses));
+            loadAddresses();
+            showNotification('Default address updated!');
         };
-        
-        // Edit profile
-        window.editProfile = function() {
-            const newName = prompt('Enter your full name:', 'John Doe');
-            if (newName) {
-                document.querySelector('.profile-name').textContent = newName;
-                alert('Profile updated successfully!');
+
+        window.editAddress = function(id) {
+            const address = addresses.find(a => a.id === id);
+            const newAddress = prompt('Edit address:', address.address);
+            
+            if (newAddress && newAddress.trim() !== '') {
+                address.address = newAddress.trim();
+                localStorage.setItem('foodexpress_addresses', JSON.stringify(addresses));
+                loadAddresses();
+                showNotification('Address updated successfully!');
             }
         };
-        
-        // Add address
-        window.addAddress = function() {
-            alert('Add new address feature would open here.');
-        };
-        
-        // Change password
-        window.changePassword = function(e) {
-            e.preventDefault();
-            
-            const current = document.getElementById('current-password').value;
-            const newPass = document.getElementById('new-password').value;
-            const confirm = document.getElementById('confirm-password').value;
-            
-            if (!current || !newPass || !confirm) {
-                alert('Please fill all fields');
+
+        window.deleteAddress = function(id) {
+            if (addresses.length === 1) {
+                showNotification('Cannot delete the only address', 'error');
                 return;
             }
             
-            if (newPass !== confirm) {
-                alert('New passwords do not match!');
-                return;
+            if (confirm('Are you sure you want to delete this address?')) {
+                const wasDefault = addresses.find(a => a.id === id)?.isDefault;
+                addresses = addresses.filter(a => a.id !== id);
+                
+                // Set first address as default if we deleted the default
+                if (wasDefault && addresses.length > 0) {
+                    addresses[0].isDefault = true;
+                }
+                
+                localStorage.setItem('foodexpress_addresses', JSON.stringify(addresses));
+                loadAddresses();
+                showNotification('Address deleted successfully!');
             }
-            
-            if (newPass.length < 6) {
-                alert('Password must be at least 6 characters');
-                return;
-            }
-            
-            alert('✅ Password updated successfully!');
-            document.getElementById('current-password').value = '';
-            document.getElementById('new-password').value = '';
-            document.getElementById('confirm-password').value = '';
         };
-        
-        // Logout
-        window.logout = function() {
+
+        // ===== ADD ADDRESS =====
+        function setupAddAddress() {
+            const addBtn = document.getElementById('add-address-btn');
+            
+            addBtn.addEventListener('click', function() {
+                const title = prompt('Enter address title (e.g., Home, Office):', 'Home');
+                if (!title) return;
+                
+                const address = prompt('Enter full address:', '');
+                if (!address) return;
+                
+                const newId = addresses.length > 0 ? Math.max(...addresses.map(a => a.id)) + 1 : 1;
+                
+                addresses.push({
+                    id: newId,
+                    title: title,
+                    address: address,
+                    isDefault: addresses.length === 0 // First address is default
+                });
+                
+                localStorage.setItem('foodexpress_addresses', JSON.stringify(addresses));
+                loadAddresses();
+                showNotification('Address added successfully!');
+            });
+        }
+
+        // ===== CHANGE PASSWORD =====
+        function setupPasswordForm() {
+            const passwordForm = document.getElementById('password-form');
+            
+            passwordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const current = document.getElementById('current-password').value;
+                const newPass = document.getElementById('new-password').value;
+                const confirm = document.getElementById('confirm-password').value;
+                
+                // Demo password validation
+                if (current !== 'password123' && current !== 'admin123' && current !== 'user12345') {
+                    showNotification('Current password is incorrect!', 'error');
+                    return;
+                }
+                
+                if (newPass.length < 6) {
+                    showNotification('Password must be at least 6 characters', 'error');
+                    return;
+                }
+                
+                if (newPass !== confirm) {
+                    showNotification('New passwords do not match!', 'error');
+                    return;
+                }
+                
+                showNotification('✅ Password updated successfully!');
+                passwordForm.reset();
+            });
+        }
+
+        // ===== LOGOUT =====
+        function logout() {
             if (confirm('Are you sure you want to logout?')) {
-                window.location.href = 'index.html';
+                showNotification('You have been logged out successfully');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
             }
-        };
-        
-        // Update cart count
-        const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
-        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        document.querySelectorAll('.cart-count').forEach(el => {
-            el.textContent = totalItems;
+        }
+
+        // ===== UPDATE CART COUNT =====
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = totalItems;
+            });
+        }
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadOrders();
+            loadAddresses();
+            setupSectionSwitching();
+            setupEditProfile();
+            setupAddAddress();
+            setupPasswordForm();
+            updateCartCount();
         });
     </script>
 </body>
