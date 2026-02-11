@@ -3,51 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Sign Up - FoodExpress</title>
+    <title>Partner Registration - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         
-        .admin-container {
+        .partner-container {
+            width: 100%;
+            max-width: 550px;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
         }
         
-        .admin-header {
-            background: linear-gradient(to right, #ff6b35, #ff8e53);
+        .partner-header {
+            background: var(--gray);
             color: white;
             padding: 30px;
             text-align: center;
         }
         
-        .admin-header h1 {
+        .partner-header h1 {
             font-size: 28px;
             margin-bottom: 10px;
         }
         
-        .admin-header p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-        
-        .admin-form {
+        .partner-form {
             padding: 40px;
         }
         
@@ -58,23 +48,23 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
             font-weight: 600;
         }
         
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 16px;
-            transition: border-color 0.3s;
         }
         
         .form-group input:focus,
-        .form-group select:focus {
-            border-color: #ff6b35;
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gray);
             outline: none;
         }
         
@@ -84,249 +74,133 @@
             gap: 15px;
         }
         
-        .btn-admin-signup {
+        .btn-partner {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(to right, #ff6b35, #ff8e53);
+            background: var(--gray);
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
             margin-top: 20px;
         }
         
-        .btn-admin-signup:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        .btn-partner:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
         
-        .admin-footer {
+        .login-link {
             text-align: center;
-            padding: 20px;
+            margin-top: 25px;
+            padding-top: 20px;
             border-top: 1px solid #eee;
-            color: #666;
-            font-size: 14px;
         }
         
-        .admin-footer a {
-            color: #ff6b35;
+        .login-link a {
+            color: var(--gray);
             text-decoration: none;
             font-weight: 600;
-        }
-        
-        .admin-key {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 13px;
-            color: #666;
-        }
-        
-        .password-requirements {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        @media (max-width: 480px) {
-            .admin-container {
-                margin: 20px;
-            }
-            
-            .admin-form {
-                padding: 30px 20px;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <div class="admin-header">
-            <h1><i class="fas fa-user-shield"></i> Admin Sign Up</h1>
-            <p>Create your FoodExpress admin account</p>
+    <div class="partner-container">
+        <div class="partner-header">
+            <h1><i class="fas fa-store"></i> Partner With Us</h1>
+            <p>Register your restaurant</p>
         </div>
         
-        <div class="admin-form">
-            <form id="adminSignupForm">
+        <div class="partner-form">
+            <form id="partner-form">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="firstName">First Name *</label>
-                        <input type="text" id="firstName" required placeholder="John">
+                        <label>First Name</label>
+                        <input type="text" id="firstname" placeholder="John" required>
                     </div>
                     <div class="form-group">
-                        <label for="lastName">Last Name *</label>
-                        <input type="text" id="lastName" required placeholder="Doe">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname" placeholder="Doe" required>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" required placeholder="admin@foodexpress.com">
+                    <label>Restaurant Name</label>
+                    <input type="text" id="restaurant-name" placeholder="e.g., Mama's Kitchen" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="+255 712 345 678">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="owner@restaurant.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Password *</label>
-                    <input type="password" id="password" required minlength="8">
-                    <div class="password-requirements">
-                        Must be at least 8 characters with uppercase, lowercase, and numbers
-                    </div>
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+255 712 345 678" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm Password *</label>
-                    <input type="password" id="confirmPassword" required>
+                    <label>Restaurant Address</label>
+                    <textarea id="address" placeholder="Full address" rows="2" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="adminRole">Admin Role *</label>
-                    <select id="adminRole" required>
-                        <option value="">Select Role</option>
-                        <option value="super_admin">Super Admin</option>
-                        <option value="restaurant_manager">Restaurant Manager</option>
-                        <option value="delivery_manager">Delivery Manager</option>
-                        <option value="customer_support">Customer Support</option>
-                        <option value="finance_manager">Finance Manager</option>
+                    <label>Cuisine Type</label>
+                    <select id="cuisine" required>
+                        <option value="">Select cuisine</option>
+                        <option value="tanzanian">Tanzanian</option>
+                        <option value="italian">Italian</option>
+                        <option value="american">American</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="indian">Indian</option>
                     </select>
                 </div>
                 
-                <div class="admin-key">
-                    <strong>Note:</strong> Admin registration requires approval from existing super admin.
-                    You'll receive an email once your account is activated.
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Create password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                    </div>
                 </div>
                 
-                <button type="submit" class="btn-admin-signup">
-                    <i class="fas fa-user-plus"></i> Create Admin Account
+                <button type="submit" class="btn-partner">
+                    <i class="fas fa-handshake"></i> Register Restaurant
                 </button>
             </form>
-        </div>
-        
-        <div class="admin-footer">
-            <p>Already have an admin account? <a href="admin-login.html">Login here</a></p>
-            <p>Return to <a href="index.html">FoodExpress Home</a></p>
+            
+            <div class="login-link">
+                <p>Already registered? <a href="admin-login.html">Login here</a></p>
+                <p style="margin-top: 10px;"><a href="index.html">← Back to Home</a></p>
+            </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('adminSignupForm').addEventListener('submit', function(e) {
+        document.getElementById('partner-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const adminRole = document.getElementById('adminRole').value;
+            const confirm = document.getElementById('confirm-password').value;
             
-            // Validation
-            if (password !== confirmPassword) {
+            if (password !== confirm) {
                 alert('Passwords do not match!');
                 return;
             }
             
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long');
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
                 return;
             }
             
-            // Check password strength
-            const hasUpperCase = /[A-Z]/.test(password);
-            const hasLowerCase = /[a-z]/.test(password);
-            const hasNumbers = /\d/.test(password);
-            
-            if (!hasUpperCase || !hasLowerCase || !hasNumbers) {
-                alert('Password must contain uppercase, lowercase letters and numbers');
-                return;
-            }
-            
-            if (!adminRole) {
-                alert('Please select an admin role');
-                return;
-            }
-            
-            // Create admin object
-            const adminData = {
-                id: 'ADM' + Date.now().toString().slice(-6),
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                phone: document.getElementById('phone').value || '',
-                role: adminRole,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                permissions: getPermissionsByRole(adminRole)
-            };
-            
-            // Get existing admins
-            let admins = JSON.parse(localStorage.getItem('foodexpress_admins')) || [];
-            
-            // Check if email already exists
-            if (admins.some(admin => admin.email === email)) {
-                alert('An admin with this email already exists');
-                return;
-            }
-            
-            // Add new admin
-            admins.push(adminData);
-            
-            // Save to localStorage
-            localStorage.setItem('foodexpress_admins', JSON.stringify(admins));
-            
-            // Store current admin (for immediate login after approval)
-            localStorage.setItem('pending_admin', JSON.stringify({
-                email: email,
-                name: `${firstName} ${lastName}`
-            }));
-            
-            // Show success message
-            alert(`✅ Admin registration successful!\n\nName: ${firstName} ${lastName}\nEmail: ${email}\nRole: ${adminRole}\nStatus: Pending Approval\n\nYou will receive an email when your account is approved.`);
-            
-            // Redirect to admin login
-            setTimeout(() => {
-                window.location.href = 'admin-login.html?status=pending';
-            }, 2000);
-        });
-        
-        function getPermissionsByRole(role) {
-            const permissions = {
-                super_admin: ['all'],
-                restaurant_manager: ['view_restaurants', 'edit_restaurants', 'view_orders', 'manage_menu'],
-                delivery_manager: ['view_orders', 'assign_drivers', 'track_deliveries', 'view_reports'],
-                customer_support: ['view_orders', 'view_customers', 'handle_complaints', 'process_refunds'],
-                finance_manager: ['view_orders', 'view_reports', 'process_payments', 'view_analytics']
-            };
-            return permissions[role] || [];
-        }
-        
-        // Generate a strong password suggestion
-        function generatePassword() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let password = '';
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return password;
-        }
-        
-        // Auto-generate password on double-click password field
-        document.getElementById('password').addEventListener('dblclick', function() {
-            const newPassword = generatePassword();
-            this.value = newPassword;
-            document.getElementById('confirmPassword').value = newPassword;
-            alert('Strong password generated!');
+            alert('✅ Registration submitted! Your application is pending approval.\nYou will receive an email when approved.');
+            window.location.href = 'admin-login.html';
         });
     </script>
 </body>
