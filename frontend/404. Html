@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/Food_ordering-system/frontend/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - FoodExpress</title>
+    <style>
+        body { font-family: 'Poppins', sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #ff6b35; }
+        a { color: #ff6b35; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>404 - Page Not Found</h1>
+    <p>The page you're looking for doesn't exist.</p>
+    <a href="index.html">← Back to Home</a>
+</body>
+</html>
