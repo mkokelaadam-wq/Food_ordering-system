@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -12,7 +13,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const userRoutes = require('./routes/userRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
-const adminRoutes = require('./routes/adminRoutes'); // ✗ ADDED THIS
+const adminRoutes = require('./routes/adminRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -28,36 +29,43 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // Security headers
 app.use(helmet({
     contentSecurityPolicy: NODE_ENV === 'production',
-    crossOriginEmbedderPolicy: NODE_ENV === 'production'
+    crossOriginEmbedderPolicy: false // Allow serving frontend
 }));
 
-// CORS configuration
+// Cookie parser (for auth tokens)
+app.use(cookieParser());
+
+// CORS configuration - CRITICAL FOR FRONTEND
 const corsOptions = {
     origin: [
         'http://localhost:3000', 
         'http://localhost:5500', 
-        'http://127.0.0.1:5500', 
+        'http://127.0.0.1:5500',
+        'http://localhost:5000',
+        'http://127.0.0.1:5000',
         'https://mkokelaadam-wq.github.io',
-        'http://localhost:5000',  // For local API testing
-        'http://127.0.0.1:5000'   // For local API testing
+        // 🔥 GitHub Pages yako moja kwa moja
+        'https://mkokelaadam-wq.github.io/Food_ordering-system',
+        'https://mkokelaadam-wq.github.io/Food_ordering-system/',
+        // 🔥 Render deployment (badilisha na URL yako baada ya kudeploy)
+        process.env.FRONTEND_URL || 'https://foodexpress-frontend.onrender.com'
     ],
     credentials: true,
     optionsSuccessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    exposedHeaders: ['Set-Cookie']
 };
 
 app.use(cors(corsOptions));
-
-// Handle preflight requests
 app.options('*', cors(corsOptions));
 
-// HTTP request logger (different format for production)
+// Logger
 if (NODE_ENV === 'development') {
     app.use(morgan('dev'));
 } else {
     app.use(morgan('combined', {
-        skip: (req, res) => res.statusCode < 400 // Log only errors in production
+        skip: (req, res) => res.statusCode < 400
     }));
 }
 
@@ -66,40 +74,40 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ============================================
-// STATIC FILES
+// 🔥 SERVE FRONTEND FILES (STATIC)
 // ============================================
+
+// Serve frontend files - HII NI MUHIMU SANA!
+// Hii inafanya backend yako iweze kuserve HTML files moja kwa moja
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
-
-// Serve public assets
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // ============================================
-// ROUTES
+// 🔥 API ROUTES
 // ============================================
 
-// API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/restaurants', restaurantRoutes);
-app.use('/api/admin', adminRoutes); // ✗ ADDED THIS
+app.use('/api/admin', adminRoutes);
 
 // ============================================
-// ROOT ENDPOINTS
+// 🔥 ROOT ENDPOINTS
 // ============================================
 
-// Health check endpoint
-app.get('/', (req, res) => {
+// API Health check
+app.get('/api', (req, res) => {
     res.json({ 
         success: true,
         message: '🍔 Food Express Backend API', 
         status: 'running',
         version: '1.0.0',
-        timestamp: new Date().toISOString(),
         environment: NODE_ENV,
         endpoints: {
             auth: '/api/auth',
@@ -108,146 +116,67 @@ app.get('/', (req, res) => {
             cart: '/api/cart',
             users: '/api/users',
             restaurants: '/api/restaurants',
-            admin: '/api/admin',
-            documentation: '/api',
-            health: '/health'
-        },
-        documentation: 'Visit /api for API documentation'
+            admin: '/api/admin'
+        }
     });
 });
 
-// API documentation endpoint
-app.get('/api', (req, res) => {
-    const docs = {
-        success: true,
-        message: 'Food Express API Documentation',
-        version: '1.0.0',
-        baseUrl: `http://${req.headers.host}/api`,
-        endpoints: {
-            // Authentication
-            auth: {
-                register: { method: 'POST', path: '/auth/register', description: 'Register new user' },
-                login: { method: 'POST', path: '/auth/login', description: 'Login user' },
-                logout: { method: 'POST', path: '/auth/logout', description: 'Logout user' },
-                forgotPassword: { method: 'POST', path: '/auth/forgot-password', description: 'Request password reset' }
-            },
-            // Menu
-            menu: {
-                getAll: { method: 'GET', path: '/menu', description: 'Get all menu items' },
-                getById: { method: 'GET', path: '/menu/:id', description: 'Get single menu item' },
-                getByCategory: { method: 'GET', path: '/menu/category/:category', description: 'Get menu items by category' }
-            },
-            // Cart
-            cart: {
-                add: { method: 'POST', path: '/cart/add', description: 'Add item to cart' },
-                get: { method: 'GET', path: '/cart', description: 'Get user cart' },
-                update: { method: 'PUT', path: '/cart/:id', description: 'Update cart item' },
-                remove: { method: 'DELETE', path: '/cart/:id', description: 'Remove from cart' },
-                clear: { method: 'DELETE', path: '/cart/clear', description: 'Clear cart' }
-            },
-            // Orders
-            orders: {
-                create: { method: 'POST', path: '/orders', description: 'Create new order' },
-                getAll: { method: 'GET', path: '/orders', description: 'Get user orders' },
-                getById: { method: 'GET', path: '/orders/:id', description: 'Get order details' },
-                track: { method: 'GET', path: '/orders/:id/track', description: 'Track order status' }
-            },
-            // Users
-            users: {
-                profile: { method: 'GET', path: '/users/profile', description: 'Get user profile' },
-                updateProfile: { method: 'PUT', path: '/users/profile', description: 'Update profile' },
-                uploadPhoto: { method: 'POST', path: '/users/profile/upload', description: 'Upload profile picture' },
-                addresses: { method: 'GET', path: '/users/addresses', description: 'Get user addresses' },
-                favorites: { method: 'GET', path: '/users/favorites', description: 'Get user favorites' }
-            },
-            // Restaurants
-            restaurants: {
-                getAll: { method: 'GET', path: '/restaurants', description: 'Get all restaurants' },
-                getById: { method: 'GET', path: '/restaurants/:id', description: 'Get restaurant details' },
-                getMenu: { method: 'GET', path: '/restaurants/:id/menu', description: 'Get restaurant menu' },
-                search: { method: 'GET', path: '/restaurants/search', description: 'Search restaurants' }
-            },
-            // Admin (requires admin role)
-            admin: {
-                dashboard: { method: 'GET', path: '/admin/dashboard', description: 'Admin dashboard stats' },
-                users: { method: 'GET', path: '/admin/users', description: 'Manage users' },
-                restaurants: { method: 'GET', path: '/admin/restaurants', description: 'Manage restaurants' },
-                orders: { method: 'GET', path: '/admin/orders', description: 'Manage all orders' }
-            }
-        },
-        authentication: 'Most endpoints require JWT token in Authorization header',
-        responseFormat: {
-            success: 'boolean',
-            message: 'string',
-            data: 'object/array',
-            error: 'string (only when success is false)'
-        }
-    };
-    
-    res.json(docs);
-});
-
-// Health check endpoint (for monitoring)
+// Health check
 app.get('/health', (req, res) => {
-    const health = {
+    res.json({
         success: true,
         status: 'healthy',
         timestamp: new Date().toISOString(),
         uptime: process.uptime(),
-        memory: process.memoryUsage(),
-        environment: NODE_ENV,
-        database: 'connected' // You can add actual DB health check here
-    };
-    
-    res.json(health);
-});
-
-// API status endpoint
-app.get('/status', (req, res) => {
-    res.json({
-        success: true,
-        message: 'API is running',
-        serverTime: new Date().toISOString(),
-        uptime: `${Math.floor(process.uptime())} seconds`
+        environment: NODE_ENV
     });
 });
 
 // ============================================
-// ERROR HANDLING MIDDLEWARE
+// 🔥 SERVE FRONTEND HTML PAGES
 // ============================================
 
-// 404 handler for API routes
+// Serve index.html kwenye root
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
+// Serve all HTML pages moja kwa moja
+app.get('/*.html', (req, res) => {
+    const pagePath = path.join(__dirname, '../frontend', req.path);
+    res.sendFile(pagePath, (err) => {
+        if (err) {
+            // Kama file haipo, serve 404 page
+            res.status(404).sendFile(path.join(__dirname, '../frontend/404.html'));
+        }
+    });
+});
+
+// ============================================
+// 🔥 ERROR HANDLING
+// ============================================
+
+// 404 handler for API
 app.use('/api/*', (req, res) => {
     res.status(404).json({ 
         success: false,
         error: 'API endpoint not found',
         requestedUrl: req.originalUrl,
-        method: req.method,
-        suggestions: [
-            'Check the API documentation at /api',
-            'Verify the endpoint URL and HTTP method',
-            'Ensure you have proper authentication'
-        ]
+        method: req.method
     });
 });
 
-// General 404 handler
+// 404 handler for frontend
 app.use('*', (req, res) => {
+    // Kama ni API request
     if (req.originalUrl.startsWith('/api')) {
         res.status(404).json({ 
             success: false,
-            error: 'Route not found',
-            requestedUrl: req.originalUrl,
-            method: req.method
+            error: 'Route not found'
         });
     } else {
-        res.status(404).json({ 
-            success: false,
-            error: 'Not Found',
-            message: 'Welcome to Food Express API. Please use API endpoints starting with /api',
-            documentation: '/api',
-            healthCheck: '/'
-        });
+        // Kama ni frontend page, serve 404.html
+        res.status(404).sendFile(path.join(__dirname, '../frontend/404.html'));
     }
 });
 
@@ -255,84 +184,82 @@ app.use('*', (req, res) => {
 app.use((err, req, res, next) => {
     console.error('❌ Server Error:', {
         message: err.message,
-        stack: err.stack,
         url: req.originalUrl,
-        method: req.method,
-        timestamp: new Date().toISOString()
+        method: req.method
     });
     
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Internal Server Error';
     
-    const errorResponse = {
-        success: false,
-        error: message,
-        path: req.originalUrl,
-        timestamp: new Date().toISOString()
-    };
-    
-    // Include stack trace only in development
-    if (NODE_ENV === 'development') {
-        errorResponse.stack = err.stack;
+    // Kama ni API request
+    if (req.originalUrl.startsWith('/api')) {
+        res.status(statusCode).json({
+            success: false,
+            error: message,
+            ...(NODE_ENV === 'development' && { stack: err.stack })
+        });
+    } else {
+        // Kama ni frontend page, redirect to error page
+        res.status(statusCode).send(`
+            <!DOCTYPE html>
+            <html>
+                <head><title>Error</title></head>
+                <body>
+                    <h1>${statusCode} - ${message}</h1>
+                    <a href="/">Back to Home</a>
+                </body>
+            </html>
+        `);
     }
-    
-    res.status(statusCode).json(errorResponse);
 });
 
 // ============================================
 // SERVER STARTUP
 // ============================================
 
-// Start server
 const server = app.listen(PORT, '0.0.0.0', () => {
     console.log('='.repeat(60));
     console.log('🍔 FOOD EXPRESS BACKEND SERVER');
     console.log('='.repeat(60));
     console.log(`✅ Server started successfully!`);
     console.log(`⚡ Environment: ${NODE_ENV}`);
-    console.log(`🌐 URL: http://localhost:${PORT}`);
-    console.log(`🔗 API Base: http://localhost:${PORT}/api`);
-    console.log(`📚 Documentation: http://localhost:${PORT}/api`);
-    console.log(`🏥 Health Check: http://localhost:${PORT}/health`);
-    console.log(`⏰ Server Time: ${new Date().toLocaleString()}`);
+    console.log(`🌐 API URL: http://localhost:${PORT}/api`);
+    console.log(`🏠 Frontend URL: http://localhost:${PORT}`);
+    console.log(`📁 Frontend Path: ${path.join(__dirname, '../frontend')}`);
     console.log('='.repeat(60));
-    console.log('Available Routes:');
-    console.log(`  - Auth: http://localhost:${PORT}/api/auth`);
-    console.log(`  - Menu: http://localhost:${PORT}/api/menu`);
-    console.log(`  - Cart: http://localhost:${PORT}/api/cart`);
-    console.log(`  - Orders: http://localhost:${PORT}/api/orders`);
-    console.log(`  - Users: http://localhost:${PORT}/api/users`);
-    console.log(`  - Restaurants: http://localhost:${PORT}/api/restaurants`);
-    console.log(`  - Admin: http://localhost:${PORT}/api/admin`);
+    console.log('📌 Available Frontend Pages:');
+    console.log(`   - Home: http://localhost:${PORT}`);
+    console.log(`   - Login: http://localhost:${PORT}/login.html`);
+    console.log(`   - Signup: http://localhost:${PORT}/signup.html`);
+    console.log(`   - Menu: http://localhost:${PORT}/menu.html`);
+    console.log(`   - Cart: http://localhost:${PORT}/cart.html`);
+    console.log(`   - Checkout: http://localhost:${PORT}/checkout.html`);
+    console.log(`   - Orders: http://localhost:${PORT}/orders.html`);
+    console.log(`   - Profile: http://localhost:${PORT}/profile.html`);
+    console.log('='.repeat(60));
+    console.log('📌 API Endpoints:');
+    console.log(`   - Auth: http://localhost:${PORT}/api/auth`);
+    console.log(`   - Menu: http://localhost:${PORT}/api/menu`);
+    console.log(`   - Orders: http://localhost:${PORT}/api/orders`);
     console.log('='.repeat(60));
 });
 
 // ============================================
-// SERVER ERROR HANDLING
+// ERROR HANDLING
 // ============================================
 
-// Handle server errors
 server.on('error', (error) => {
     console.error('❌ Server Error:', error);
     
     if (error.code === 'EADDRINUSE') {
         console.error(`⚠️ Port ${PORT} is already in use!`);
-        console.log(`💡 Try one of these solutions:`);
-        console.log(`   1. Change PORT in .env file`);
-        console.log(`   2. Kill process using port: kill -9 $(lsof -t -i:${PORT})`);
-        console.log(`   3. Use different port: PORT=5001 npm start`);
-    } else if (error.code === 'EACCES') {
-        console.error(`⚠️ Permission denied for port ${PORT}`);
-        console.log(`💡 Try using a port above 1024 (e.g., 5000, 8080, 3000)`);
+        console.log(`💡 Try: PORT=5001 npm start`);
     }
-    
     process.exit(1);
 });
 
-// Handle uncaught exceptions
 process.on('uncaughtException', (error) => {
     console.error('💥 Uncaught Exception:', error);
-    console.log('🔄 Restarting server...');
     process.exit(1);
 });
 
@@ -340,29 +267,22 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
-// ============================================
-// GRACEFUL SHUTDOWN
-// ============================================
-
+// Graceful shutdown
 const gracefulShutdown = (signal) => {
     console.log(`\n${signal} received. Starting graceful shutdown...`);
-    
     server.close(() => {
         console.log('✅ HTTP server closed');
         console.log('👋 Goodbye!');
         process.exit(0);
     });
     
-    // Force shutdown after 10 seconds
     setTimeout(() => {
-        console.error('⚠️ Could not close connections in time, forcefully shutting down');
+        console.error('⚠️ Forcefully shutting down');
         process.exit(1);
     }, 10000);
 };
 
-// Listen for shutdown signals
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 
-// Export for testing
 module.exports = app;
