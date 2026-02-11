@@ -34,8 +34,8 @@
             <div class="auth-buttons">
                 <a href="login.html" class="btn-login">Login</a>
                 <a href="signup.html" class="btn-signup">Sign Up</a>
-                <a href="admin-login.html" class="btn-signup" style="background: #6c757d;">
-                    <i class="fas fa-user-shield"></i> Admin
+                <a href="admin-signup.html" class="btn-signup" style="background: #6c757d;">
+                    <i class="fas fa-handshake"></i> Partner
                 </a>
             </div>
         </div>
@@ -111,8 +111,8 @@
                 <div class="restaurant-info">
                     <h4>Mama's Kitchen</h4>
                     <p>Authentic Tanzanian cuisine with traditional recipes</p>
-                    <div class="restaurant-meta">
-                        <span class="rating">⭐️ 4.5</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.5</span>
                         <span class="price">Tsh 5,000+</span>
                     </div>
                     <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
@@ -124,8 +124,8 @@
                 <div class="restaurant-info">
                     <h4>Burger Palace</h4>
                     <p>Best burgers in town with homemade buns</p>
-                    <div class="restaurant-meta">
-                        <span class="rating">⭐️ 4.8</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.8</span>
                         <span class="price">Tsh 8,000+</span>
                     </div>
                     <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
@@ -137,8 +137,8 @@
                 <div class="restaurant-info">
                     <h4>Pizza Hub</h4>
                     <p>Wood-fired pizza and Italian specialties</p>
-                    <div class="restaurant-meta">
-                        <span class="rating">⭐️ 4.3</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                        <span style="color: #ffc107; font-weight: bold;">⭐️ 4.3</span>
                         <span class="price">Tsh 12,000+</span>
                     </div>
                     <button class="btn-order" onclick="window.location.href='menu.html'">View Menu</button>
@@ -178,33 +178,33 @@
     <section class="order-form" id="order-form-section">
         <h3>Place Your Order</h3>
         <form id="order-form">
-            <div class="form-row">
-                <div class="form-group">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
                     <input type="text" id="name" placeholder="Your Name" required>
                 </div>
-                <div class="form-group">
+                <div>
                     <input type="tel" id="phone" placeholder="Phone Number" required>
                 </div>
             </div>
             
-            <div class="form-group">
+            <div>
                 <textarea id="address" placeholder="Delivery Address" rows="3" required></textarea>
             </div>
             
-            <div class="form-group">
-                <h4>Payment Method</h4>
+            <div>
+                <h4 style="margin: 20px 0 10px 0;">Payment Method</h4>
                 <div class="payment-options">
                     <label>
                         <input type="radio" name="payment" value="cash" checked>
-                        <span>Cash on Delivery</span>
+                        Cash on Delivery
                     </label>
                     <label>
                         <input type="radio" name="payment" value="card">
-                        <span>Credit/Debit Card</span>
+                        Credit/Debit Card
                     </label>
                     <label>
                         <input type="radio" name="payment" value="mobile">
-                        <span>Mobile Payment</span>
+                        Mobile Payment
                     </label>
                 </div>
             </div>
@@ -217,17 +217,17 @@
 
     <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="cart-sidebar">
-        <div class="cart-header">
-            <h3>Your Cart</h3>
-            <button class="close-cart">×</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0;">Your Cart</h3>
+            <button class="close-cart" style="background: none; border: none; font-size: 24px; cursor: pointer;">×</button>
         </div>
         
-        <div id="cart-items">
+        <div id="cart-items" style="max-height: 400px; overflow-y: auto;">
             <!-- Cart items will be loaded here -->
         </div>
         
-        <div class="cart-total">
-            Total: <span id="cart-total">Tsh 0</span>
+        <div class="cart-total" style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; font-size: 20px;">
+            Total: <span id="cart-total" style="font-weight: bold; color: #27ae60;">Tsh 0</span>
         </div>
         
         <button class="checkout-btn">
@@ -276,8 +276,8 @@
         
         <div class="footer-bottom">
             <p>&copy; 2024 FoodExpress. All rights reserved. | 
-                <a href="privacy.html">Privacy Policy</a> | 
-                <a href="terms.html">Terms of Service</a>
+                <a href="privacy.html" style="color: #ff6b35;">Privacy Policy</a> | 
+                <a href="terms.html" style="color: #ff6b35;">Terms of Service</a>
             </p>
         </div>
     </footer>
