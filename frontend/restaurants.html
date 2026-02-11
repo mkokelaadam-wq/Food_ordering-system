@@ -1,67 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Restaurants - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
-        .restaurants-hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200');
-            background-size: cover;
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(255,107,53,0.12);
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+            transform: rotate(-10deg);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .nav-link i {
+            margin-right: 8px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            text-decoration: none;
+            color: var(--secondary);
+            padding: 10px 15px;
+            margin-left: 5px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: var(--danger);
             color: white;
-            padding: 80px 20px;
+            font-size: 11px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-admin {
+            background: var(--gray);
+            color: white;
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-admin:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+        
+        /* ===== RESTAURANTS HERO ===== */
+        .restaurants-hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.75) 100%),
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 160px 20px 100px;
             text-align: center;
-            margin-top: 80px;
+            margin-top: 0;
+            position: relative;
         }
         
-        .filters-section {
-            padding: 40px 0;
+        .restaurants-hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .restaurants-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* ===== SEARCH SECTION ===== */
+        .search-section {
+            padding: 40px 0 20px;
             background: white;
+            position: relative;
+            z-index: 10;
         }
         
-        .filter-group {
-            margin-bottom: 30px;
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            top: -40px;
+            margin-bottom: -20px;
+        }
+        
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 2px solid rgba(255,107,53,0.2);
+        }
+        
+        .search-input {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+        }
+        
+        .search-input i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        .search-input input {
+            flex: 1;
+            padding: 18px 0;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
+        }
+        
+        .search-input input::placeholder {
+            color: #adb5bd;
+            font-weight: 300;
+        }
+        
+        .btn-search {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-search:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* ===== FILTERS SECTION ===== */
+        .filters-section {
+            padding: 30px 0 40px;
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         
         .filter-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-title i {
+            color: var(--primary);
+        }
+        
+        .results-count {
+            color: var(--gray);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .results-count span {
+            color: var(--primary);
+            font-weight: 700;
             font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--dark);
         }
         
         .filter-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         
         .filter-btn {
-            padding: 8px 20px;
+            padding: 12px 28px;
             border: 2px solid var(--primary);
             background: white;
             color: var(--primary);
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-btn i {
+            font-size: 14px;
         }
         
         .filter-btn.active,
         .filter-btn:hover {
             background: var(--primary);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+        
+        /* ===== RESTAURANTS GRID ===== */
+        .restaurants {
+            padding: 60px 0 80px;
+            background: var(--light);
+        }
+        
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(0,0,0,0.03);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+        
+        .restaurant-img {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .restaurant-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .restaurant-card:hover .restaurant-img img {
+            transform: scale(1.08);
+        }
+        
+        .rating-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--success);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+        
+        .restaurant-info {
+            padding: 25px;
+        }
+        
+        .restaurant-info h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .cuisine {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .cuisine i {
+            font-size: 14px;
+        }
+        
+        .restaurant-details {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 14px;
+            background: #f8f9fa;
+            padding: 12px 18px;
+            border-radius: 12px;
+        }
+        
+        .restaurant-details i {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+        
+        .btn-order {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-order i {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-order:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+        }
+        
+        .btn-order:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* ===== EMPTY STATE ===== */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .no-results i {
+            font-size: 80px;
+            color: #e9ecef;
+            margin-bottom: 25px;
+        }
+        
+        .no-results h3 {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .no-results p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+            font-size: 36px;
+        }
+        
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .footer-col p {
+            color: #a0aec0;
+            line-height: 1.8;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+        
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            text-align: center;
+            color: #a0aec0;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 1024px) {
+            .restaurants-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media screen and (max-width: 880px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .restaurants-hero h1 {
+                font-size: 42px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+                margin: 0 20px;
+            }
+            
+            .btn-search {
+                width: 100%;
+                padding: 16px;
+                border-radius: 0 0 20px 20px;
+                justify-content: center;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 12px 20px;
+            }
+            
+            .restaurants-hero {
+                padding: 140px 20px 80px;
+            }
+            
+            .restaurants-hero h1 {
+                font-size: 36px;
+            }
+            
+            .restaurants-hero p {
+                font-size: 18px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .filter-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-options {
+                width: 100%;
+            }
+            
+            .filter-btn {
+                flex: 1;
+                text-align: center;
+                justify-content: center;
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .restaurants-hero h1 {
+                font-size: 28px;
+            }
+            
+            .btn {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .restaurant-card {
+                margin: 0 10px;
+            }
+            
+            .restaurant-details {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
+            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="restaurants.html" class="nav-link active"><i class="fas fa-store"></i> Restaurants</a>
@@ -70,6 +774,7 @@
                 <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
                 <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
             </div>
+            
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-login">Login</a>
                 <a href="signup.html" class="btn btn-signup">Sign Up</a>
@@ -82,109 +787,253 @@
         </div>
     </nav>
 
+    <!-- ===== HERO SECTION ===== -->
     <div class="restaurants-hero">
         <h1>Restaurants Near You</h1>
         <p>Discover the best restaurants in Dar es Salaam</p>
     </div>
 
+    <!-- ===== SEARCH SECTION ===== -->
+    <div class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search restaurants by name or cuisine...">
+                </div>
+                <button class="btn-search" id="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FILTERS SECTION ===== -->
     <section class="filters-section">
         <div class="container">
-            <div class="filter-group">
-                <h3 class="filter-title">Cuisine</h3>
-                <div class="filter-options">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="tanzanian">Tanzanian</button>
-                    <button class="filter-btn" data-filter="italian">Italian</button>
-                    <button class="filter-btn" data-filter="american">American</button>
-                    <button class="filter-btn" data-filter="chinese">Chinese</button>
-                    <button class="filter-btn" data-filter="indian">Indian</button>
+            <div class="filter-header">
+                <h3 class="filter-title">
+                    <i class="fas fa-filter"></i> 
+                    Filter by Cuisine
+                </h3>
+                <div class="results-count">
+                    Showing <span id="restaurants-count">8</span> restaurants
                 </div>
+            </div>
+            
+            <div class="filter-options" id="filter-options">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-utensils"></i> All
+                </button>
+                <button class="filter-btn" data-filter="tanzanian">
+                    <i class="fas fa-map-marker-alt"></i> Tanzanian
+                </button>
+                <button class="filter-btn" data-filter="italian">
+                    <i class="fas fa-pizza-slice"></i> Italian
+                </button>
+                <button class="filter-btn" data-filter="american">
+                    <i class="fas fa-hamburger"></i> American
+                </button>
+                <button class="filter-btn" data-filter="chinese">
+                    <i class="fas fa-egg"></i> Chinese
+                </button>
+                <button class="filter-btn" data-filter="indian">
+                    <i class="fas fa-pepper-hot"></i> Indian
+                </button>
+                <button class="filter-btn" data-filter="fastfood">
+                    <i class="fas fa-tachometer-alt"></i> Fast Food
+                </button>
+                <button class="filter-btn" data-filter="seafood">
+                    <i class="fas fa-fish"></i> Seafood
+                </button>
             </div>
         </div>
     </section>
 
+    <!-- ===== RESTAURANTS GRID ===== -->
     <section class="restaurants">
         <div class="container">
             <div class="restaurants-grid" id="restaurants-grid">
-                <!-- Restaurant 1 -->
-                <div class="restaurant-card" data-cuisine="tanzanian">
+                <!-- Restaurant 1 - Mama's Kitchen -->
+                <div class="restaurant-card" data-cuisine="tanzanian" data-name="Mama's Kitchen">
                     <div class="restaurant-img">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500" alt="Mama's Kitchen">
-                        <span class="rating-badge">4.5 ★</span>
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600" alt="Mama's Kitchen" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.5</span>
+                        <span class="offer-badge"><i class="fas fa-tag"></i> Free delivery</span>
                     </div>
                     <div class="restaurant-info">
                         <h3>Mama's Kitchen</h3>
-                        <p class="cuisine">Tanzanian • African</p>
+                        <p class="cuisine"><i class="fas fa-map-marker-alt"></i> Tanzanian • African</p>
                         <div class="restaurant-details">
                             <span><i class="fas fa-clock"></i> 30-45 min</span>
                             <span><i class="fas fa-tag"></i> Tsh 5,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Free</span>
                         </div>
                         <button class="btn-order" onclick="window.location.href='menu.html?restaurant=1'">
-                            View Menu
+                            View Menu <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- Restaurant 2 -->
-                <div class="restaurant-card" data-cuisine="american">
+                <!-- Restaurant 2 - Burger Palace -->
+                <div class="restaurant-card" data-cuisine="american fastfood" data-name="Burger Palace">
                     <div class="restaurant-img">
-                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=500" alt="Burger Palace">
-                        <span class="rating-badge">4.8 ★</span>
+                        <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600" alt="Burger Palace" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.8</span>
+                        <span class="offer-badge"><i class="fas fa-fire"></i> Popular</span>
                     </div>
                     <div class="restaurant-info">
                         <h3>Burger Palace</h3>
-                        <p class="cuisine">American • Fast Food</p>
+                        <p class="cuisine"><i class="fas fa-hamburger"></i> American • Fast Food</p>
                         <div class="restaurant-details">
                             <span><i class="fas fa-clock"></i> 20-35 min</span>
                             <span><i class="fas fa-tag"></i> Tsh 8,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 1,500</span>
                         </div>
                         <button class="btn-order" onclick="window.location.href='menu.html?restaurant=2'">
-                            View Menu
+                            View Menu <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- Restaurant 3 -->
-                <div class="restaurant-card" data-cuisine="italian">
+                <!-- Restaurant 3 - Pizza Hub -->
+                <div class="restaurant-card" data-cuisine="italian" data-name="Pizza Hub">
                     <div class="restaurant-img">
-                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500" alt="Pizza Hub">
-                        <span class="rating-badge">4.3 ★</span>
+                        <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600" alt="Pizza Hub" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.3</span>
                     </div>
                     <div class="restaurant-info">
                         <h3>Pizza Hub</h3>
-                        <p class="cuisine">Italian • Pizza</p>
+                        <p class="cuisine"><i class="fas fa-pizza-slice"></i> Italian • Pizza</p>
                         <div class="restaurant-details">
                             <span><i class="fas fa-clock"></i> 25-40 min</span>
                             <span><i class="fas fa-tag"></i> Tsh 12,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 2,000</span>
                         </div>
                         <button class="btn-order" onclick="window.location.href='menu.html?restaurant=3'">
-                            View Menu
+                            View Menu <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- Restaurant 4 -->
-                <div class="restaurant-card" data-cuisine="tanzanian">
+                <!-- Restaurant 4 - Nyama Choma House -->
+                <div class="restaurant-card" data-cuisine="tanzanian" data-name="Nyama Choma House">
                     <div class="restaurant-img">
-                        <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=500" alt="Nyama Choma House">
-                        <span class="rating-badge">4.6 ★</span>
+                        <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600" alt="Nyama Choma House" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.6</span>
+                        <span class="offer-badge"><i class="fas fa-gem"></i> Signature</span>
                     </div>
                     <div class="restaurant-info">
                         <h3>Nyama Choma House</h3>
-                        <p class="cuisine">Tanzanian • Grills</p>
+                        <p class="cuisine"><i class="fas fa-drumstick-bite"></i> Tanzanian • Grills</p>
                         <div class="restaurant-details">
                             <span><i class="fas fa-clock"></i> 35-50 min</span>
                             <span><i class="fas fa-tag"></i> Tsh 10,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 2,500</span>
                         </div>
                         <button class="btn-order" onclick="window.location.href='menu.html?restaurant=4'">
-                            View Menu
+                            View Menu <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 5 - Spice Island -->
+                <div class="restaurant-card" data-cuisine="indian tanzanian" data-name="Spice Island">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600" alt="Spice Island" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.7</span>
+                        <span class="offer-badge"><i class="fas fa-tag"></i> 20% off</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Spice Island</h3>
+                        <p class="cuisine"><i class="fas fa-pepper-hot"></i> Indian • Zanzibari</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 35-50 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 9,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 1,500</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=5'">
+                            View Menu <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 6 - Great Wall -->
+                <div class="restaurant-card" data-cuisine="chinese" data-name="Great Wall">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1525755662778-989d0524087e?w=600" alt="Great Wall" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.4</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Great Wall</h3>
+                        <p class="cuisine"><i class="fas fa-egg"></i> Chinese • Asian</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 30-45 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 11,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 2,000</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=6'">
+                            View Menu <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 7 - Samaki Samaki -->
+                <div class="restaurant-card" data-cuisine="seafood tanzanian" data-name="Samaki Samaki">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1516684737162-b2e7acb38e7d?w=600" alt="Samaki Samaki" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.5</span>
+                        <span class="offer-badge"><i class="fas fa-fish"></i> Fresh Catch</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Samaki Samaki</h3>
+                        <p class="cuisine"><i class="fas fa-fish"></i> Seafood • Tanzanian</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 30-45 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 12,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 2,000</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=7'">
+                            View Menu <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Restaurant 8 - Coffee & Bites -->
+                <div class="restaurant-card" data-cuisine="cafe desserts" data-name="Coffee & Bites">
+                    <div class="restaurant-img">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600" alt="Coffee & Bites" loading="lazy">
+                        <span class="rating-badge"><i class="fas fa-star"></i> 4.2</span>
+                        <span class="offer-badge"><i class="fas fa-coffee"></i> Breakfast</span>
+                    </div>
+                    <div class="restaurant-info">
+                        <h3>Coffee & Bites</h3>
+                        <p class="cuisine"><i class="fas fa-coffee"></i> Cafe • Desserts</p>
+                        <div class="restaurant-details">
+                            <span><i class="fas fa-clock"></i> 20-30 min</span>
+                            <span><i class="fas fa-tag"></i> Tsh 4,000+</span>
+                            <span><i class="fas fa-motorcycle"></i> Tsh 1,000</span>
+                        </div>
+                        <button class="btn-order" onclick="window.location.href='menu.html?restaurant=8'">
+                            View Menu <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
             </div>
+            
+            <!-- No Results Template -->
+            <div id="no-results" class="no-results" style="display: none;">
+                <i class="fas fa-store-alt"></i>
+                <h3>No restaurants found</h3>
+                <p>We couldn't find any restaurants matching your search.</p>
+                <button class="btn btn-primary" onclick="clearFilters()" style="padding: 14px 30px;">
+                    <i class="fas fa-redo-alt"></i> Clear Filters
+                </button>
+            </div>
         </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -193,7 +1042,7 @@
                         <i class="fas fa-utensils"></i>
                         <h2>FoodExpress</h2>
                     </div>
-                    <p>Your favorite food, delivered fast.</p>
+                    <p>Your favorite food, delivered fast. Serving Dar es Salaam with love since 2024.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
@@ -201,6 +1050,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="restaurants.html">Restaurants</a></li>
                         <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -209,36 +1059,157 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="login.html">Login</a></li>
                         <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="admin-login.html">Partner Login</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FoodExpress</p>
+                <p>&copy; 2024 FoodExpress. All rights reserved. Delivering happiness since 2024.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="cart.js"></script>
     <script>
-        // Restaurant filtering
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        // ===== UPDATE CART COUNT =====
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = totalItems;
+            });
+        }
+
+        // ===== FILTER RESTAURANTS =====
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const restaurants = document.querySelectorAll('.restaurant-card');
+            const noResults = document.getElementById('no-results');
+            const countSpan = document.getElementById('restaurants-count');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all buttons
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    let visibleCount = 0;
+                    
+                    restaurants.forEach(restaurant => {
+                        const cuisine = restaurant.dataset.cuisine;
+                        
+                        if (filter === 'all' || cuisine.includes(filter)) {
+                            restaurant.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            restaurant.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update count
+                    countSpan.textContent = visibleCount;
+                    
+                    // Show/hide no results
+                    if (visibleCount === 0) {
+                        noResults.style.display = 'block';
+                    } else {
+                        noResults.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // ===== SEARCH RESTAURANTS =====
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const restaurants = document.querySelectorAll('.restaurant-card');
+            const noResults = document.getElementById('no-results');
+            const countSpan = document.getElementById('restaurants-count');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
                 
-                const filter = this.dataset.filter;
-                const restaurants = document.querySelectorAll('.restaurant-card');
+                // Remove active class from filter buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('[data-filter="all"]').classList.add('active');
                 
                 restaurants.forEach(restaurant => {
-                    if (filter === 'all' || restaurant.dataset.cuisine === filter) {
+                    const name = restaurant.dataset.name.toLowerCase();
+                    const cuisine = restaurant.dataset.cuisine.toLowerCase();
+                    
+                    if (searchTerm === '' || name.includes(searchTerm) || cuisine.includes(searchTerm)) {
                         restaurant.style.display = 'block';
+                        visibleCount++;
                     } else {
                         restaurant.style.display = 'none';
                     }
                 });
+                
+                // Update count
+                countSpan.textContent = visibleCount;
+                
+                // Show/hide no results
+                if (visibleCount === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
             });
+        }
+
+        // ===== CLEAR FILTERS =====
+        window.clearFilters = function() {
+            // Clear search input
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            // Reset filter to 'all'
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('[data-filter="all"]').classList.add('active');
+            
+            // Show all restaurants
+            const restaurants = document.querySelectorAll('.restaurant-card');
+            restaurants.forEach(restaurant => {
+                restaurant.style.display = 'block';
+            });
+            
+            // Update count and hide no results
+            const countSpan = document.getElementById('restaurants-count');
+            if (countSpan) countSpan.textContent = restaurants.length;
+            
+            const noResults = document.getElementById('no-results');
+            if (noResults) noResults.style.display = 'none';
+        };
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            setupFilters();
+            setupSearch();
+            
+            // Initial count
+            const restaurants = document.querySelectorAll('.restaurant-card');
+            const countSpan = document.getElementById('restaurants-count');
+            if (countSpan) countSpan.textContent = restaurants.length;
         });
     </script>
 </body>
-                            </html>
+    </html>
