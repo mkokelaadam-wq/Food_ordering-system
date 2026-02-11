@@ -1,44 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Sign Up - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #e54e1e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+        }
+        
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 0;
         }
         
         .signup-container {
             width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 550px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
             overflow: hidden;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .signup-header {
             background: var(--primary);
             color: white;
-            padding: 30px;
+            padding: 35px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signup-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .signup-header i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            background: white;
+            color: var(--primary);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .signup-header:hover i {
+            transform: rotate(0deg) scale(1.05);
         }
         
         .signup-header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .signup-header p {
+            font-size: 16px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* 🔥 Demo Credentials Box */
+        .demo-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            margin: 25px 30px 0 30px;
+            border-radius: 16px;
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.15);
+        }
+        
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .demo-title i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .demo-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(108,117,125,0.2);
+        }
+        
+        .demo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-label {
+            font-weight: 600;
+            color: var(--secondary);
+            width: 100px;
+            font-size: 14px;
+        }
+        
+        .demo-value {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .signup-form {
-            padding: 40px;
+            padding: 30px;
         }
         
         .form-group {
@@ -49,98 +204,379 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: var(--dark);
+            color: var(--secondary);
+            font-size: 14px;
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            margin-right: 8px;
+            width: 18px;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+            padding: 14px 18px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
         }
         
         .form-group input:focus {
             border-color: var(--primary);
+            background: white;
+            box-shadow: 0 5px 15px rgba(255,107,53,0.1);
             outline: none;
+        }
+        
+        .form-group input::placeholder {
+            color: #adb5bd;
+            font-weight: 300;
+        }
+        
+        /* Password Requirements */
+        .password-requirements {
+            background: #f8f9fa;
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--gray);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .password-requirements i {
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        
+        .requirement-item:last-child {
+            margin-bottom: 0;
         }
         
         .btn-signup {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .btn-signup i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
         }
         
         .btn-signup:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.3);
+        }
+        
+        .btn-signup:hover i {
+            transform: scale(1.1);
+        }
+        
+        /* Terms and Conditions */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .terms input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .terms label {
+            flex: 1;
+            line-height: 1.6;
+        }
+        
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
         }
         
         .login-link {
             text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .login-link p {
+            margin-bottom: 12px;
+            color: var(--gray);
         }
         
         .login-link a {
             color: var(--primary);
             text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: rgba(255,107,53,0.1);
+        }
+        
+        .login-link a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .login-link a i {
+            margin-right: 6px;
+            font-size: 14px;
+        }
+        
+        /* Partner Registration Highlight */
+        .partner-link {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .partner-link a {
+            color: white !important;
+            background: rgba(255,255,255,0.2) !important;
+            margin-left: 8px;
+        }
+        
+        .partner-link a:hover {
+            background: white !important;
+            color: #764ba2 !important;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: var(--light);
+            color: var(--secondary);
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .back-home:hover {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 480px) {
+            .signup-container {
+                max-width: 100%;
+            }
+            
+            .signup-header {
+                padding: 25px 20px;
+            }
+            
+            .signup-header i {
+                font-size: 40px;
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+            }
+            
+            .signup-header h1 {
+                font-size: 26px;
+            }
+            
+            .demo-box {
+                margin: 15px 20px 0 20px;
+                padding: 15px;
+            }
+            
+            .signup-form {
+                padding: 25px 20px;
+            }
+            
+            .form-group input {
+                padding: 12px 16px;
+            }
+            
+            .btn-signup {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .terms {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="signup-container">
+        <!-- Header Section -->
         <div class="signup-header">
-            <h1><i class="fas fa-utensils"></i> FoodExpress</h1>
-            <p>Create your account</p>
+            <i class="fas fa-utensils"></i>
+            <h1>Create Account</h1>
+            <p>Join FoodExpress today</p>
         </div>
         
+        <!-- 🔥 Demo Credentials Box -->
+        <div class="demo-box">
+            <div class="demo-title">
+                <i class="fas fa-flask"></i>
+                <span>Demo Account (For Testing)</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Email:</span>
+                <span class="demo-value">user@foodexpress.com</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Password:</span>
+                <span class="demo-value">user12345</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 13px; color: var(--gray);">
+                <i class="fas fa-info-circle"></i> You can use any email. This is just for testing.
+            </div>
+        </div>
+        
+        <!-- Signup Form -->
         <div class="signup-form">
             <form id="signup-form">
+                <!-- Full Name -->
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="fullname" placeholder="John Doe" required>
+                    <label>
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="fullname" placeholder="John Doe" value="John Foodie" required>
                 </div>
                 
+                <!-- Email Address -->
                 <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" placeholder="you@example.com" required>
+                    <label>
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" placeholder="you@example.com" value="user@foodexpress.com" required>
                 </div>
                 
+                <!-- Phone Number -->
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" id="phone" placeholder="+255 712 345 678">
+                    <label>
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <input type="tel" id="phone" placeholder="+255 712 345 678" value="+255 712 345 678">
                 </div>
                 
+                <!-- Password -->
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Create a password" required minlength="6">
+                    <label>
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="password" placeholder="Create a password" value="user12345" required minlength="6">
+                    
+                    <!-- Password Requirements -->
+                    <div class="password-requirements">
+                        <div class="requirement-item">
+                            <i class="fas fa-circle"></i> At least 6 characters
+                        </div>
+                        <div class="requirement-item">
+                            <i class="fas fa-circle"></i> Use letters and numbers
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Confirm Password -->
                 <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
+                    <label>
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" value="user12345" required>
                 </div>
                 
+                <!-- Terms and Conditions -->
+                <div class="terms">
+                    <input type="checkbox" id="terms" checked required>
+                    <label for="terms">
+                        I agree to the <a href="#">Terms of Service</a> and 
+                        <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <!-- Sign Up Button -->
                 <button type="submit" class="btn-signup">
                     <i class="fas fa-user-plus"></i> Create Account
                 </button>
             </form>
             
+            <!-- Links Section -->
             <div class="login-link">
-                <p>Already have an account? <a href="login.html">Login here</a></p>
-                <p style="margin-top: 10px;"><a href="admin-signup.html">Register as Restaurant Partner</a></p>
+                <p>
+                    <i class="fas fa-sign-in-alt"></i>
+                    Already have an account? 
+                    <a href="login.html">
+                        Login here <i class="fas fa-arrow-right"></i>
+                    </a>
+                </p>
+                
+                <!-- 🔥 Partner Registration -->
+                <div class="partner-link">
+                    <i class="fas fa-store"></i>
+                    Want to partner with us?
+                    <a href="admin-signup.html">
+                        Register as Restaurant Partner <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <!-- Back to Home -->
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
             </div>
         </div>
     </div>
@@ -149,22 +585,69 @@
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const password = document.getElementById('password').value;
             const confirm = document.getElementById('confirm-password').value;
+            const terms = document.getElementById('terms').checked;
+            
+            // Validation
+            if (!fullname || !email || !password) {
+                alert('❌ Please fill in all required fields');
+                return;
+            }
             
             if (password !== confirm) {
-                alert('Passwords do not match!');
+                alert('❌ Passwords do not match!');
                 return;
             }
             
             if (password.length < 6) {
-                alert('Password must be at least 6 characters');
+                alert('❌ Password must be at least 6 characters');
                 return;
             }
             
-            // Simulate signup
-            alert('✅ Account created successfully! Please login.');
+            if (!terms) {
+                alert('❌ Please agree to the Terms of Service');
+                return;
+            }
+            
+            // Email format validation (simple)
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('❌ Please enter a valid email address');
+                return;
+            }
+            
+            // Success message
+            alert('✅ Account created successfully! Welcome to FoodExpress.\n\nYou can now login with your credentials.');
+            
+            // Save to localStorage (simulate database)
+            const userData = {
+                fullname: fullname,
+                email: email,
+                phone: phone,
+                password: password, // In real app, never store plain password!
+                createdAt: new Date().toISOString()
+            };
+            
+            // Store in localStorage (temporary)
+            localStorage.setItem('foodexpress_user', JSON.stringify(userData));
+            
+            // Redirect to login page
             window.location.href = 'login.html';
+        });
+        
+        // Pre-fill demo data on page load
+        window.addEventListener('load', function() {
+            console.log('Signup page ready with demo data');
+            
+            // Optional: Check if we already have a user
+            const existingUser = localStorage.getItem('foodexpress_user');
+            if (existingUser) {
+                const user = JSON.parse(existingUser);
+                console.log('Existing user found:', user.email);
+            }
         });
     </script>
 </body>
