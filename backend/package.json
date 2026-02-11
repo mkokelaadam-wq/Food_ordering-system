@@ -1,24 +1,85 @@
 {
-  "name": "food-ordering-backend",
+  "name": "foodexpress-backend",
   "version": "1.0.0",
-  "description": "Backend API for Food Express",
+  "description": "Backend API for Food Express - Online Food Ordering System",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "db:init": "node scripts/init-database.js",
+    "db:seed": "node scripts/seed-data.js",
+    "db:migrate": "node scripts/migrate-database.js",
+    "test": "jest --watchAll",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
+  "keywords": [
+    "food-ordering",
+    "restaurant",
+    "delivery",
+    "e-commerce",
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "Food Express Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mkokelaadam-wq/Food_ordering-system"
+  },
+  "bugs": {
+    "url": "https://github.com/mkokelaadam-wq/Food_ordering-system/issues"
+  },
+  "homepage": "https://github.com/mkokelaadam-wq/Food_ordering-system#readme",
   "dependencies": {
-    "express": "^4.18.0",
+    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "mysql2": "^3.6.0",
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.1",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.2",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.5",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "winston": "^3.11.0",
+    "joi": "^17.11.0",
+    "moment": "^2.29.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.0"
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.5",
+    "husky": "^8.0.3"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test"
+    }
   }
 }
