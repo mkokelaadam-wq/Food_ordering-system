@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Order Food Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+        body{background:#f8f9fa;color:#333;padding-top:80px;}
+        .navbar{background:white;box-shadow:0 2px 15px rgba(0,0,0,0.1);position:fixed;width:100%;top:0;z-index:1000;}
+        .nav-container{display:flex;justify-content:space-between;align-items:center;padding:15px 40px;max-width:1400px;margin:0 auto;}
+        .logo{display:flex;align-items:center;gap:10px;}
+        .logo i{color:#ff6b35;font-size:28px;}
+        .logo h1{color:#ff6b35;font-size:24px;}
+        .nav-menu{display:flex;gap:20px;align-items:center;}
+        .nav-link{text-decoration:none;color:#444;font-weight:500;padding:10px 18px;border-radius:6px;}
+        .nav-link:hover,.nav-link.active{background:#ff6b35;color:white;}
+        .cart-btn{position:relative;text-decoration:none;color:#444;padding:10px;}
+        .cart-count{position:absolute;top:-8px;right:-8px;background:#dc3545;color:white;font-size:12px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+        .auth-buttons{display:flex;gap:15px;}
+        .btn-login,.btn-signup,.btn-admin{padding:10px 25px;border-radius:25px;text-decoration:none;font-weight:bold;border:2px solid #ff6b35;}
+        .btn-login{background:transparent;color:#ff6b35;}
+        .btn-signup{background:#ff6b35;color:white;}
+        .btn-admin{background:#6c757d;border-color:#6c757d;color:white;}
+        .hero{background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200');background-size:cover;color:white;padding:100px 20px;text-align:center;}
+        .hero-content{max-width:800px;margin:0 auto;}
+        .hero-content h1{font-size:48px;margin-bottom:25px;}
+        .hero-content p{font-size:20px;margin-bottom:50px;}
+        .search-box{max-width:700px;margin:0 auto;display:flex;background:white;border-radius:60px;overflow:hidden;}
+        .search-input{flex:1;display:flex;align-items:center;padding:0 20px;}
+        .search-input i{color:#ff6b35;margin-right:10px;}
+        .search-input input{flex:1;padding:22px 0;border:none;font-size:17px;outline:none;}
+        .btn-search{background:#ff6b35;color:white;border:none;padding:0 50px;font-size:17px;font-weight:600;cursor:pointer;}
+        .hero-stats{display:flex;justify-content:center;gap:50px;margin-top:50px;}
+        .stat{display:flex;align-items:center;gap:15px;}
+        .stat i{font-size:32px;color:#ff6b35;}
+        .stat h3{font-size:24px;}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
+        .section-title{text-align:center;font-size:36px;margin-bottom:50px;position:relative;}
+        .section-title::after{content:'';position:absolute;bottom:-15px;left:50%;transform:translateX(-50%);width:80px;height:4px;background:#ff6b35;}
+        .categories{padding:80px 20px;background:white;}
+        .categories-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
+        .category-card{text-align:center;padding:40px 25px;border-radius:15px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:0.4s;}
+        .category-card:hover{transform:translateY(-10px);border-color:#ff6b35;}
+        .category-icon i{font-size:50px;color:#ff6b35;margin-bottom:25px;}
+        .btn-category{background:#ff6b35;color:white;border:none;padding:12px 30px;border-radius:30px;cursor:pointer;font-weight:600;}
+        .restaurants{padding:80px 20px;background:#f8f9fa;}
+        .restaurants-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:30px;}
+        .restaurant-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+        .restaurant-img{position:relative;height:200px;}
+        .restaurant-img img{width:100%;height:100%;object-fit:cover;}
+        .rating-badge{position:absolute;top:15px;right:15px;background:#ff6b35;color:white;padding:8px 15px;border-radius:25px;}
+        .restaurant-info{padding:25px;}
+        .restaurant-details{display:flex;gap:15px;margin-bottom:20px;color:#777;font-size:13px;}
+        .btn-order{width:100%;background:#ff6b35;color:white;border:none;padding:14px;border-radius:8px;cursor:pointer;font-weight:600;}
+        .footer{background:#1a202c;color:white;padding:70px 20px 20px;margin-top:80px;}
+        .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;}
+        .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+        .footer-logo i{color:#ff6b35;font-size:28px;}
+        .footer-logo h2{color:#ff6b35;}
+        .social-icons{display:flex;gap:15px;}
+        .social-icons a{display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:50%;color:white;}
+        .footer-col h3{font-size:18px;margin-bottom:25px;position:relative;}
+        .footer-col h3::after{content:'';position:absolute;bottom:-10px;left:0;width:40px;height:2px;background:#ff6b35;}
+        .footer-col ul{list-style:none;}
+        .footer-col ul li{margin-bottom:12px;}
+        .footer-col ul a{color:#a0aec0;text-decoration:none;}
+        .contact-info li{display:flex;align-items:center;gap:10px;color:#a0aec0;margin-bottom:15px;}
+        .contact-info i{color:#ff6b35;width:20px;}
+        .footer-bottom{max-width:1200px;margin:50px auto 0;padding-top:30px;border-top:1px solid #4a5568;display:flex;justify-content:space-between;color:#a0aec0;}
+        .payment-methods{display:flex;gap:15px;font-size:24px;}
+        .cart-sidebar{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:white;box-shadow:-5px 0 25px rgba(0,0,0,0.15);padding:25px;z-index:2000;transition:0.3s;overflow-y:auto;}
+        .cart-sidebar.active{right:0;}
+        .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;padding-bottom:15px;border-bottom:2px solid #ff6b35;}
+        .close-cart{background:none;border:none;font-size:28px;cursor:pointer;color:#666;}
+        .cart-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:1999;display:none;}
+        .cart-overlay.active{display:block;}
+        .btn-checkout{width:100%;padding:14px;background:#28a745;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;margin-top:10px;}
+        @media(max-width:768px){.nav-container{flex-direction:column;}.hero-content h1{font-size:32px;}.search-box{flex-direction:column;border-radius:15px;}.btn-search{width:100%;padding:15px;}.cart-sidebar{width:100%;right:-100%;}}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="#restaurants" class="nav-link">Restaurants</a>
+                <a href="#menu" class="nav-link">Menu</a>
+                <a href="orders.html" class="nav-link">Orders</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="#" class="cart-btn" id="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="signup.html" class="btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn-admin">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Delicious Food Delivered To Your Doorstep</h1>
+            <p>Order from your favorite restaurants and get it delivered hot and fresh.</p>
+            <div class="search-box">
+                <div class="search-input">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" placeholder="Enter your delivery address..." id="delivery-address">
+                </div>
+                <button class="btn-search" id="search-food">Find Food</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><i class="fas fa-users"></i><div><h3>10,000+</h3><p>Happy Customers</p></div></div>
+                <div class="stat"><i class="fas fa-utensils"></i><div><h3>50+</h3><p>Restaurants</p></div></div>
+                <div class="stat"><i class="fas fa-truck"></i><div><h3>5000+</h3><p>Deliveries</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Browse By Category</h2>
+            <div class="categories-grid">
+                <div class="category-card"><div class="category-icon"><i class="fas fa-hamburger"></i></div><h3>Burgers</h3><p>Juicy burgers and crispy fries</p><button class="btn-category">View All</button></div>
+                <div class="category-card"><div class="category-icon"><i class="fas fa-pizza-slice"></i></div><h3>Pizza</h3><p>Freshly baked wood-fired pizzas</p><button class="btn-category">View All</button></div>
+                <div class="category-card"><div class="category-icon"><i class="fas fa-utensils"></i></div><h3>Tanzanian Food</h3><p>Chips Mayai, Nyama Choma, Pilau</p><button class="btn-category">View All</button></div>
+                <div class="category-card"><div class="category-icon"><i class="fas fa-cocktail"></i></div><h3>Drinks & Desserts</h3><p>Refreshing beverages & sweet treats</p><button class="btn-category">View All</button></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="restaurants" id="restaurants">
+        <div class="container">
+            <h2 class="section-title">Popular Restaurants</h2>
+            <div class="restaurants-grid">
+                <div class="restaurant-card">
+                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600" alt="Mama's Kitchen"><span class="rating-badge">4.5 ★</span></div>
+                    <div class="restaurant-info"><h3>Mama's Kitchen</h3><p class="cuisine">Tanzanian Cuisine</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 30-45 min</span><span><i class="fas fa-shipping-fast"></i> Free</span></div><button class="btn-order">View Menu</button></div>
+                </div>
+                <div class="restaurant-card">
+                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?w=600" alt="Burger Palace"><span class="rating-badge">4.8 ★</span></div>
+                    <div class="restaurant-info"><h3>Burger Palace</h3><p class="cuisine">American • Burgers</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 20-35 min</span><span><i class="fas fa-shipping-fast"></i> Tsh 1,500</span></div><button class="btn-order">View Menu</button></div>
+                </div>
+                <div class="restaurant-card">
+                    <div class="restaurant-img"><img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600" alt="Pizza Hub"><span class="rating-badge">4.3 ★</span></div>
+                    <div class="restaurant-info"><h3>Pizza Hub</h3><p class="cuisine">Italian • Pizza</p><div class="restaurant-details"><span><i class="fas fa-clock"></i> 25-40 min</span><span><i class="fas fa-shipping-fast"></i> Tsh 2,000</span></div><button class="btn-order">View Menu</button></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header"><h3>Your Cart</h3><button class="close-cart" id="close-cart">&times;</button></div>
+        <div class="cart-items" id="cart-items"><div class="empty-cart">Your cart is empty</div></div>
+        <div class="cart-summary"><button class="btn-checkout" id="checkout-btn">Proceed to Checkout</button></div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><div class="footer-logo"><i class="fas fa-utensils"></i><h2>FoodExpress</h2></div><p class="footer-description">Your favorite food, delivered fast.</p><div class="social-icons"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a></div></div>
+                <div class="footer-col"><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="#restaurants">Restaurants</a></li><li><a href="#menu">Menu</a></li><li><a href="orders.html">Orders</a></li><li><a href="about.html">About</a></li></ul></div>
+                <div class="footer-col"><h3>Contact</h3><ul class="contact-info"><li><i class="fas fa-map-marker-alt"></i> Dar es Salaam</li><li><i class="fas fa-phone"></i> +255 712 345 678</li><li><i class="fas fa-envelope"></i> info@foodexpress.com</li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 FoodExpress</p><div class="payment-methods"><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-paypal"></i><i class="fas fa-mobile-alt"></i></div></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartBtn = document.getElementById('cart-btn');
+            const closeCartBtn = document.getElementById('close-cart');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const cartOverlay = document.getElementById('cart-overlay');
+            const cartCount = document.getElementById('cart-count');
+            
+            function updateCartCount() {
+                if(cartCount) cartCount.textContent = cart.reduce((sum,item)=>sum+item.quantity,0);
+            }
+            
+            function toggleCart(open) {
+                if(open) { cartSidebar.classList.add('active'); cartOverlay.classList.add('active'); }
+                else { cartSidebar.classList.remove('active'); cartOverlay.classList.remove('active'); }
+            }
+            
+            if(cartBtn) cartBtn.addEventListener('click', ()=>toggleCart(true));
+            if(closeCartBtn) closeCartBtn.addEventListener('click', ()=>toggleCart(false));
+            if(cartOverlay) cartOverlay.addEventListener('click', ()=>toggleCart(false));
+            
+            updateCartCount();
+        });
+    </script>
+</body>
+  </html>
