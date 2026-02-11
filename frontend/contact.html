@@ -5,112 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* Navigation - Same as other pages */
-        nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-        
-        .nav-links a.active {
-            color: #ff6b35;
-            font-weight: bold;
-        }
-        
-        /* Hero Section */
         .contact-hero {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200');
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200');
             background-size: cover;
             color: white;
+            padding: 100px 20px;
             text-align: center;
-            padding: 80px 20px;
-        }
-        
-        .contact-hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        
-        .contact-hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin-top: 80px;
         }
         
         .contact-section {
             padding: 60px 0;
         }
         
-        .contact-wrapper {
+        .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
-            margin-top: 40px;
         }
         
-        @media (max-width: 768px) {
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Contact Info */
         .contact-info {
             background: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .contact-info h2 {
-            color: #ff6b35;
-            margin-bottom: 30px;
-            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .contact-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 25px;
-            padding-bottom: 25px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
             border-bottom: 1px solid #eee;
         }
         
@@ -118,11 +46,11 @@
             border-bottom: none;
         }
         
-        .contact-item i {
-            background: #ff6b35;
-            color: white;
+        .contact-icon {
             width: 50px;
             height: 50px;
+            background: var(--primary);
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -134,60 +62,19 @@
         
         .contact-details h4 {
             margin-bottom: 5px;
-            color: #333;
+            color: var(--dark);
         }
         
         .contact-details p {
             color: #666;
+            line-height: 1.6;
         }
         
-        /* Social Media */
-        .social-media {
-            margin-top: 30px;
-        }
-        
-        .social-media h4 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            color: #333;
-            font-size: 20px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background: #ff6b35;
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        /* Contact Form */
         .contact-form {
             background: white;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .contact-form h2 {
-            color: #ff6b35;
-            margin-bottom: 30px;
-            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .form-group {
@@ -197,9 +84,8 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
             font-weight: 600;
-            font-size: 14px;
+            color: #555;
         }
         
         .form-group input,
@@ -209,54 +95,44 @@
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             font-size: 16px;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
         
         .form-group input:focus,
         .form-group textarea:focus {
-            border-color: #ff6b35;
+            border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
         }
         
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        .btn-submit {
-            background: linear-gradient(to right, #ff6b35, #f0932b);
+        .btn-send {
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
             border-radius: 8px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             width: 100%;
         }
         
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+        .btn-send:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
-        /* Map */
         .map-section {
             margin-top: 60px;
-        }
-        
-        .map-container {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
         .map-placeholder {
-            background: #f0f0f0;
-            height: 300px;
+            background: #f8f9fa;
+            height: 350px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -265,184 +141,241 @@
             font-size: 18px;
         }
         
-        /* Footer */
-        footer {
-            background: #333;
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
             color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 60px;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="restaurants.html">Restaurants</a>
-            <a href="about.html">About</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="contact.html" class="active">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="checkout.html">Checkout</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
-            <a href="#cart">
-                <i class="fas fa-shopping-cart"></i> Cart (0)
-            </a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link active"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin">Admin</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <div class="contact-hero">
-        <h1>Contact Us</h1>
-        <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p>
+        <h1 style="font-size: 48px; margin-bottom: 20px;">Contact Us</h1>
+        <p style="font-size: 18px; max-width: 700px; margin: 0 auto;">We're here to help! Send us a message and we'll respond within 24 hours.</p>
     </div>
 
     <div class="container">
-        <!-- Contact Section -->
         <section class="contact-section">
-            <div class="contact-wrapper">
+            <div class="contact-grid">
                 <!-- Contact Information -->
                 <div class="contact-info">
-                    <h2>Get In Touch</h2>
+                    <h2 style="color: var(--primary); margin-bottom: 30px; font-size: 28px;">
+                        <i class="fas fa-info-circle"></i> Get In Touch
+                    </h2>
                     
                     <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
                         <div class="contact-details">
-                            <h4>Our Office</h4>
-                            <p>123 Food Street, City Center<br>Dar es Salaam, Tanzania</p>
+                            <h4>Our Location</h4>
+                            <p>Samora Avenue, Dar es Salaam<br>Tanzania, 14111</p>
                         </div>
                     </div>
                     
                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
                         <div class="contact-details">
-                            <h4>Call Us</h4>
-                            <p>+255 700 123 456<br>+255 789 456 123</p>
+                            <h4>Phone Number</h4>
+                            <p>+255 712 345 678<br>+255 789 456 123</p>
                         </div>
                     </div>
                     
                     <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
                         <div class="contact-details">
-                            <h4>Email Us</h4>
-                            <p>info@foodexpress.co.tz<br>support@foodexpress.co.tz</p>
+                            <h4>Email Address</h4>
+                            <p>info@foodexpress.com<br>support@foodexpress.com</p>
                         </div>
                     </div>
                     
                     <div class="contact-item">
-                        <i class="fas fa-clock"></i>
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
                         <div class="contact-details">
-                            <h4>Business Hours</h4>
+                            <h4>Working Hours</h4>
                             <p>Monday - Friday: 8:00 AM - 10:00 PM<br>Saturday - Sunday: 9:00 AM - 11:00 PM</p>
                         </div>
                     </div>
                     
-                    <!-- Social Media -->
-                    <div class="social-media">
-                        <h4>Follow Us</h4>
-                        <div class="social-icons">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        </div>
+                    <h4 style="margin-bottom: 15px;">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
                 <!-- Contact Form -->
                 <div class="contact-form">
-                    <h2>Send a Message</h2>
-                    <form id="contactForm">
+                    <h2 style="color: var(--primary); margin-bottom: 30px; font-size: 28px;">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </h2>
+                    
+                    <form id="contact-form">
                         <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" required placeholder="Your name">
+                            <label>Full Name *</label>
+                            <input type="text" id="name" placeholder="John Doe" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" required placeholder="you@example.com">
+                            <label>Email Address *</label>
+                            <input type="email" id="email" placeholder="you@example.com" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="+255 xxx xxx xxx">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+255 712 345 678">
                         </div>
                         
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" placeholder="What is this regarding?">
+                            <label>Subject *</label>
+                            <input type="text" id="subject" placeholder="How can we help?" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="message">Your Message *</label>
-                            <textarea id="message" required placeholder="How can we help you?"></textarea>
+                            <label>Your Message *</label>
+                            <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
                         </div>
                         
-                        <button type="submit" class="btn-submit">
+                        <button type="submit" class="btn-send">
                             <i class="fas fa-paper-plane"></i> Send Message
                         </button>
                     </form>
                 </div>
             </div>
-        </section>
-        
-        <!-- Map Section -->
-        <section class="map-section">
-            <div class="map-container">
-                <h2 style="color: #ff6b35; margin-bottom: 20px;">Our Location</h2>
+            
+            <!-- Map -->
+            <div class="map-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-map"></i> Find Us Here
+                </h2>
                 <div class="map-placeholder">
                     <div style="text-align: center;">
-                        <i class="fas fa-map-marker-alt" style="font-size: 50px; color: #ff6b35; margin-bottom: 15px;"></i>
-                        <p>Dar es Salaam, Tanzania<br><small>(Map integration available)</small></p>
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
+                        <p style="font-size: 18px; font-weight: 600;">Samora Avenue, Dar es Salaam</p>
+                        <p style="color: #999;">Google Maps Integration</p>
                     </div>
                 </div>
-                <!-- For real map, you can add Google Maps embed code here -->
-                <!--
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3969.952227374956!2d39.2793074!3d-6.8225312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDknMjEuMSJTIDM5wrAxNic0OS41IkU!5e0!3m2!1sen!2stz!4v1620000000000!5m2!1sen!2stz"
-                    width="100%" 
-                    height="300" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-                -->
             </div>
         </section>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.8;">Delivering happiness to your doorstep</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p>Your favorite food, delivered fast.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
     <script>
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Handle contact form
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
-            if(name && email && message) {
-                // Simulate form submission
-                alert(`Thank you ${name}! Your message has been sent. We'll contact you at ${email} soon.`);
-                
-                // Clear form
-                document.getElementById('contactForm').reset();
-            } else {
-                alert('Please fill in all required fields (marked with *)');
+            if (name && email && subject && message) {
+                alert(`✅ Thank you ${name}!\n\nYour message has been sent successfully.\nWe'll respond to ${email} within 24 hours.`);
+                this.reset();
             }
+        });
+        
+        // Update cart count
+        const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.querySelectorAll('.cart-count').forEach(el => {
+            el.textContent = totalItems;
         });
     </script>
 </body>
-  </html>
+</html>
