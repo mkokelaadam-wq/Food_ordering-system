@@ -1,92 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>About Us - FoodExpress</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
-        .about-hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200');
-            background-size: cover;
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-            margin-top: 80px;
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(255,107,53,0.12);
         }
         
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ===== NAVIGATION (same as index) ===== */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+            transform: rotate(-10deg);
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .nav-link i {
+            margin-right: 8px;
+        }
+        
+        .cart-btn {
+            position: relative;
+            text-decoration: none;
+            color: var(--secondary);
+            padding: 10px 15px;
+            margin-left: 5px;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: #dc3545;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-admin {
+            background: var(--gray);
+            color: white;
+            border: 2px solid var(--gray);
+        }
+        
+        .btn-admin:hover {
+            background: #5a6268;
+            border-color: #5a6268;
+        }
+        
+        /* ===== ABOUT HERO ===== */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.75) 100%),
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 160px 20px 120px;
+            text-align: center;
+            margin-top: 0;
+            position: relative;
+        }
+        
+        .about-hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .about-hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* ===== ABOUT SECTION ===== */
         .about-section {
-            padding: 60px 0;
+            padding: 80px 0;
         }
         
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 60px;
             align-items: center;
         }
         
         .about-image {
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            transition: transform 0.4s ease;
+        }
+        
+        .about-image:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
         
         .about-image img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.6s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-content h2 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .about-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 30px;
+            padding: 60px;
+            margin: 40px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .stats-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .stats-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: white;
+            position: relative;
+            z-index: 2;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
-            margin-top: 50px;
+            position: relative;
+            z-index: 2;
         }
         
         .stat-item {
             text-align: center;
             padding: 30px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
         }
         
         .stat-item i {
-            font-size: 40px;
-            color: var(--primary);
+            font-size: 48px;
+            color: white;
             margin-bottom: 15px;
         }
         
         .stat-number {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--dark);
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
             display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+        }
+        
+        /* ===== VALUES SECTION ===== */
+        .values-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 18px;
         }
         
         .values-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
-            margin-top: 40px;
         }
         
         .value-card {
             text-align: center;
-            padding: 30px;
+            padding: 40px 30px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
         }
         
         .value-card i {
-            font-size: 40px;
+            font-size: 52px;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .value-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        .value-card p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        /* ===== TEAM SECTION ===== */
+        .team-section {
+            padding: 60px 0;
+            background: #f8f9fa;
+            border-radius: 30px;
+            margin-bottom: 60px;
         }
         
         .team-grid {
@@ -99,50 +456,326 @@
         .team-member {
             text-align: center;
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
         
         .member-image {
-            height: 250px;
+            height: 280px;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.6s ease;
+            position: relative;
+        }
+        
+        .team-member:hover .member-image {
+            transform: scale(1.05);
+        }
+        
+        .member-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
         }
         
         .member-info {
-            padding: 20px;
+            padding: 25px;
         }
         
         .member-info h4 {
-            margin-bottom: 5px;
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-weight: 700;
         }
         
         .member-role {
             color: var(--primary);
             font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,107,53,0.1);
+            border-radius: 50px;
         }
         
-        @media (max-width: 768px) {
+        .member-bio {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        /* ===== MISSION VISION SECTION ===== */
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .mission-card,
+        .vision-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-card::before,
+        .vision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary);
+        }
+        
+        .mission-card i,
+        .vision-card i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3,
+        .vision-card h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .mission-card p,
+        .vision-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a202c;
+            color: white;
+            padding: 80px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+            font-size: 36px;
+        }
+        
+        .footer-logo h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .footer-col p {
+            color: #a0aec0;
+            line-height: 1.8;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col ul a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+        
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            text-align: center;
+            color: #a0aec0;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 1024px) {
+            .about-hero h1 {
+                font-size: 48px;
+            }
+            
+            .stats-grid,
+            .values-grid,
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media screen and (max-width: 880px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
             .about-grid {
                 grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-content h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .about-content {
+                text-align: center;
+            }
+            
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 12px 20px;
+            }
+            
+            .about-hero {
+                padding: 140px 20px 80px;
+            }
+            
+            .about-hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-hero p {
+                font-size: 18px;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .stats-section {
+                padding: 40px 20px;
             }
             
             .stats-grid,
             .values-grid,
             .team-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .about-hero h1 {
+                font-size: 28px;
+            }
+            
+            .btn {
+                padding: 8px 18px;
+                font-size: 13px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+            
+            .stat-item {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 32px;
+            }
+            
+            .value-card {
+                padding: 30px 20px;
+            }
+            
+            .member-image {
+                height: 220px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fas fa-utensils"></i>
                 <h1>FoodExpress</h1>
             </div>
+            
             <div class="nav-menu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                 <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
@@ -151,11 +784,12 @@
                 <a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> About</a>
                 <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
             </div>
+            
             <div class="auth-buttons">
                 <a href="login.html" class="btn btn-login">Login</a>
                 <a href="signup.html" class="btn btn-signup">Sign Up</a>
                 <a href="admin-login.html" class="btn btn-admin">Admin</a>
-                <a href="cart.html" class="cart-btn">
+                <a href="#" class="cart-btn" id="cart-btn">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a>
@@ -163,112 +797,204 @@
         </div>
     </nav>
 
+    <!-- ===== ABOUT HERO ===== -->
     <div class="about-hero">
-        <h1 style="font-size: 48px; margin-bottom: 20px;">About FoodExpress</h1>
-        <p style="font-size: 18px; max-width: 700px; margin: 0 auto;">Delivering happiness, one meal at a time. Since 2024.</p>
+        <h1>About FoodExpress</h1>
+        <p>Delivering happiness, one meal at a time. Since 2024.</p>
     </div>
 
     <div class="container">
-        <!-- Our Story -->
+        <!-- ===== OUR STORY ===== -->
         <section class="about-section">
             <div class="about-grid">
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Our Story">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Our Story" loading="lazy">
                 </div>
-                <div>
-                    <h2 style="font-size: 32px; margin-bottom: 20px; color: var(--primary);">Our Story</h2>
-                    <p style="margin-bottom: 20px; color: #666;">FoodExpress was founded in 2024 with a simple mission: to make food delivery faster, easier, and more reliable. What started as a small team of 5 people has grown into a platform serving thousands of customers daily across Dar es Salaam.</p>
-                    <p style="color: #666;">We partner with the best local restaurants to bring you a wide variety of cuisines, from traditional Tanzanian favorites to international dishes. Our commitment to quality, speed, and customer satisfaction has made us one of the most trusted food delivery services in the region.</p>
+                <div class="about-content">
+                    <h2>Our Story</h2>
+                    <p>FoodExpress was founded in 2024 with a simple mission: to make food delivery faster, easier, and more reliable. What started as a small team of 5 passionate food lovers has grown into a platform serving thousands of customers daily across Dar es Salaam.</p>
+                    <p>We partner with the best local restaurants to bring you a wide variety of cuisines, from traditional Tanzanian favorites like Chips Mayai and Nyama Choma to international dishes. Our commitment to quality, speed, and customer satisfaction has made us one of the most trusted food delivery services in the region.</p>
+                    <p>Today, we're proud to have delivered over 50,000 meals and counting. But we're just getting started. Our goal is to bring FoodExpress to every corner of Tanzania.</p>
                 </div>
             </div>
         </section>
-        
-        <!-- Stats -->
-        <section class="about-section" style="background: var(--primary); color: white; border-radius: 10px; padding: 60px;">
-            <h2 style="text-align: center; font-size: 32px; margin-bottom: 50px; color: white;">By The Numbers</h2>
+
+        <!-- ===== MISSION & VISION ===== -->
+        <section class="about-section" style="padding-top: 0;">
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To connect people with the food they love, delivered fast and fresh. We strive to support local restaurants and create job opportunities while providing exceptional service to our customers.</p>
+                </div>
+                <div class="vision-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Our Vision</h3>
+                    <p>To become East Africa's most loved food delivery platform, known for reliability, speed, and excellent customer experience. We envision a future where anyone can get their favorite meal delivered in under 30 minutes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STATS SECTION ===== -->
+        <section class="stats-section">
+            <h2>By The Numbers</h2>
             
             <div class="stats-grid">
-                <div class="stat-item" style="background: rgba(255,255,255,0.1); color: white;">
-                    <i class="fas fa-utensils" style="color: white;"></i>
-                    <span class="stat-number" style="color: white;">50+</span>
-                    <span style="color: rgba(255,255,255,0.9);">Restaurants</span>
+                <div class="stat-item">
+                    <i class="fas fa-store"></i>
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Restaurants</span>
                 </div>
-                <div class="stat-item" style="background: rgba(255,255,255,0.1); color: white;">
-                    <i class="fas fa-users" style="color: white;"></i>
-                    <span class="stat-number" style="color: white;">10k+</span>
-                    <span style="color: rgba(255,255,255,0.9);">Customers</span>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span class="stat-number">10k+</span>
+                    <span class="stat-label">Customers</span>
                 </div>
-                <div class="stat-item" style="background: rgba(255,255,255,0.1); color: white;">
-                    <i class="fas fa-motorcycle" style="color: white;"></i>
-                    <span class="stat-number" style="color: white;">200+</span>
-                    <span style="color: rgba(255,255,255,0.9);">Riders</span>
+                <div class="stat-item">
+                    <i class="fas fa-motorcycle"></i>
+                    <span class="stat-number">200+</span>
+                    <span class="stat-label">Riders</span>
                 </div>
-                <div class="stat-item" style="background: rgba(255,255,255,0.1); color: white;">
-                    <i class="fas fa-clock" style="color: white;"></i>
-                    <span class="stat-number" style="color: white;">30min</span>
-                    <span style="color: rgba(255,255,255,0.9);">Avg Delivery</span>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span class="stat-number">30min</span>
+                    <span class="stat-label">Avg Delivery</span>
                 </div>
             </div>
         </section>
-        
-        <!-- Our Values -->
-        <section class="about-section">
-            <h2 style="text-align: center; font-size: 32px; margin-bottom: 20px; color: var(--primary);">Our Values</h2>
-            <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 40px;">The principles that guide everything we do</p>
+
+        <!-- ===== OUR VALUES ===== -->
+        <section class="values-section">
+            <h2 class="section-title">Our Values</h2>
+            <p class="section-subtitle">The principles that guide everything we do</p>
             
             <div class="values-grid">
                 <div class="value-card">
                     <i class="fas fa-bolt"></i>
-                    <h3 style="margin-bottom: 10px;">Fast Delivery</h3>
-                    <p style="color: #666;">We guarantee hot, fresh food delivered in 45 minutes or less.</p>
+                    <h3>Fast Delivery</h3>
+                    <p>We guarantee hot, fresh food delivered in 45 minutes or less. Our riders are trained to be quick and careful with every order.</p>
                 </div>
                 <div class="value-card">
                     <i class="fas fa-heart"></i>
-                    <h3 style="margin-bottom: 10px;">Quality Food</h3>
-                    <p style="color: #666;">Partnering only with restaurants that meet our high standards.</p>
+                    <h3>Quality Food</h3>
+                    <p>We partner only with restaurants that meet our high standards for taste, hygiene, and service. Every meal is checked before delivery.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>Customer First</h3>
+                    <p>Your satisfaction is our priority. We listen to feedback and continuously improve to serve you better.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Support Local</h3>
+                    <p>We're proud to work with local restaurants and help them grow. When you order with us, you're supporting Tanzanian businesses.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Safety & Hygiene</h3>
+                    <p>All our partners follow strict food safety guidelines. Contactless delivery is available for your peace of mind.</p>
                 </div>
                 <div class="value-card">
                     <i class="fas fa-headset"></i>
-                    <h3 style="margin-bottom: 10px;">24/7 Support</h3>
-                    <p style="color: #666;">Our customer service team is always here to help.</p>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer service team is always here to help, whether it's a question about your order or feedback about your experience.</p>
                 </div>
             </div>
         </section>
-        
-        <!-- Our Team -->
-        <section class="about-section">
-            <h2 style="text-align: center; font-size: 32px; margin-bottom: 20px; color: var(--primary);">Meet Our Team</h2>
-            <p style="text-align: center; color: #666; max-width: 700px; margin: 0 auto 40px;">The passionate people behind FoodExpress</p>
+
+        <!-- ===== OUR TEAM ===== -->
+        <section class="team-section">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">The passionate people behind FoodExpress</p>
             
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400');"></div>
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600');"></div>
                     <div class="member-info">
                         <h4>Adam Ajida</h4>
-                        <p class="member-role">Founder & CEO</p>
-                        <p style="color: #666; font-size: 14px; margin-top: 10px;">10+ years in food industry</p>
+                        <span class="member-role">Founder & CEO</span>
+                        <p class="member-bio">10+ years in food industry. Adam started FoodExpress to bring fast, reliable food delivery to Tanzania.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400');"></div>
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?w=600');"></div>
                     <div class="member-info">
                         <h4>Sarah Mwangi</h4>
-                        <p class="member-role">Operations Director</p>
-                        <p style="color: #666; font-size: 14px; margin-top: 10px;">Ensuring smooth delivery</p>
+                        <span class="member-role">Operations Director</span>
+                        <p class="member-bio">Ensuring smooth delivery operations and partner relationships. Sarah makes sure your food arrives on time.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400');"></div>
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600');"></div>
                     <div class="member-info">
                         <h4>Michael Chen</h4>
-                        <p class="member-role">Head of Technology</p>
-                        <p style="color: #666; font-size: 14px; margin-top: 10px;">Building your experience</p>
+                        <span class="member-role">Head of Technology</span>
+                        <p class="member-bio">Building the platform you love. Michael leads our tech team to create a seamless ordering experience.</p>
                     </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600');"></div>
+                    <div class="member-info">
+                        <h4>Fatima Hassan</h4>
+                        <span class="member-role">Customer Experience</span>
+                        <p class="member-bio">Making sure every customer is happy. Fatima leads our 24/7 support team.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600');"></div>
+                    <div class="member-info">
+                        <h4>David Ochieng</h4>
+                        <span class="member-role">Head of Operations</span>
+                        <p class="member-bio">Managing our fleet of 200+ riders. David ensures deliveries are fast and efficient.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600');"></div>
+                    <div class="member-info">
+                        <h4>Grace John</h4>
+                        <span class="member-role">Partner Relations</span>
+                        <p class="member-bio">Building relationships with our restaurant partners. Grace brings the best local food to your doorstep.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHY CHOOSE US ===== -->
+        <section class="about-section">
+            <div class="about-grid">
+                <div>
+                    <h2 style="font-size: 32px; margin-bottom: 20px; color: var(--primary);">Why Choose FoodExpress?</h2>
+                    <div style="margin-bottom: 20px;">
+                        <p style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--primary); font-size: 24px;"></i>
+                            <span style="color: #666;">Fastest delivery in Dar es Salaam — average 30 minutes</span>
+                        </p>
+                        <p style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--primary); font-size: 24px;"></i>
+                            <span style="color: #666;">No minimum order — order as little as Tsh 3,000</span>
+                        </p>
+                        <p style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--primary); font-size: 24px;"></i>
+                            <span style="color: #666;">Live order tracking from kitchen to your door</span>
+                        </p>
+                        <p style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--primary); font-size: 24px;"></i>
+                            <span style="color: #666;">Secure payments — cash, card, or mobile money</span>
+                        </p>
+                        <p style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <i class="fas fa-check-circle" style="color: var(--primary); font-size: 24px;"></i>
+                            <span style="color: #666;">Free delivery on orders above Tsh 20,000</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600" alt="Why Choose Us">
                 </div>
             </div>
         </section>
     </div>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
@@ -277,7 +1003,7 @@
                         <i class="fas fa-utensils"></i>
                         <h2>FoodExpress</h2>
                     </div>
-                    <p>Your favorite food, delivered fast.</p>
+                    <p>Your favorite food, delivered fast. Serving Dar es Salaam with love since 2024.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
@@ -285,6 +1011,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="restaurants.html">Restaurants</a></li>
                         <li><a href="menu.html">Menu</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -293,24 +1020,44 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="login.html">Login</a></li>
                         <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="admin-login.html">Partner Login</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+                <p>&copy; 2024 FoodExpress. All rights reserved. Delivering happiness since 2024.</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="cart.js"></script>
     <script>
-        // Update cart count
-        const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
-        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-        document.querySelectorAll('.cart-count').forEach(el => {
-            el.textContent = totalItems;
+        // ===== CART FUNCTIONALITY =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            
+            // Update cart count
+            function updateCartCount() {
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                
+                cartCountElements.forEach(el => {
+                    el.textContent = totalItems;
+                });
+            }
+            
+            // Cart button toggle
+            const cartBtn = document.getElementById('cart-btn');
+            if (cartBtn) {
+                cartBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.location.href = 'cart.html';
+                });
+            }
+            
+            // Initial update
+            updateCartCount();
         });
     </script>
 </body>
-</html>
+    </html>
