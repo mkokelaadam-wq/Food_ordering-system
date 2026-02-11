@@ -5,59 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
         
         .signup-container {
             width: 100%;
-            max-width: 450px;
-        }
-        
-        .logo-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo-header h1 {
-            color: white;
-            font-size: 32px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .logo-header p {
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .signup-card {
+            max-width: 500px;
             background: white;
             border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         
-        .signup-card h2 {
-            color: #333;
-            margin-bottom: 25px;
-            font-size: 24px;
+        .signup-header {
+            background: var(--primary);
+            color: white;
+            padding: 30px;
             text-align: center;
+        }
+        
+        .signup-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .signup-form {
+            padding: 40px;
         }
         
         .form-group {
@@ -67,159 +48,41 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
             font-weight: 600;
-            font-size: 14px;
+            color: var(--dark);
         }
         
-        .input-with-icon {
-            position: relative;
-        }
-        
-        .input-with-icon i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888;
-        }
-        
-        .input-with-icon input,
-        .input-with-icon select {
+        .form-group input {
             width: 100%;
-            padding: 15px 15px 15px 45px;
+            padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .input-with-icon input:focus,
-        .input-with-icon select:focus {
-            border-color: #ff6b35;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
-        }
-        
-        .name-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .password-requirements {
-            background: #f8f9fa;
-            padding: 15px;
             border-radius: 8px;
-            margin-top: 10px;
-            font-size: 13px;
-            color: #666;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
         
-        .password-requirements ul {
-            padding-left: 20px;
-            margin-top: 8px;
-        }
-        
-        .password-requirements li {
-            margin-bottom: 5px;
-        }
-        
-        .password-requirements .valid {
-            color: #4CAF50;
-        }
-        
-        .password-requirements .invalid {
-            color: #f44336;
-        }
-        
-        .terms {
-            display: flex;
-            align-items: flex-start;
-            margin: 20px 0;
-        }
-        
-        .terms input {
-            margin-right: 10px;
-            margin-top: 5px;
-            width: 18px;
-            height: 18px;
-            accent-color: #ff6b35;
-        }
-        
-        .terms label {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.5;
-        }
-        
-        .terms a {
-            color: #ff6b35;
-            text-decoration: none;
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
         }
         
         .btn-signup {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(to right, #ff6b35, #f0932b);
+            padding: 15px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            margin-top: 20px;
         }
         
         .btn-signup:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
-        }
-        
-        .social-signup {
-            margin-top: 25px;
-            text-align: center;
-        }
-        
-        .social-signup p {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        
-        .social-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .social-btn {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .social-btn.google:hover {
-            border-color: #DB4437;
-            background: #f8f8f8;
-        }
-        
-        .social-btn.facebook:hover {
-            border-color: #4267B2;
-            background: #f8f8f8;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
         .login-link {
@@ -227,138 +90,47 @@
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #eee;
-            color: #666;
         }
         
         .login-link a {
-            color: #ff6b35;
-            font-weight: 600;
+            color: var(--primary);
             text-decoration: none;
-        }
-        
-        .admin-link {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        
-        .admin-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        @media (max-width: 480px) {
-            .signup-card {
-                padding: 30px 20px;
-            }
-            
-            .name-group {
-                grid-template-columns: 1fr;
-            }
-            
-            .logo-header h1 {
-                font-size: 28px;
-            }
-            
-            .admin-buttons {
-                flex-direction: column;
-            }
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="signup-container">
-        <div class="logo-header">
+        <div class="signup-header">
             <h1><i class="fas fa-utensils"></i> FoodExpress</h1>
-            <p>Join thousands of happy customers</p>
+            <p>Create your account</p>
         </div>
         
-        <div class="signup-card">
-            <h2>Create Your Account</h2>
-            
-            <form id="signupForm">
-                <div class="name-group">
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="firstName" required placeholder="John">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user"></i>
-                            <input type="text" id="lastName" required placeholder="Doe">
-                        </div>
-                    </div>
+        <div class="signup-form">
+            <form id="signup-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullname" placeholder="John Doe" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" required placeholder="you@example.com">
-                    </div>
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-phone"></i>
-                        <input type="tel" id="phone" placeholder="+255 xxx xxx xxx">
-                    </div>
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+255 712 345 678">
                 </div>
                 
                 <div class="form-group">
-                    <label for="userType">Account Type</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-user-tag"></i>
-                        <select id="userType">
-                            <option value="customer">Customer</option>
-                            <option value="restaurant">Restaurant Owner</option>
-                            <option value="delivery">Delivery Partner</option>
-                        </select>
-                    </div>
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Create a password" required minlength="6">
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" required placeholder="Create a strong password">
-                    </div>
-                    
-                    <div class="password-requirements">
-                        <strong>Password must contain:</strong>
-                        <ul>
-                            <li id="req-length" class="invalid">At least 8 characters</li>
-                            <li id="req-uppercase" class="invalid">One uppercase letter</li>
-                            <li id="req-number" class="invalid">One number</li>
-                            <li id="req-special" class="invalid">One special character</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="confirmPassword" required placeholder="Confirm your password">
-                    </div>
-                    <div id="passwordMatch" style="margin-top: 5px; font-size: 13px; display: none;"></div>
-                </div>
-                
-                <div class="terms">
-                    <input type="checkbox" id="agreeTerms" required>
-                    <label for="agreeTerms">
-                        I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy.html">Privacy Policy</a>. 
-                        I consent to receive promotional emails from FoodExpress.
-                    </label>
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password" required>
                 </div>
                 
                 <button type="submit" class="btn-signup">
@@ -366,190 +138,33 @@
                 </button>
             </form>
             
-            <div class="social-signup">
-                <p>Or sign up with</p>
-                <div class="social-buttons">
-                    <button type="button" class="social-btn google">
-                        <i class="fab fa-google" style="color: #DB4437;"></i>
-                        Google
-                    </button>
-                    <button type="button" class="social-btn facebook">
-                        <i class="fab fa-facebook-f" style="color: #4267B2;"></i>
-                        Facebook
-                    </button>
-                </div>
-            </div>
-            
             <div class="login-link">
-                <p>Already have an account? <a href="login.html">Log in here</a></p>
-            </div>
-            
-            <!-- ADMIN LINKS SECTION -->
-            <div class="admin-link">
-                <h4 style="text-align: center; color: #666; margin-bottom: 15px; font-size: 14px;">
-                    <i class="fas fa-store-alt"></i> Restaurant Partner Portal
-                </h4>
-                
-                <div class="admin-buttons">
-                    <!-- Admin Signup Link -->
-                    <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
-                        <i class="fas fa-user-plus"></i> Register Restaurant
-                    </a>
-                    
-                    <!-- Admin Login Link -->
-                    <a href="admin-login.html" style="background:#5a6268;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold;font-size:14px;">
-                        <i class="fas fa-sign-in-alt"></i> Admin Login
-                    </a>
-                </div>
-                
-                <p style="text-align: center; color: #666; font-size: 12px; margin-top: 10px;">
-                    Manage orders, update menu, track deliveries & analytics
-                </p>
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+                <p style="margin-top: 10px;"><a href="admin-signup.html">Register as Restaurant Partner</a></p>
             </div>
         </div>
     </div>
 
     <script>
-        // Password validation
-        const passwordInput = document.getElementById('password');
-        const confirmInput = document.getElementById('confirmPassword');
-        
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            
-            // Check length
-            document.getElementById('req-length').className = password.length >= 8 ? 'valid' : 'invalid';
-            
-            // Check uppercase
-            document.getElementById('req-uppercase').className = /[A-Z]/.test(password) ? 'valid' : 'invalid';
-            
-            // Check number
-            document.getElementById('req-number').className = /[0-9]/.test(password) ? 'valid' : 'invalid';
-            
-            // Check special character
-            document.getElementById('req-special').className = /[!@#$%^&*(),.?":{}|<>]/.test(password) ? 'valid' : 'invalid';
-            
-            // Check password match
-            checkPasswordMatch();
-        });
-        
-        confirmInput.addEventListener('input', checkPasswordMatch);
-        
-        function checkPasswordMatch() {
-            const password = passwordInput.value;
-            const confirm = confirmInput.value;
-            const matchDiv = document.getElementById('passwordMatch');
-            
-            if(confirm === '') {
-                matchDiv.style.display = 'none';
-                return;
-            }
-            
-            matchDiv.style.display = 'block';
-            
-            if(password === confirm) {
-                matchDiv.innerHTML = '<i class="fas fa-check-circle" style="color: #4CAF50;"></i> Passwords match';
-                matchDiv.style.color = '#4CAF50';
-            } else {
-                matchDiv.innerHTML = '<i class="fas fa-times-circle" style="color: #f44336;"></i> Passwords do not match';
-                matchDiv.style.color = '#f44336';
-            }
-        }
-        
-        // Form submission
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const userType = document.getElementById('userType').value;
-            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const confirm = document.getElementById('confirm-password').value;
             
-            // Validation
-            if(!agreeTerms) {
-                alert('Please agree to the Terms of Service and Privacy Policy');
+            if (password !== confirm) {
+                alert('Passwords do not match!');
                 return;
             }
             
-            if(password !== confirmPassword) {
-                alert('Passwords do not match');
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
                 return;
             }
             
-            // Check password strength
-            const hasUpperCase = /[A-Z]/.test(password);
-            const hasNumber = /[0-9]/.test(password);
-            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-            
-            if(password.length < 8 || !hasUpperCase || !hasNumber || !hasSpecialChar) {
-                alert('Please create a stronger password that meets all requirements');
-                return;
-            }
-            
-            // Simulate successful registration
-            const userData = {
-                firstName,
-                lastName,
-                email,
-                userType,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Store user data (in real app, send to backend)
-            localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Show success message
-            alert(`🎉 Welcome to FoodExpress, ${firstName}!\n\nYour ${userType} account has been created successfully.\nCheck your email for verification.`);
-            
-            // Redirect to login page after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 2000);
-        });
-        
-        // Social signup buttons
-        document.querySelector('.social-btn.google').addEventListener('click', function() {
-            alert('Google signup would be implemented here.\nIn a real app, this would redirect to Google OAuth.');
-        });
-        
-        document.querySelector('.social-btn.facebook').addEventListener('click', function() {
-            alert('Facebook signup would be implemented here.\nIn a real app, this would redirect to Facebook OAuth.');
-        });
-        
-        // Auto-focus first input
-        document.getElementById('firstName').focus();
-        
-        // If user selects "Restaurant Owner", suggest admin signup
-        document.getElementById('userType').addEventListener('change', function() {
-            if(this.value === 'restaurant') {
-                const suggestion = document.createElement('div');
-                suggestion.innerHTML = `
-                    <div style="background:#fff8f6; padding:10px; border-radius:5px; margin-top:10px; border-left:3px solid #ff6b35;">
-                        <small>
-                            <i class="fas fa-info-circle" style="color:#ff6b35;"></i>
-                            <strong>Restaurant Owners:</strong> For restaurant management features, 
-                            <a href="admin-signup.html" style="color:#ff6b35; font-weight:bold;">sign up here</a> for admin access.
-                        </small>
-                    </div>
-                `;
-                
-                // Remove existing suggestion if any
-                const existingSuggestion = document.querySelector('.restaurant-suggestion');
-                if(existingSuggestion) {
-                    existingSuggestion.remove();
-                }
-                
-                suggestion.className = 'restaurant-suggestion';
-                this.parentNode.parentNode.appendChild(suggestion);
-            } else {
-                const existingSuggestion = document.querySelector('.restaurant-suggestion');
-                if(existingSuggestion) {
-                    existingSuggestion.remove();
-                }
-            }
+            // Simulate signup
+            alert('✅ Account created successfully! Please login.');
+            window.location.href = 'login.html';
         });
     </script>
 </body>
