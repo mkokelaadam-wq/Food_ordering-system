@@ -1,221 +1,205 @@
+// ============================================
+// Food_ordering-system/backend/middleware/authMiddleware.js
+// ============================================
+// KAZI: KUHIFADHI TOKEN NA KUHakiki MWENYEJI WA TOKEN
+
 const jwt = require('jsonwebtoken');
 
-// Authentication middleware
-const authMiddleware = (req, res, next) => {
+/**
+ * @desc    Verify JWT token - Hii ndio inakagua kama user ameingia
+ * @access  Middleware
+ */
+exports.authMiddleware = (req, res, next) => {
     try {
-        // Get token from header
-        const authHeader = req.header('Authorization');
-        
-        if (!authHeader) {
-            return res.status(401).json({
-                success: false,
-                error: 'Access denied. No authorization token provided.'
-            });
-        }
-        
-        // Check if token format is correct
-        if (!authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({
-                success: false,
-                error: 'Invalid token format. Use "Bearer <token>"'
-            });
-        }
-        
-        // Extract token
-        const token = authHeader.replace('Bearer ', '');
-        
+        // 1. TAFUTA TOKEN - Inaweza kuwa kwenye Header au Cookie
+        const token = req.header('Authorization')?.replace('Bearer ', '') || 
+                     req.cookies?.token ||
+                     req.headers?.token ||
+                     req.query?.token;
+
+        // 2. KAMA HAKUNA TOKEN - RUDISHA ERROR
         if (!token) {
+            console.log('❌ No token provided');
             return res.status(401).json({
                 success: false,
-                error: 'Access denied. No token provided.'
+                error: 'No authentication token. Please login first.',
+                message: 'Access denied. Token is missing.'
             });
         }
+
+        console.log('🔑 Token received:', token.substring(0, 20) + '...');
+
+        // 3. THIBITISHA TOKEN - KAGUA KAMA NI HALALI
+        const decoded = jwt.verify(
+            token, 
+            process.env.JWT_SECRET || 'foodexpress_secret_key_2024'
+        );
+
+        // 4. ONGEZA USER DATA KWENYE REQUEST
+        req.user = {
+            id: decoded.id,
+            email: decoded.email,
+            role: decoded.role || 'customer'
+        };
+
+        console.log('✅ User authenticated:', req.user.email);
         
-        // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
-        // Add user info to request object
-        req.user = decoded;
-        
-        // Continue to next middleware/route
+        // 5. ENDELEA KWA MIDDLEWARE INAYOFUATA
         next();
-        
+
     } catch (error) {
-        console.error('Authentication error:', error.message);
-        
-        // Handle different JWT errors
+        console.error('❌ Auth middleware error:', error.message);
+
+        // 6. SHUGHULIKIA AINA ZA MAKOSA
         if (error.name === 'JsonWebTokenError') {
             return res.status(401).json({
                 success: false,
-                error: 'Invalid token. Please login again.'
+                error: 'Invalid token. Please login again.',
+                details: 'Token verification failed'
             });
         }
         
         if (error.name === 'TokenExpiredError') {
             return res.status(401).json({
                 success: false,
-                error: 'Token expired. Please login again.'
+                error: 'Token expired. Please login again.',
+                expiredAt: error.expiredAt
             });
         }
-        
-        // Generic error
-        return res.status(401).json({
+
+        res.status(500).json({
             success: false,
-            error: 'Authentication failed. Please login again.'
+            error: 'Authentication failed. Please try again.',
+            message: error.message
         });
     }
 };
 
-// Admin middleware (checks if user is admin)
-const adminMiddleware = (req, res, next) => {
+/**
+ * @desc    Check if user is admin - Hii inakagua kama user ni admin
+ * @access  Middleware
+ */
+exports.adminMiddleware = (req, res, next) => {
     try {
-        // Check if user is authenticated first
+        // 1. KAGUA KAMA USER AMEWASHA KWA TOKEN
         if (!req.user) {
             return res.status(401).json({
                 success: false,
-                error: 'Authentication required'
+                error: 'Authentication required',
+                message: 'Please login first'
             });
         }
-        
-        // Check if user has admin role
-        if (req.user.role !== 'admin') {
+
+        // 2. KAGUA KAMA USER NI ADMIN
+        if (req.user.role === 'admin') {
+            console.log('👑 Admin access granted:', req.user.email);
+            next();
+        } else {
+            console.log('❌ Non-admin access denied:', req.user.email);
             return res.status(403).json({
                 success: false,
-                error: 'Access denied. Admin privileges required.'
+                error: 'Access denied. Admin privileges required.',
+                message: 'You do not have permission to access this resource.'
             });
         }
-        
-        next();
-        
     } catch (error) {
-        console.error('Admin middleware error:', error);
+        console.error('❌ Admin middleware error:', error);
         res.status(500).json({
             success: false,
-            error: 'Server error checking admin privileges'
+            error: 'Authorization failed',
+            message: error.message
         });
     }
 };
 
-// Optional authentication (user can be null)
-const optionalAuthMiddleware = (req, res, next) => {
+/**
+ * @desc    Optional auth - Hii inajaribu kupata token lakini haitishi kama hakuna
+ * @access  Middleware
+ */
+exports.optionalAuthMiddleware = (req, res, next) => {
     try {
-        const authHeader = req.header('Authorization');
-        
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-            const token = authHeader.replace('Bearer ', '');
-            
-            try {
-                const decoded = jwt.verify(token, process.env.JWT_SECRET);
-                req.user = decoded;
-            } catch (error) {
-                // Token is invalid but we don't block the request
-                // User will just be treated as guest
-                console.log('Optional auth: Invalid token, continuing as guest');
-            }
+        const token = req.header('Authorization')?.replace('Bearer ', '') || 
+                     req.cookies?.token;
+
+        if (token) {
+            const decoded = jwt.verify(
+                token, 
+                process.env.JWT_SECRET || 'foodexpress_secret_key_2024'
+            );
+            req.user = {
+                id: decoded.id,
+                email: decoded.email,
+                role: decoded.role || 'customer'
+            };
+            console.log('👤 Optional auth user:', req.user.email);
         }
         
         next();
-        
     } catch (error) {
-        console.error('Optional auth error:', error);
-        next(); // Continue even if there's an error
+        // Kama token ni mbaya, endelea tu bila user
+        next();
     }
 };
 
-// Check if user owns resource (for user-specific operations)
-const ownershipMiddleware = (req, res, next) => {
+/**
+ * @desc    Generate JWT token - Hii inaunda token mpya
+ * @access  Internal
+ */
+exports.generateToken = (user) => {
+    return jwt.sign(
+        { 
+            id: user.id, 
+            email: user.email, 
+            role: user.role || 'customer' 
+        },
+        process.env.JWT_SECRET || 'foodexpress_secret_key_2024',
+        { expiresIn: '7d' }
+    );
+};
+
+/**
+ * @desc    Refresh token - Hii inafanya token mpya kama ya zamani bado ni nzuri
+ * @access  Private
+ */
+exports.refreshToken = (req, res) => {
     try {
-        const resourceUserId = req.params.userId || req.body.userId;
-        const requestingUserId = req.user.userId;
-        
-        // Allow if user owns resource OR is admin
-        if (requestingUserId.toString() !== resourceUserId.toString() && req.user.role !== 'admin') {
-            return res.status(403).json({
+        const token = req.header('Authorization')?.replace('Bearer ', '');
+
+        if (!token) {
+            return res.status(401).json({
                 success: false,
-                error: 'Access denied. You can only access your own resources.'
+                error: 'No token provided'
             });
         }
-        
-        next();
-        
+
+        const decoded = jwt.verify(
+            token, 
+            process.env.JWT_SECRET || 'foodexpress_secret_key_2024',
+            { ignoreExpiration: true }
+        );
+
+        const newToken = jwt.sign(
+            { 
+                id: decoded.id, 
+                email: decoded.email, 
+                role: decoded.role 
+            },
+            process.env.JWT_SECRET || 'foodexpress_secret_key_2024',
+            { expiresIn: '7d' }
+        );
+
+        res.json({
+            success: true,
+            token: newToken,
+            message: 'Token refreshed successfully'
+        });
+
     } catch (error) {
-        console.error('Ownership middleware error:', error);
-        res.status(500).json({
+        console.error('❌ Token refresh error:', error);
+        res.status(401).json({
             success: false,
-            error: 'Server error verifying ownership'
+            error: 'Failed to refresh token',
+            message: error.message
         });
     }
-};
-
-// Rate limiting middleware (basic example)
-const rateLimitMiddleware = (req, res, next) => {
-    // Simple rate limiting - in production use express-rate-limit
-    const apiKey = req.header('API-Key') || req.user?.userId;
-    
-    // You can implement more sophisticated rate limiting here
-    // For now, just pass through
-    next();
-};
-
-// Logging middleware
-const requestLogger = (req, res, next) => {
-    const start = Date.now();
-    
-    // Log when response finishes
-    res.on('finish', () => {
-        const duration = Date.now() - start;
-        console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`);
-    });
-    
-    next();
-};
-
-// CORS middleware (already handled by cors package, but here's custom)
-const corsMiddleware = (req, res, next) => {
-    // Set CORS headers
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    
-    // Handle preflight requests
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
-    
-    next();
-};
-
-// Error handling middleware
-const errorHandler = (err, req, res, next) => {
-    console.error('Unhandled error:', err.stack);
-    
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Internal Server Error';
-    
-    res.status(statusCode).json({
-        success: false,
-        error: message,
-        stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
-    });
-};
-
-// 404 Not Found middleware
-const notFoundHandler = (req, res, next) => {
-    res.status(404).json({
-        success: false,
-        error: `Route ${req.originalUrl} not found`
-    });
-};
-
-// Export all middlewares
-module.exports = {
-    authMiddleware,
-    adminMiddleware,
-    optionalAuthMiddleware,
-    ownershipMiddleware,
-    rateLimitMiddleware,
-    requestLogger,
-    corsMiddleware,
-    errorHandler,
-    notFoundHandler
 };
