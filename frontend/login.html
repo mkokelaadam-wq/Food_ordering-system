@@ -3,204 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Food Ordering</title>
+    <title>Login - FoodExpress</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        
         body {
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
         
         .login-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
         
         .login-header {
+            background: var(--primary);
+            color: white;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 30px;
         }
         
         .login-header h1 {
-            color: #333;
             font-size: 28px;
             margin-bottom: 10px;
         }
         
-        .login-header p {
-            color: #666;
-            font-size: 16px;
+        .login-form {
+            padding: 40px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 600;
         }
         
         .form-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
             font-size: 16px;
         }
         
         .form-group input:focus {
+            border-color: var(--primary);
             outline: none;
-            border-color: #ff6b35;
-        }
-        
-        .admin-toggle {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-        
-        .admin-toggle input {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
         }
         
         .btn-login {
             width: 100%;
-            padding: 14px;
-            background-color: #ff6b35;
+            padding: 15px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            transition: all 0.3s;
         }
         
         .btn-login:hover {
-            background-color: #e55a2b;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
-        .user-info {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            border-left: 4px solid #007bff;
-        }
-        
-        .user-info h4 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .links {
+        .signup-link {
             text-align: center;
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #eee;
         }
         
-        .links a {
-            color: #ff6b35;
+        .signup-link a {
+            color: var(--primary);
             text-decoration: none;
-            margin: 0 10px;
-        }
-        
-        .links a:hover {
-            text-decoration: underline;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>Food Ordering System</h1>
-            <p>Login to continue</p>
+            <h1><i class="fas fa-utensils"></i> FoodExpress</h1>
+            <p>Welcome back!</p>
         </div>
         
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="Enter your email" required>
-            </div>
+        <div class="login-form">
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
             
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                <p style="margin-top: 10px;"><a href="admin-login.html">Admin Login</a></p>
             </div>
-            
-            <div class="admin-toggle">
-                <input type="checkbox" id="isAdmin">
-                <label for="isAdmin">Login as Administrator</label>
-            </div>
-            
-            <button type="submit" class="btn-login">Login</button>
-        </form>
-        
-        <div class="user-info" id="userInfo">
-            <h4>User Login</h4>
-            <p>Browse menu, place orders, and track your delivery.</p>
-        </div>
-        
-        <div class="links">
-            <a href="forgot-password.html">Forgot Password?</a>
-            <a href="index.html">Back to Home</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="contact.html">Contact</a>
-            <a href="checkout.html">Checkout</a>
-            <a href="signup.html" style="font-weight:bold;color:#28a745"><i class="fas fa-user-plus"></i> Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
-            <a href="cart.html" style="position:relative"><i class="fas fa-shopping-cart"></i><span style="background:red;color:white;border-radius:50%;padding:2px 6px;font-size:12px;position:absolute;top:-8px;right:-8px">0</span></a>
         </div>
     </div>
 
     <script>
-        document.getElementById('isAdmin').addEventListener('change', function() {
-            const userInfo = document.getElementById('userInfo');
-            if(this.checked) {
-                userInfo.innerHTML = '<h4>Admin Login</h4><p>Access dashboard and manage system settings.</p>';
-            } else {
-                userInfo.innerHTML = '<h4>User Login</h4><p>Browse menu, place orders, and track your delivery.</p>';
-            }
-        });
-        
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const isAdmin = document.getElementById('isAdmin').checked;
             
-            if(email && password) {
-                if(isAdmin) {
-                    alert('Admin login successful!');
-                } else {
-                    alert('User login successful!');
-                }
-            } else {
-                alert('Please fill in all fields');
+            if (email && password) {
+                alert('✅ Login successful! Welcome back.');
+                window.location.href = 'index.html';
             }
         });
     </script>
