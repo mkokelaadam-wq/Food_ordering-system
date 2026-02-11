@@ -5,164 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .orders-page {
+            margin-top: 100px;
+            padding: 40px 0;
+            min-height: 60vh;
         }
         
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        
-        /* Navigation */
-        nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-        
-        .nav-links a.active {
-            color: #ff6b35;
-            font-weight: bold;
-        }
-        
-        /* Orders Container */
         .orders-container {
-            max-width: 1200px;
-            margin: 30px auto;
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 0 20px;
         }
         
-        .page-header {
-            margin-bottom: 30px;
-        }
-        
-        .page-header h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        .page-header p {
-            color: #666;
-            font-size: 16px;
-        }
-        
-        /* Order Filters */
-        .order-filters {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
+        .orders-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
         
-        .filter-group {
+        .status-tabs {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
         
-        .filter-btn {
+        .status-tab {
             padding: 8px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--primary);
             background: white;
-            color: #666;
-            border-radius: 20px;
+            color: var(--primary);
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s;
         }
         
-        .filter-btn.active,
-        .filter-btn:hover {
-            background: #ff6b35;
+        .status-tab.active,
+        .status-tab:hover {
+            background: var(--primary);
             color: white;
-            border-color: #ff6b35;
-        }
-        
-        .search-box {
-            position: relative;
-        }
-        
-        .search-box input {
-            padding: 10px 15px 10px 40px;
-            border: 2px solid #e0e0e0;
-            border-radius: 20px;
-            width: 250px;
-        }
-        
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888;
-        }
-        
-        /* Orders Grid */
-        .orders-grid {
-            display: grid;
-            gap: 20px;
         }
         
         .order-card {
             background: white;
             border-radius: 10px;
-            overflow: hidden;
+            padding: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
             transition: transform 0.3s;
-            border-left: 4px solid #ff6b35;
         }
         
         .order-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
         .order-header {
-            background: #f8f9fa;
-            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #eee;
-        }
-        
-        .order-info h3 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .order-id {
-            color: #ff6b35;
+            font-size: 18px;
             font-weight: bold;
+            color: var(--dark);
         }
         
         .order-date {
@@ -172,600 +90,377 @@
         
         .order-status {
             padding: 6px 15px;
-            border-radius: 15px;
-            font-size: 12px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
         }
         
-        .status-delivered {
-            background: #d4edda;
-            color: #155724;
-        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-preparing { background: #cce5ff; color: #004085; }
+        .status-delivered { background: #d4edda; color: #155724; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
         
-        .status-preparing {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-pending {
-            background: #cce5ff;
-            color: #004085;
-        }
-        
-        .status-cancelled {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .order-content {
-            padding: 20px;
+        .order-restaurant {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #666;
         }
         
         .order-items {
             margin-bottom: 15px;
         }
         
-        .item-row {
+        .order-item {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px dashed #eee;
         }
         
-        .item-name {
-            color: #333;
-        }
-        
-        .item-quantity {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .item-price {
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .order-summary {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-        
-        .summary-row {
+        .order-total {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .total-row {
-            font-weight: bold;
-            font-size: 18px;
-            color: #ff6b35;
-            padding-top: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 2px solid #eee;
-            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
         }
         
         .order-actions {
-            padding: 20px;
-            border-top: 1px solid #eee;
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
         
-        .action-btn {
-            padding: 8px 20px;
-            border: 2px solid #ff6b35;
+        .btn-action {
+            padding: 10px 20px;
+            border: 2px solid var(--primary);
             background: white;
-            color: #ff6b35;
+            color: var(--primary);
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .action-btn:hover {
-            background: #ff6b35;
+        .btn-action:hover {
+            background: var(--primary);
             color: white;
         }
         
-        .action-btn.primary {
-            background: #ff6b35;
-            color: white;
-        }
-        
-        .action-btn.primary:hover {
-            background: #e55a2b;
-        }
-        
-        .action-btn.secondary {
-            border-color: #6c757d;
-            color: #6c757d;
-        }
-        
-        .action-btn.secondary:hover {
-            background: #6c757d;
-            color: white;
-        }
-        
-        /* Empty State */
-        .empty-state {
+        .empty-orders {
             text-align: center;
             padding: 60px 20px;
             background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
-        .empty-state i {
+        .empty-orders i {
             font-size: 60px;
             color: #ddd;
             margin-bottom: 20px;
         }
         
-        .empty-state h3 {
-            color: #666;
+        .empty-orders h3 {
             margin-bottom: 10px;
+            color: #666;
         }
         
-        .empty-state p {
+        .empty-orders p {
             color: #999;
             margin-bottom: 30px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-top: 40px;
-        }
-        
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-        
-        .page-btn.active {
-            background: #ff6b35;
-            color: white;
-            border-color: #ff6b35;
-        }
-        
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .order-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .order-filters {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .search-box input {
-                width: 100%;
-            }
-            
-            .order-actions {
-                flex-direction: column;
-            }
-            
-            .action-btn {
-                width: 100%;
-            }
-            
-            .nav-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            
-            .nav-links a {
-                margin: 5px;
-                font-size: 14px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-links a {
-                font-size: 12px;
-                padding: 5px 8px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation with Admin Signup Link -->
-    <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="restaurants.html">Restaurants</a>
-            <a href="menu.html">Menu</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="checkout.html">Checkout</a>
-            <a href="cart.html">Cart</a>
-            <a href="orders.html" class="active">Orders</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            
-            <!-- ADMIN SIGNUP LINK ADDED HERE -->
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold">
-                <i class="fas fa-user-shield"></i> Partner With Us
-            </a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link active"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin">Admin</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <div class="orders-container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1><i class="fas fa-shopping-bag"></i> My Orders</h1>
-            <p>View and manage all your past orders</p>
-        </div>
-
-        <!-- Order Filters -->
-        <div class="order-filters">
-            <div class="filter-group">
-                <button class="filter-btn active" data-filter="all">All Orders</button>
-                <button class="filter-btn" data-filter="delivered">Delivered</button>
-                <button class="filter-btn" data-filter="preparing">Preparing</button>
-                <button class="filter-btn" data-filter="pending">Pending</button>
+    <div class="orders-page">
+        <div class="orders-container">
+            <div class="orders-header">
+                <h1 style="color: var(--dark);">
+                    <i class="fas fa-clipboard-list"></i> My Orders
+                </h1>
+                
+                <div class="status-tabs">
+                    <button class="status-tab active" onclick="filterOrders('all')">All</button>
+                    <button class="status-tab" onclick="filterOrders('Pending')">Pending</button>
+                    <button class="status-tab" onclick="filterOrders('Preparing')">Preparing</button>
+                    <button class="status-tab" onclick="filterOrders('Delivered')">Delivered</button>
+                </div>
             </div>
             
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search orders..." id="orderSearch">
+            <div id="orders-list">
+                <!-- Orders will be loaded here -->
             </div>
-        </div>
-
-        <!-- Orders Grid -->
-        <div class="orders-grid" id="ordersGrid">
-            <!-- Order 1 -->
-            <div class="order-card" data-status="preparing" data-date="2024-01-15">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3><span class="order-id">#ORD00125</span> - Mama's Kitchen</h3>
-                        <p class="order-date"><i class="far fa-calendar"></i> Today, 2:30 PM</p>
-                    </div>
-                    <span class="order-status status-preparing">Preparing</span>
-                </div>
-                
-                <div class="order-content">
-                    <div class="order-items">
-                        <div class="item-row">
-                            <div class="item-name">Margherita Pizza</div>
-                            <div class="item-quantity">× 1</div>
-                            <div class="item-price">Tsh 12,000</div>
-                        </div>
-                        <div class="item-row">
-                            <div class="item-name">Fresh Orange Juice</div>
-                            <div class="item-quantity">× 2</div>
-                            <div class="item-price">Tsh 7,000</div>
-                        </div>
-                    </div>
-                    
-                    <div class="order-summary">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>Tsh 19,000</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Delivery Fee</span>
-                            <span>Tsh 2,500</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Service Charge</span>
-                            <span>Tsh 1,000</span>
-                        </div>
-                        <div class="summary-row total-row">
-                            <span>Total Amount</span>
-                            <span>Tsh 22,500</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="order-actions">
-                    <button class="action-btn primary" onclick="trackOrder('ORD00125')">
-                        <i class="fas fa-map-marker-alt"></i> Track Order
-                    </button>
-                    <button class="action-btn" onclick="viewDetails('ORD00125')">
-                        <i class="fas fa-eye"></i> View Details
-                    </button>
-                    <button class="action-btn secondary" onclick="reorder('ORD00125')">
-                        <i class="fas fa-redo"></i> Reorder
-                    </button>
-                </div>
+            
+            <!-- Empty State -->
+            <div id="empty-orders" class="empty-orders" style="display: none;">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>No orders yet</h3>
+                <p>Looks like you haven't placed any orders.</p>
+                <a href="restaurants.html" class="btn btn-primary" style="padding: 12px 30px;">
+                    <i class="fas fa-store"></i> Browse Restaurants
+                </a>
             </div>
-
-            <!-- Order 2 -->
-            <div class="order-card" data-status="delivered" data-date="2024-01-14">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3><span class="order-id">#ORD00124</span> - Mama's Kitchen</h3>
-                        <p class="order-date"><i class="far fa-calendar"></i> Yesterday, 7:15 PM</p>
-                    </div>
-                    <span class="order-status status-delivered">Delivered</span>
-                </div>
-                
-                <div class="order-content">
-                    <div class="order-items">
-                        <div class="item-row">
-                            <div class="item-name">Chicken Curry</div>
-                            <div class="item-quantity">× 2</div>
-                            <div class="item-price">Tsh 16,000</div>
-                        </div>
-                        <div class="item-row">
-                            <div class="item-name">Steamed Rice</div>
-                            <div class="item-quantity">× 2</div>
-                            <div class="item-price">Tsh 4,000</div>
-                        </div>
-                    </div>
-                    
-                    <div class="order-summary">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>Tsh 20,000</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Delivery Fee</span>
-                            <span>Tsh 2,500</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Service Charge</span>
-                            <span>Tsh 1,000</span>
-                        </div>
-                        <div class="summary-row total-row">
-                            <span>Total Amount</span>
-                            <span>Tsh 23,500</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="order-actions">
-                    <button class="action-btn" onclick="viewDetails('ORD00124')">
-                        <i class="fas fa-eye"></i> View Details
-                    </button>
-                    <button class="action-btn" onclick="downloadInvoice('ORD00124')">
-                        <i class="fas fa-download"></i> Download Invoice
-                    </button>
-                    <button class="action-btn primary" onclick="reorder('ORD00124')">
-                        <i class="fas fa-redo"></i> Reorder
-                    </button>
-                </div>
-            </div>
-
-            <!-- Order 3 -->
-            <div class="order-card" data-status="delivered" data-date="2024-01-10">
-                <div class="order-header">
-                    <div class="order-info">
-                        <h3><span class="order-id">#ORD00123</span> - Spice Palace</h3>
-                        <p class="order-date"><i class="far fa-calendar"></i> 5 days ago, 12:45 PM</p>
-                    </div>
-                    <span class="order-status status-delivered">Delivered</span>
-                </div>
-                
-                <div class="order-content">
-                    <div class="order-items">
-                        <div class="item-row">
-                            <div class="item-name">Butter Chicken</div>
-                            <div class="item-quantity">× 1</div>
-                            <div class="item-price">Tsh 9,500</div>
-                        </div>
-                        <div class="item-row">
-                            <div class="item-name">Garlic Naan</div>
-                            <div class="item-quantity">× 2</div>
-                            <div class="item-price">Tsh 3,000</div>
-                        </div>
-                    </div>
-                    
-                    <div class="order-summary">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>Tsh 12,500</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Delivery Fee</span>
-                            <span>Tsh 2,000</span>
-                        </div>
-                        <div class="summary-row total-row">
-                            <span>Total Amount</span>
-                            <span>Tsh 14,500</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="order-actions">
-                    <button class="action-btn" onclick="viewDetails('ORD00123')">
-                        <i class="fas fa-eye"></i> View Details
-                    </button>
-                    <button class="action-btn secondary" onclick="rateOrder('ORD00123')">
-                        <i class="fas fa-star"></i> Rate Order
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Empty State (Hidden by default) -->
-        <div class="empty-state" id="emptyState" style="display: none;">
-            <i class="fas fa-shopping-bag"></i>
-            <h3>No Orders Yet</h3>
-            <p>You haven't placed any orders yet. Browse our menu and place your first order!</p>
-            <a href="menu.html" style="display: inline-block; background: #ff6b35; color: white; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold;">
-                <i class="fas fa-utensils"></i> Browse Menu
-            </a>
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.8;">Track your orders anytime, anywhere</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p>Your favorite food, delivered fast.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
     <script>
-        // Order filtering
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Update active button
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        // Sample orders data
+        let orders = JSON.parse(localStorage.getItem('foodexpress_orders')) || [];
+        
+        // If no orders, add sample orders
+        if (orders.length === 0) {
+            orders = [
+                {
+                    id: 'ORD-123456',
+                    date: '2024-01-15 14:30',
+                    status: 'Delivered',
+                    restaurant: 'Mama\'s Kitchen',
+                    items: [
+                        { name: 'Chips Mayai', quantity: 2, price: 5000 },
+                        { name: 'Fresh Orange Juice', quantity: 1, price: 3000 }
+                    ],
+                    total: 'Tsh 16,500'
+                },
+                {
+                    id: 'ORD-123455',
+                    date: '2024-01-14 19:45',
+                    status: 'Delivered',
+                    restaurant: 'Burger Palace',
+                    items: [
+                        { name: 'Beef Burger', quantity: 1, price: 8000 },
+                        { name: 'Chicken Burger', quantity: 1, price: 8500 },
+                        { name: 'Chips', quantity: 1, price: 3000 }
+                    ],
+                    total: 'Tsh 19,500'
+                },
+                {
+                    id: 'ORD-123454',
+                    date: '2024-01-16 12:15',
+                    status: 'Preparing',
+                    restaurant: 'Pizza Hub',
+                    items: [
+                        { name: 'Margherita Pizza', quantity: 1, price: 12000 },
+                        { name: 'Fresh Orange Juice', quantity: 2, price: 3000 }
+                    ],
+                    total: 'Tsh 18,000'
+                }
+            ];
+            localStorage.setItem('foodexpress_orders', JSON.stringify(orders));
+        }
+        
+        // Display orders
+        function displayOrders(filter = 'all') {
+            const ordersList = document.getElementById('orders-list');
+            const emptyOrders = document.getElementById('empty-orders');
+            
+            let filteredOrders = orders;
+            if (filter !== 'all') {
+                filteredOrders = orders.filter(order => order.status === filter);
+            }
+            
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = '';
+                emptyOrders.style.display = 'block';
+                return;
+            }
+            
+            emptyOrders.style.display = 'none';
+            
+            let html = '';
+            filteredOrders.forEach(order => {
+                // Calculate total if not present
+                let total = order.total;
+                if (!total && order.items) {
+                    const subtotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    total = `Tsh ${subtotal.toLocaleString()}`;
+                }
                 
-                const filter = this.dataset.filter;
-                filterOrders(filter);
-            });
-        });
-        
-        function filterOrders(status) {
-            const orders = document.querySelectorAll('.order-card');
-            let visibleCount = 0;
-            
-            orders.forEach(order => {
-                if (status === 'all' || order.dataset.status === status) {
-                    order.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    order.style.display = 'none';
+                // Generate items HTML
+                let itemsHtml = '';
+                if (order.items) {
+                    order.items.forEach(item => {
+                        itemsHtml += `
+                            <div class="order-item">
+                                <span>${item.name} × ${item.quantity}</span>
+                                <span style="font-weight: 600;">Tsh ${(item.price * item.quantity).toLocaleString()}</span>
+                            </div>
+                        `;
+                    }
                 }
+                
+                // Status class
+                const statusClass = order.status.toLowerCase().replace(' ', '-');
+                
+                html += `
+                    <div class="order-card" data-status="${order.status}">
+                        <div class="order-header">
+                            <div>
+                                <span class="order-id">${order.id}</span>
+                                <div class="order-date"><i class="far fa-calendar"></i> ${order.date}</div>
+                            </div>
+                            <span class="order-status status-${statusClass}">${order.status}</span>
+                        </div>
+                        
+                        <div class="order-restaurant">
+                            <i class="fas fa-store"></i> ${order.restaurant || 'FoodExpress Restaurant'}
+                        </div>
+                        
+                        <div class="order-items">
+                            ${itemsHtml}
+                        </div>
+                        
+                        <div class="order-total">
+                            <span>Total Amount</span>
+                            <span>${total}</span>
+                        </div>
+                        
+                        <div class="order-actions">
+                            ${order.status === 'Preparing' ? 
+                                `<button class="btn-action" onclick="trackOrder('${order.id}')">
+                                    <i class="fas fa-map-marker-alt"></i> Track Order
+                                </button>` : ''}
+                            ${order.status === 'Delivered' ? 
+                                `<button class="btn-action" onclick="reorder('${order.id}')">
+                                    <i class="fas fa-redo"></i> Reorder
+                                </button>` : ''}
+                            <button class="btn-action" onclick="viewDetails('${order.id}')">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                `;
             });
             
-            // Show/hide empty state
-            const emptyState = document.getElementById('emptyState');
-            if (visibleCount === 0) {
-                emptyState.style.display = 'block';
-            } else {
-                emptyState.style.display = 'none';
-            }
+            ordersList.innerHTML = html;
         }
         
-        // Search functionality
-        document.getElementById('orderSearch').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const orders = document.querySelectorAll('.order-card');
-            let visibleCount = 0;
-            
-            orders.forEach(order => {
-                const orderText = order.textContent.toLowerCase();
-                if (orderText.includes(searchTerm)) {
-                    order.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    order.style.display = 'none';
-                }
+        // Filter orders
+        window.filterOrders = function(status) {
+            // Update active tab
+            document.querySelectorAll('.status-tab').forEach(tab => {
+                tab.classList.remove('active');
             });
+            event.target.classList.add('active');
             
-            // Show/hide empty state
-            const emptyState = document.getElementById('emptyState');
-            if (visibleCount === 0) {
-                emptyState.style.display = 'block';
-            } else {
-                emptyState.style.display = 'none';
-            }
-        });
+            displayOrders(status);
+        };
         
-        // Order actions
-        function trackOrder(orderId) {
-            alert(`Tracking order ${orderId}\n\nCurrent status: Preparing\nEstimated delivery: 30-45 minutes\nDelivery agent: Michael - +255 712 345 678`);
-        }
+        // Track order
+        window.trackOrder = function(orderId) {
+            alert(`🔍 Tracking Order ${orderId}\n\nStatus: Preparing\nEstimated Delivery: 30-45 minutes\nDelivery Partner: Assigned`);
+        };
         
-        function viewDetails(orderId) {
-            alert(`Order ${orderId} details would show here.\nIn a real app, this would open a detailed view page.`);
-        }
-        
-        function reorder(orderId) {
-            if (confirm(`Reorder items from order ${orderId}?\nThis will add all items to your cart.`)) {
-                alert('Items added to cart! Redirecting to cart...');
+        // Reorder
+        window.reorder = function(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order && order.items) {
+                // Clear existing cart
+                localStorage.removeItem('foodexpress_cart');
+                
+                // Add items to cart
+                const cart = [];
+                order.items.forEach(item => {
+                    cart.push({
+                        id: Date.now() + Math.random(),
+                        name: item.name,
+                        price: item.price,
+                        quantity: item.quantity
+                    });
+                });
+                
+                localStorage.setItem('foodexpress_cart', JSON.stringify(cart));
+                alert('✅ Items added to cart! Redirecting to cart...');
                 setTimeout(() => {
                     window.location.href = 'cart.html';
                 }, 1500);
             }
-        }
+        };
         
-        function downloadInvoice(orderId) {
-            alert(`Invoice for order ${orderId} would download here.\nIn a real app, this would generate and download a PDF invoice.`);
-        }
-        
-        function rateOrder(orderId) {
-            const rating = prompt(`Rate your order ${orderId} (1-5 stars):`, '5');
-            if (rating && rating >= 1 && rating <= 5) {
-                alert(`Thank you for your ${rating}-star rating!`);
-            }
-        }
-        
-        // Load orders from localStorage
-        function loadOrdersFromStorage() {
-            const savedOrders = localStorage.getItem('foodExpressOrders');
-            if (savedOrders) {
-                console.log('Loaded orders from storage');
-                // In a real app, you would render orders from this data
-            }
-        }
+        // View details
+        window.viewDetails = function(orderId) {
+            alert(`📋 Order ${orderId}\n\nFull details would be shown here.`);
+        };
         
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Orders page loaded');
-            loadOrdersFromStorage();
-            
-            // Set today's date in recent orders
-            const today = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-            const todayFormatted = today.toLocaleDateString('en-US', options);
-            
-            // Update today's order date
-            const todayOrder = document.querySelector('.order-card[data-date="2024-01-15"] .order-date');
-            if (todayOrder) {
-                todayOrder.innerHTML = `<i class="far fa-calendar"></i> ${todayFormatted}, 2:30 PM`;
-            }
-        });
+        displayOrders();
         
-        // Pagination
-        document.querySelectorAll('.page-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!this.querySelector('i')) { // Don't change active on arrow buttons
-                    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
+        // Update cart count
+        const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.querySelectorAll('.cart-count').forEach(el => {
+            el.textContent = totalItems;
         });
     </script>
 </body>
-                                                                             </html>
+</html>
