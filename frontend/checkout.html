@@ -5,76 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - FoodExpress</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .checkout-page {
+            margin-top: 100px;
+            padding: 40px 0;
+            min-height: 70vh;
         }
         
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-        }
-        
-        /* Navigation */
-        nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6b35;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin: 0 15px;
-            font-weight: 500;
-        }
-        
-        .nav-links a.active {
-            color: #ff6b35;
-            font-weight: bold;
-        }
-        
-        /* Checkout Container */
         .checkout-container {
             max-width: 1200px;
-            margin: 30px auto;
+            margin: 0 auto;
             padding: 0 20px;
+        }
+        
+        .checkout-grid {
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
         
-        /* Order Summary */
-        .order-summary {
+        .checkout-form {
             background: white;
-            padding: 25px;
             border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .payment-methods {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .payment-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary);
+            background: #fff8f6;
+        }
+        
+        .payment-option label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .payment-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+        
+        .payment-option.active .payment-details {
+            display: block;
+        }
+        
+        .order-summary-side {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             position: sticky;
-            top: 20px;
-        }
-        
-        .order-summary h2 {
-            margin-bottom: 20px;
-            color: #333;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ff6b35;
-        }
-        
-        .summary-items {
-            margin-bottom: 20px;
+            top: 100px;
         }
         
         .summary-item {
@@ -90,113 +139,16 @@
             justify-content: space-between;
             font-size: 20px;
             font-weight: bold;
+            color: var(--primary);
+            margin-top: 20px;
             padding-top: 20px;
             border-top: 2px solid #eee;
-            color: #ff6b35;
         }
         
-        /* Checkout Form */
-        .checkout-form {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .checkout-form h2 {
-            margin-bottom: 25px;
-            color: #333;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ff6b35;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #ff6b35;
-            outline: none;
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        /* Payment Methods */
-        .payment-methods {
-            margin: 30px 0;
-        }
-        
-        .payment-option {
-            background: #f8f9fa;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .payment-option.active {
-            border-color: #ff6b35;
-            background: #fff8f6;
-        }
-        
-        .payment-option input {
-            margin-right: 10px;
-        }
-        
-        .payment-option label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        
-        .payment-details {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            display: none;
-        }
-        
-        .payment-option.active .payment-details {
-            display: block;
-        }
-        
-        /* Buttons */
         .btn-place-order {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(to right, #28a745, #20c997);
+            background: var(--success);
             color: white;
             border: none;
             border-radius: 8px;
@@ -204,37 +156,16 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            margin-top: 30px;
         }
         
         .btn-place-order:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+            background: #218838;
+            transform: translateY(-2px);
         }
         
-        .btn-back {
-            display: inline-block;
-            margin-top: 15px;
-            color: #ff6b35;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-        }
-        
-        /* Responsive */
         @media (max-width: 768px) {
-            .checkout-container {
+            .checkout-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -245,274 +176,334 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">FoodExpress</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="restaurants.html">Restaurants</a>
-            <a href="menu.html">Menu</a>
-            <a href="orders.html">Orders</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-            <a href="profile.html">Profile</a>
-            <a href="cart.html">Cart</a>
-            <a href="checkout.html" class="active">Checkout</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html" style="background:#28a745;color:white;padding:8px 15px;border-radius:5px;font-weight:bold">Sign Up</a>
-            <a href="admin-signup.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Partner With Us</a>
-            <a href="admin-login.html" style="background:#6c757d;color:white;padding:8px 15px;border-radius:5px;text-decoration:none;font-weight:bold"><i class="fas fa-user-shield"></i> Admin Login</a>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>FoodExpress</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="restaurants.html" class="nav-link"><i class="fas fa-store"></i> Restaurants</a>
+                <a href="menu.html" class="nav-link"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="orders.html" class="nav-link"><i class="fas fa-clipboard-list"></i> Orders</a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+                <a href="admin-login.html" class="btn btn-admin">Admin</a>
+                <a href="cart.html" class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <div class="checkout-container">
-        <!-- Order Summary -->
-        <div class="order-summary">
-            <h2>Order Summary</h2>
-            <div class="summary-items">
-                <div class="summary-item">
-                    <span>Margherita Pizza × 1</span>
-                    <span>Tsh 12,000</span>
-                </div>
-                <div class="summary-item">
-                    <span>Fresh Orange Juice × 2</span>
-                    <span>Tsh 7,000</span>
-                </div>
-                <div class="summary-item">
-                    <span>Delivery Fee</span>
-                    <span>Tsh 2,500</span>
-                </div>
-                <div class="summary-item">
-                    <span>Service Charge</span>
-                    <span>Tsh 1,000</span>
-                </div>
-            </div>
-            <div class="summary-total">
-                <span>Total Amount</span>
-                <span>Tsh 22,500</span>
-            </div>
+    <div class="checkout-page">
+        <div class="checkout-container">
+            <h1 style="margin-bottom: 30px; color: var(--dark);">
+                <i class="fas fa-lock"></i> Secure Checkout
+            </h1>
             
-            <div style="margin-top: 30px;">
-                <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
-                    <i class="fas fa-clock" style="color: #ff6b35;"></i> 
-                    Estimated delivery: 30-45 minutes
-                </p>
-                <p style="color: #666; font-size: 14px;">
-                    <i class="fas fa-map-marker-alt" style="color: #ff6b35;"></i> 
-                    Delivery to: 123 Main Street
-                </p>
-            </div>
-        </div>
-
-        <!-- Checkout Form -->
-        <div class="checkout-form">
-            <h2>Checkout Details</h2>
-            
-            <form id="checkoutForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" required placeholder="+255 712 345 678">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="john@example.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">Delivery Address *</label>
-                    <textarea id="address" required placeholder="Enter complete address with landmarks"></textarea>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="city">City *</label>
-                        <input type="text" id="city" required placeholder="Dar es Salaam">
-                    </div>
-                    <div class="form-group">
-                        <label for="area">Area/Street *</label>
-                        <input type="text" id="area" required placeholder="Mikocheni">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Delivery Instructions</label>
-                    <textarea id="instructions" placeholder="e.g., Call before delivery, Leave at gate, etc."></textarea>
-                </div>
-                
-                <div class="payment-methods">
-                    <h3 style="margin-bottom: 20px; color: #333;">Payment Method</h3>
-                    
-                    <div class="payment-option active" onclick="selectPayment('cash')">
-                        <label>
-                            <input type="radio" name="payment" value="cash" checked>
-                            <i class="fas fa-money-bill-wave"></i> Cash on Delivery
-                        </label>
-                    </div>
-                    
-                    <div class="payment-option" onclick="selectPayment('card')">
-                        <label>
-                            <input type="radio" name="payment" value="card">
-                            <i class="fas fa-credit-card"></i> Credit/Debit Card
-                        </label>
-                        <div class="payment-details">
+            <div class="checkout-grid">
+                <!-- Checkout Form -->
+                <div class="checkout-form">
+                    <form id="checkout-form">
+                        <!-- Contact Information -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Contact Information</h3>
+                            
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Card Number</label>
-                                    <input type="text" placeholder="1234 5678 9012 3456" disabled>
+                                    <label>First Name *</label>
+                                    <input type="text" id="first-name" placeholder="John" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Expiry Date</label>
-                                    <input type="text" placeholder="MM/YY" disabled>
+                                    <label>Last Name *</label>
+                                    <input type="text" id="last-name" placeholder="Doe" required>
                                 </div>
                             </div>
+                            
                             <div class="form-group">
-                                <label>Card Holder Name</label>
-                                <input type="text" placeholder="JOHN DOE" disabled>
+                                <label>Email Address *</label>
+                                <input type="email" id="email" placeholder="you@example.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="phone" placeholder="+255 712 345 678" required>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="payment-option" onclick="selectPayment('mobile')">
-                        <label>
-                            <input type="radio" name="payment" value="mobile">
-                            <i class="fas fa-mobile-alt"></i> Mobile Payment (M-Pesa, Tigo Pesa)
-                        </label>
-                        <div class="payment-details">
+                        
+                        <!-- Delivery Address -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
+                            
                             <div class="form-group">
-                                <label>Phone Number for Payment</label>
-                                <input type="tel" placeholder="+255 712 345 678" disabled>
+                                <label>Street Address *</label>
+                                <input type="text" id="address" placeholder="Street name, building number" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City *</label>
+                                    <input type="text" id="city" placeholder="Dar es Salaam" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Area/Zone *</label>
+                                    <input type="text" id="area" placeholder="e.g., Mikocheni" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Delivery Instructions (Optional)</label>
+                                <textarea id="instructions" placeholder="e.g., Call before delivery, Leave at gate" rows="2"></textarea>
                             </div>
                         </div>
-                    </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
+                            
+                            <div class="payment-methods">
+                                <div class="payment-option active" onclick="selectPayment(this)">
+                                    <label>
+                                        <input type="radio" name="payment" value="cash" checked style="width: auto;">
+                                        <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                                    </label>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPayment(this)">
+                                    <label>
+                                        <input type="radio" name="payment" value="card" style="width: auto;">
+                                        <i class="fas fa-credit-card"></i> Credit/Debit Card
+                                    </label>
+                                    <div class="payment-details">
+                                        <div class="form-group">
+                                            <label>Card Number</label>
+                                            <input type="text" placeholder="1234 5678 9012 3456" disabled>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Expiry Date</label>
+                                                <input type="text" placeholder="MM/YY" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>CVV</label>
+                                                <input type="text" placeholder="123" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="payment-option" onclick="selectPayment(this)">
+                                    <label>
+                                        <input type="radio" name="payment" value="mobile" style="width: auto;">
+                                        <i class="fas fa-mobile-alt"></i> Mobile Money (M-Pesa/Tigo Pesa)
+                                    </label>
+                                    <div class="payment-details">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input type="tel" placeholder="+255 712 345 678" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-place-order">
+                            <i class="fas fa-check-circle"></i> Place Order
+                        </button>
+                    </form>
                 </div>
                 
-                <button type="submit" class="btn-place-order">
-                    <i class="fas fa-check-circle"></i> Place Order
-                </button>
-                
-                <a href="cart.html" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to Cart
-                </a>
-            </form>
+                <!-- Order Summary -->
+                <div class="order-summary-side">
+                    <h3 style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid var(--primary);">
+                        <i class="fas fa-shopping-bag"></i> Your Order
+                    </h3>
+                    
+                    <div id="order-items-summary">
+                        <!-- Items will be loaded here -->
+                    </div>
+                    
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="order-total">Tsh 0</span>
+                    </div>
+                    
+                    <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                        <i class="fas fa-clock"></i> Estimated delivery: 30-45 minutes
+                    </p>
+                    
+                    <a href="cart.html" style="display: block; text-align: center; margin-top: 20px; color: var(--primary); text-decoration: none;">
+                        <i class="fas fa-arrow-left"></i> Back to Cart
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 FoodExpress. All rights reserved.</p>
-        <p style="margin-top: 10px; opacity: 0.8;">Secure checkout powered by FoodExpress</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>FoodExpress</h2>
+                    </div>
+                    <p>Your favorite food, delivered fast.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="restaurants.html">Restaurants</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FoodExpress. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
     <script>
-        // Payment method selection
-        function selectPayment(method) {
-            // Remove active class from all
-            document.querySelectorAll('.payment-option').forEach(option => {
-                option.classList.remove('active');
-                option.querySelector('input').checked = false;
+        // Select payment method
+        window.selectPayment = function(element) {
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            element.classList.add('active');
+            element.querySelector('input[type="radio"]').checked = true;
+        };
+        
+        // Load order summary
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            const container = document.getElementById('order-items-summary');
+            
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+            
+            let html = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * (item.quantity || 1);
+                subtotal += itemTotal;
+                
+                html += `
+                    <div class="summary-item">
+                        <span>${item.name} × ${item.quantity || 1}</span>
+                        <span style="font-weight: 600;">Tsh ${itemTotal.toLocaleString()}</span>
+                    </div>
+                `;
             });
             
-            // Add active class to selected
-            event.currentTarget.classList.add('active');
-            event.currentTarget.querySelector('input').checked = true;
+            const deliveryFee = subtotal > 20000 ? 0 : 2500;
+            const serviceFee = 1000;
+            const total = subtotal + deliveryFee + serviceFee;
+            
+            html += `
+                <div class="summary-item" style="border-bottom: none; margin-bottom: 5px;">
+                    <span>Subtotal</span>
+                    <span>Tsh ${subtotal.toLocaleString()}</span>
+                </div>
+                <div class="summary-item" style="border-bottom: none;">
+                    <span>Delivery Fee</span>
+                    <span>Tsh ${deliveryFee.toLocaleString()}</span>
+                </div>
+                <div class="summary-item" style="border-bottom: none;">
+                    <span>Service Fee</span>
+                    <span>Tsh ${serviceFee.toLocaleString()}</span>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            document.getElementById('order-total').textContent = `Tsh ${total.toLocaleString()}`;
         }
         
-        // Save order to orders history
-        function saveOrderToHistory(orderData) {
-            // Get existing orders from localStorage
-            let orders = JSON.parse(localStorage.getItem('foodexpress_orders')) || [];
-            
-            // Add new order
-            orders.unshift({
-                id: orderData.orderId,
-                restaurant: "Mama's Kitchen",
-                date: new Date().toISOString().split('T')[0],
-                time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
-                status: "preparing",
-                items: JSON.parse(localStorage.getItem('cart')) || [],
-                subtotal: 19000,
-                delivery: 2500,
-                service: 1000,
-                total: 22500
-            });
-            
-            // Save back to localStorage
-            localStorage.setItem('foodexpress_orders', JSON.stringify(orders));
-            
-            // Clear cart after successful order
-            localStorage.removeItem('cart');
-        }
-        
-        // Form submission
-        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+        // Handle form submission
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('name').value;
+            // Validate required fields
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
-            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const city = document.getElementById('city').value;
+            const area = document.getElementById('area').value;
             
-            if(!name || !phone || !address) {
+            if (!firstName || !lastName || !email || !phone || !address || !city || !area) {
                 alert('Please fill in all required fields');
                 return;
             }
             
-            // Simulate order processing
-            const orderData = {
-                orderId: 'ORD' + Date.now().toString().slice(-6),
-                customer: name,
+            // Get cart items
+            const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                window.location.href = 'restaurants.html';
+                return;
+            }
+            
+            // Generate order number
+            const orderNumber = 'ORD-' + Date.now().toString().slice(-6);
+            
+            // Save order to history
+            const orders = JSON.parse(localStorage.getItem('foodexpress_orders')) || [];
+            orders.push({
+                id: orderNumber,
+                items: cart,
+                customer: `${firstName} ${lastName}`,
+                email: email,
                 phone: phone,
-                address: address,
-                payment: paymentMethod,
-                total: 'Tsh 22,500',
-                timestamp: new Date().toLocaleString()
-            };
+                address: `${address}, ${area}, ${city}`,
+                payment: document.querySelector('input[name="payment"]:checked').value,
+                status: 'Pending',
+                date: new Date().toLocaleString(),
+                total: document.getElementById('order-total').textContent
+            });
             
-            // Store order data
-            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+            localStorage.setItem('foodexpress_orders', JSON.stringify(orders));
             
-            // Save to orders history
-            saveOrderToHistory(orderData);
+            // Clear cart
+            localStorage.removeItem('foodexpress_cart');
             
             // Show success message
-            const message = `
-            🎉 Order Placed Successfully!
-            
-            Order ID: ${orderData.orderId}
-            Amount: ${orderData.total}
-            Payment: ${paymentMethod.toUpperCase()}
-            
-            Your food will be delivered in 30-45 minutes.
-            Check your phone for confirmation SMS.
-            
-            Track your order from the "Orders" page.
-            `;
-            
-            alert(message);
+            alert(`✅ Order placed successfully!\n\nOrder Number: ${orderNumber}\nTotal: ${document.getElementById('order-total').textContent}\n\nThank you for ordering with FoodExpress!`);
             
             // Redirect to orders page
-            setTimeout(() => {
-                window.location.href = 'orders.html?order=success&id=' + orderData.orderId;
-            }, 3000);
+            window.location.href = 'orders.html';
         });
         
-        // Auto-focus name field
-        document.getElementById('name').focus();
+        // Initialize
+        loadOrderSummary();
         
-        // Load cart data if available
-        window.addEventListener('load', function() {
-            const cartData = localStorage.getItem('cart');
-            if(cartData) {
-                // In a real app, you would calculate totals from cart
-                console.log('Cart data loaded for checkout');
-            }
+        // Update cart count
+        const cart = JSON.parse(localStorage.getItem('foodexpress_cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.querySelectorAll('.cart-count').forEach(el => {
+            el.textContent = totalItems;
         });
     </script>
 </body>
