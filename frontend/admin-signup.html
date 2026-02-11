@@ -1,183 +1,689 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 SULUHISHO B: BASE TAG INAELEKEZA KWENYE FRONTEND FOLDER -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner Registration - FoodExpress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Partner Registration - FoodExpress Restaurant Portal</title>
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
     <style>
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e54e1e;
+            --admin: #2c3e50;
+            --admin-dark: #1a252f;
+            --admin-accent: #3498db;
+            --admin-success: #27ae60;
+            --secondary: #2d3436;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
+            --admin-shadow: 0 20px 40px rgba(44, 62, 80, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+        }
+        
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: 0;
         }
         
         .partner-container {
             width: 100%;
-            max-width: 550px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 650px;
+            background: var(--white);
+            border-radius: 28px;
+            box-shadow: var(--admin-shadow);
             overflow: hidden;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .partner-header {
-            background: var(--gray);
+            background: linear-gradient(135deg, var(--admin) 0%, var(--admin-dark) 100%);
             color: white;
-            padding: 30px;
+            padding: 35px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .partner-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .partner-header i {
+            font-size: 56px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+        
+        .partner-header:hover i {
+            transform: scale(1.05) rotate(5deg);
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
         }
         
         .partner-header h1 {
-            font-size: 28px;
+            font-size: 34px;
             margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+            letter-spacing: 1px;
+        }
+        
+        .partner-header p {
+            font-size: 18px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+        
+        .partner-badge {
+            display: inline-block;
+            background: var(--admin-accent);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(52,152,219,0.3);
+        }
+        
+        /* 🔥 Demo Credentials - Admin Style */
+        .demo-credentials {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            margin: 25px 30px 0 30px;
+            border-radius: 20px;
+            border-left: 6px solid var(--admin-accent);
+            box-shadow: 0 8px 20px rgba(52,152,219,0.12);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-credentials::before {
+            content: '🏪';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 90px;
+            opacity: 0.08;
+            transform: rotate(10deg);
+        }
+        
+        .demo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--admin-dark);
+            font-weight: 700;
+            margin-bottom: 18px;
+            font-size: 17px;
+            border-bottom: 1px dashed rgba(44,62,80,0.2);
+            padding-bottom: 14px;
+        }
+        
+        .demo-title i {
+            font-size: 22px;
+            color: var(--admin-accent);
+        }
+        
+        .demo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(108,117,125,0.15);
+        }
+        
+        .demo-item:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-label {
+            font-weight: 600;
+            color: var(--admin);
+            width: 120px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .demo-value {
+            color: var(--admin-accent);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            background: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(52,152,219,0.1);
+            border: 1px solid rgba(52,152,219,0.2);
+            font-family: monospace;
         }
         
         .partner-form {
-            padding: 40px;
+            padding: 35px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
+            color: var(--admin);
+            font-size: 15px;
+        }
+        
+        .form-group label i {
+            color: var(--admin-accent);
+            margin-right: 10px;
+            width: 22px;
+            font-size: 16px;
         }
         
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 14px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
         }
         
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--gray);
+            border-color: var(--admin-accent);
+            background: white;
+            box-shadow: 0 5px 20px rgba(52,152,219,0.15);
             outline: none;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #adb5bd;
+            font-weight: 300;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 18px;
+        }
+        
+        /* Password Requirements */
+        .password-requirements {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 14px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gray);
+            border-left: 4px solid var(--admin-accent);
+        }
+        
+        .requirement-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .requirement-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .requirement-item i {
+            color: var(--admin-accent);
+            margin-right: 12px;
+            font-size: 12px;
         }
         
         .btn-partner {
             width: 100%;
-            padding: 15px;
-            background: var(--gray);
+            padding: 18px;
+            background: linear-gradient(135deg, var(--admin) 0%, var(--admin-dark) 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-partner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
         }
         
         .btn-partner:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--admin-dark) 0%, #0f1a24 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(44,62,80,0.4);
+        }
+        
+        .btn-partner:hover::before {
+            left: 100%;
+        }
+        
+        .btn-partner i {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn-partner:hover i {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        
+        /* Terms and Conditions */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 25px 0 15px;
+            padding: 18px;
+            background: #f8f9fa;
+            border-radius: 14px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .terms input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: var(--admin-accent);
+            cursor: pointer;
+        }
+        
+        .terms label {
+            flex: 1;
+            line-height: 1.6;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .terms a {
+            color: var(--admin-accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
         }
         
         .login-link {
             text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .login-link p {
+            margin-bottom: 15px;
+            color: var(--gray);
         }
         
         .login-link a {
-            color: var(--gray);
+            color: var(--admin);
             text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+        }
+        
+        .login-link a i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-link a:hover {
+            background: var(--admin);
+            color: white;
+            border-color: var(--admin);
+        }
+        
+        .login-link a:hover i {
+            transform: translateX(-5px);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .partner-container {
+                max-width: 100%;
+            }
+            
+            .partner-header {
+                padding: 25px 20px;
+            }
+            
+            .partner-header i {
+                font-size: 48px;
+                width: 90px;
+                height: 90px;
+                line-height: 90px;
+            }
+            
+            .partner-header h1 {
+                font-size: 28px;
+            }
+            
+            .demo-credentials {
+                margin: 15px 20px 0 20px;
+                padding: 20px;
+            }
+            
+            .partner-form {
+                padding: 25px 20px;
+            }
+            
+            .demo-label {
+                width: 100px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .partner-header h1 {
+                font-size: 24px;
+            }
+            
+            .partner-badge {
+                font-size: 12px;
+                padding: 6px 16px;
+            }
+            
+            .demo-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .demo-label {
+                width: auto;
+            }
+            
+            .btn-partner {
+                padding: 16px;
+                font-size: 16px;
+            }
+            
+            .terms {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
     <div class="partner-container">
+        <!-- Header Section - Partner Theme -->
         <div class="partner-header">
-            <h1><i class="fas fa-store"></i> Partner With Us</h1>
-            <p>Register your restaurant</p>
+            <i class="fas fa-store"></i>
+            <h1>Partner With Us</h1>
+            <p>Register your restaurant on FoodExpress</p>
+            <span class="partner-badge">
+                <i class="fas fa-handshake"></i> Become a Partner
+            </span>
         </div>
         
+        <!-- 🔥 Demo Credentials - Partner Registration -->
+        <div class="demo-credentials">
+            <div class="demo-title">
+                <i class="fas fa-flask"></i>
+                <span>Demo Partner Account (For Testing)</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Restaurant:</span>
+                <span class="demo-value">Mama's Kitchen</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Email:</span>
+                <span class="demo-value">partner@foodexpress.com</span>
+            </div>
+            <div class="demo-item">
+                <span class="demo-label">Password:</span>
+                <span class="demo-value">partner123</span>
+            </div>
+            <div style="margin-top: 15px; font-size: 13px; color: var(--admin); background: rgba(52,152,219,0.05); padding: 12px; border-radius: 12px;">
+                <i class="fas fa-info-circle" style="color: var(--admin-accent);"></i> 
+                Fill the form below or use these demo credentials to test
+            </div>
+        </div>
+        
+        <!-- Partner Registration Form -->
         <div class="partner-form">
             <form id="partner-form">
+                <!-- Name Row -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label>First Name</label>
-                        <input type="text" id="firstname" placeholder="John" required>
+                        <label>
+                            <i class="fas fa-user"></i> First Name
+                        </label>
+                        <input type="text" id="firstname" placeholder="John" value="John" required>
                     </div>
                     <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" id="lastname" placeholder="Doe" required>
+                        <label>
+                            <i class="fas fa-user"></i> Last Name
+                        </label>
+                        <input type="text" id="lastname" placeholder="Doe" value="Doe" required>
                     </div>
                 </div>
                 
+                <!-- Restaurant Name -->
                 <div class="form-group">
-                    <label>Restaurant Name</label>
-                    <input type="text" id="restaurant-name" placeholder="e.g., Mama's Kitchen" required>
+                    <label>
+                        <i class="fas fa-store"></i> Restaurant Name
+                    </label>
+                    <input type="text" id="restaurant-name" placeholder="e.g., Mama's Kitchen" value="Mama's Kitchen" required>
                 </div>
                 
+                <!-- Email -->
                 <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="email" placeholder="owner@restaurant.com" required>
+                    <label>
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" placeholder="owner@restaurant.com" value="partner@foodexpress.com" required>
                 </div>
                 
+                <!-- Phone -->
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" id="phone" placeholder="+255 712 345 678" required>
+                    <label>
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <input type="tel" id="phone" placeholder="+255 712 345 678" value="+255 712 345 678" required>
                 </div>
                 
+                <!-- Address -->
                 <div class="form-group">
-                    <label>Restaurant Address</label>
-                    <textarea id="address" placeholder="Full address" rows="2" required></textarea>
+                    <label>
+                        <i class="fas fa-map-marker-alt"></i> Restaurant Address
+                    </label>
+                    <textarea id="address" placeholder="Full address" rows="2" required>Dar es Salaam, Tanzania</textarea>
                 </div>
                 
+                <!-- Cuisine Type -->
                 <div class="form-group">
-                    <label>Cuisine Type</label>
+                    <label>
+                        <i class="fas fa-utensils"></i> Cuisine Type
+                    </label>
                     <select id="cuisine" required>
                         <option value="">Select cuisine</option>
-                        <option value="tanzanian">Tanzanian</option>
+                        <option value="tanzanian" selected>Tanzanian</option>
                         <option value="italian">Italian</option>
                         <option value="american">American</option>
                         <option value="chinese">Chinese</option>
                         <option value="indian">Indian</option>
+                        <option value="fastfood">Fast Food</option>
+                        <option value="seafood">Seafood</option>
                     </select>
                 </div>
                 
+                <!-- Password Row -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="password" placeholder="Create password" required minlength="6">
+                        <label>
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" id="password" placeholder="Create password" value="partner123" required minlength="6">
                     </div>
                     <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                        <label>
+                            <i class="fas fa-lock"></i> Confirm Password
+                        </label>
+                        <input type="password" id="confirm-password" placeholder="Confirm password" value="partner123" required>
                     </div>
                 </div>
                 
+                <!-- Password Requirements -->
+                <div class="password-requirements">
+                    <div class="requirement-item">
+                        <i class="fas fa-circle"></i> At least 6 characters
+                    </div>
+                    <div class="requirement-item">
+                        <i class="fas fa-circle"></i> Use letters and numbers
+                    </div>
+                    <div class="requirement-item">
+                        <i class="fas fa-circle"></i> Strong password recommended
+                    </div>
+                </div>
+                
+                <!-- Terms and Conditions -->
+                <div class="terms">
+                    <input type="checkbox" id="terms" checked required>
+                    <label for="terms">
+                        I agree to the <a href="#">Partner Terms of Service</a> and 
+                        <a href="#">Commission Agreement</a>. I confirm that I am the authorized owner of this restaurant.
+                    </label>
+                </div>
+                
+                <!-- Submit Button -->
                 <button type="submit" class="btn-partner">
                     <i class="fas fa-handshake"></i> Register Restaurant
                 </button>
             </form>
             
+            <!-- Links Section -->
             <div class="login-link">
-                <p>Already registered? <a href="admin-login.html">Login here</a></p>
-                <p style="margin-top: 10px;"><a href="index.html">← Back to Home</a></p>
+                <p>
+                    <i class="fas fa-sign-in-alt"></i>
+                    Already have a partner account? 
+                    <a href="admin-login.html">
+                        Login to Dashboard <i class="fas fa-arrow-right"></i>
+                    </a>
+                </p>
+                <p style="margin-top: 20px;">
+                    <a href="index.html">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </p>
+                <p style="margin-top: 15px; font-size: 13px;">
+                    <a href="signup.html" style="background: transparent; padding: 8px; color: var(--gray);">
+                        <i class="fas fa-user"></i> Customer Registration
+                    </a>
+                </p>
             </div>
         </div>
     </div>
@@ -186,21 +692,78 @@
         document.getElementById('partner-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const password = document.getElementById('password').value;
-            const confirm = document.getElementById('confirm-password').value;
+            // Get form values
+            const firstname = document.getElementById('firstname').value.trim();
+            const lastname = document.getElementById('lastname').value.trim();
+            const restaurantName = document.getElementById('restaurant-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const cuisine = document.getElementById('cuisine').value;
+            const password = document.getElementById('password').value.trim();
+            const confirm = document.getElementById('confirm-password').value.trim();
+            const terms = document.getElementById('terms').checked;
+            
+            // Validation
+            if (!firstname || !lastname || !restaurantName || !email || !phone || !address || !cuisine) {
+                alert('❌ Please fill in all required fields');
+                return;
+            }
             
             if (password !== confirm) {
-                alert('Passwords do not match!');
+                alert('❌ Passwords do not match!');
                 return;
             }
             
             if (password.length < 6) {
-                alert('Password must be at least 6 characters');
+                alert('❌ Password must be at least 6 characters');
                 return;
             }
             
-            alert('✅ Registration submitted! Your application is pending approval.\nYou will receive an email when approved.');
+            if (!terms) {
+                alert('❌ Please agree to the Terms of Service');
+                return;
+            }
+            
+            // Email validation
+            if (!email.includes('@') || !email.includes('.')) {
+                alert('❌ Please enter a valid email address');
+                return;
+            }
+            
+            // Success message
+            alert('✅ Registration submitted successfully!\n\n' +
+                  'Restaurant: ' + restaurantName + '\n' +
+                  'Status: Pending Approval\n\n' +
+                  'You will receive an email once your application is approved.\n' +
+                  'You can login after approval.');
+            
+            // Store partner data (temporary)
+            const partnerData = {
+                ownerName: firstname + ' ' + lastname,
+                restaurantName: restaurantName,
+                email: email,
+                phone: phone,
+                address: address,
+                cuisine: cuisine,
+                status: 'pending',
+                registeredAt: new Date().toISOString()
+            };
+            
+            localStorage.setItem('foodexpress_partner_' + email.replace(/[^a-zA-Z0-9]/g, '_'), JSON.stringify(partnerData));
+            console.log('Partner registration saved:', partnerData);
+            
+            // Redirect to admin login
             window.location.href = 'admin-login.html';
+        });
+        
+        // Auto-fill demo data and focus first field
+        window.addEventListener('load', function() {
+            document.getElementById('firstname').focus();
+            console.log('Partner registration page ready');
+            
+            // Check if form has demo data
+            console.log('Demo partner credentials loaded');
         });
     </script>
 </body>
