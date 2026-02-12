@@ -1136,7 +1136,8 @@
             }
             
             // Success message
-            const subjectText = subject.options[subject.selectedIndex]?.text || subject;
+            const subjectSelect = document.getElementById('subject');
+            const subjectText = subjectSelect.options[subjectSelect.selectedIndex]?.text || subject;
             
             showNotification(`✅ Thank you ${name}! Your message has been sent.`, 'success');
             
@@ -1153,14 +1154,23 @@
             
             localStorage.setItem('foodexpress_contact_messages', JSON.stringify(messages));
             
-            // Reset form
+            // ===== RESET FORM =====
             this.reset();
             
-            // Set demo values
-            document.getElementById('name').value = Adam Ajida';
-            document.getElementById('email').value = 'Adam@example.com';
+            // ===== SET DEMO VALUES AFTER RESET (FULLY FIXED) =====
+            document.getElementById('name').value = 'Adam Ajida';        // ✅ IMESAHIHISHWA KAMILI
+            document.getElementById('email').value = 'adam@example.com'; // ✅ lowercase
             document.getElementById('phone').value = '+255 712 345 678';
             document.getElementById('message').value = 'I need help with my order #FE-2024-001';
+            
+            // ===== RESET SUBJECT TO "Order Issue" =====
+            const subjectField = document.getElementById('subject');
+            for (let i = 0; i < subjectField.options.length; i++) {
+                if (subjectField.options[i].value === 'order') {
+                    subjectField.selectedIndex = i;
+                    break;
+                }
+            }
         });
 
         // ===== UPDATE CART COUNT =====
