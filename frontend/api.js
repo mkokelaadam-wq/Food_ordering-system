@@ -2,9 +2,13 @@
 // BACKEND API CONFIGURATION
 // ============================================
 
-// 🔥 Badilisha hii na URL ya backend yako baada ya kudeploy
+// 🔥 IMPORTANT: Update these URLs based on your deployment
+// For GitHub Pages (frontend only, no backend):
 const API_BASE_URL = 'http://localhost:5000/api'; // Local development
-// const API_BASE_URL = 'https://foodexpress-backend.onrender.com/api'; // Production
+
+// For production with backend:
+// const API_BASE_URL = 'https://foodexpress-backend.onrender.com/api';
+// const API_BASE_URL = 'https://your-backend-domain.com/api';
 
 // ============================================
 // HELPER FUNCTIONS
