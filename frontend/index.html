@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 🔥 BASE TAG ENSURES ALL RELATIVE PATHS WORK FROM /Food_ordering-system/ SUBDIRECTORY -->
+    <base href="/Food_ordering-system/frontend/">
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodExpress - Order Food Online</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAAITSURBVFiFvZdLThwxEIa/sntGmjwCq2wjZcMqvYkQAiQ2sJ4NS7LhLGw4C0vYAxsyHr+gQQLmEaJnQsz0WPZUll+3o5n2yMND2i21+vN3ucouY4yQHz9/kZKk7UajsdxsNmcA0zRNP2ua9qMoio/r6+sZ/zIhRum2ttttAaRpmi6QPG+1WleLxeLnWqOxL6rqmjFmB9BqtSYhSUqpZb1e/+pLbTQaR81m82J7e7u0e1y7XC7farXa3F7X6/U5wE6lUglfvCzL2d7e3i1Q6t3d3ZnnebPdbq+U1+Z5Pi8UCpW4AJIkOS2XyxvLy8u5tWOMCWmabpbL5TfFYnFnY2Mj5/F6vT6f1+L6cRzPq9VqEEUxV1dXhBC8bTab97Zt2+nJyQlBEOD7PkqpjOc4DiEEBwcH5Hme4TiO7ff7PSHEabVa3U3T1HNdlyAI8H0/Y2PsU1EUhBACiPZ8Pp9jrf33fA6AEH0+3/c9vV7PB0K9Xk+jKJrmeT4C9wC0222dZVnmeZ4CQr3er6MoGgP9PM+vt7a2Pq2urj7p9/sYY36FYTjr9Xp/rfUeuB4fH+dpmk6Oj4+ZTCbkea4BpmmahmFYmEwmAKRp+qs/4rVarV4URUMAY4yIouhdtVp92W63H0uSBEVRkGVZ1u/3t/aPqAUCQNLtdrW1NiiKYqVYLL7Y29tT+/v7bG9v5wC+7+dFUcxLpVI3TdNfaZp+y7Js8td/l/FfA9wDUfQ6A4t3j4cAAAAASUVORK5CYII=">
+    <link rel="icon" type="image/png" href="data:image/png;base64,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
+" sizes="32x32">
 </head>
 <body>
     <nav class="navbar">
@@ -284,6 +288,8 @@
         </div>
     </footer>
 
+    <!-- FIXED: All script paths now use relative paths that work with <base> tag -->
+    <script src="api.js"></script>
     <script src="script.js"></script>
 </body>
-                                                                    </html>
+</html>
